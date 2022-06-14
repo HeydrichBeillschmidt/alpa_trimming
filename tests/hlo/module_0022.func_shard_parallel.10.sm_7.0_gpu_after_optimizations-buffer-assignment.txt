@@ -1,0 +1,77 @@
+BufferAssignment:
+allocation 0: 0x399be10, size 262144, parameter 0, shape |f32[64,256,4]| at ShapeIndex {}:
+ value: <0 param @0> (size=262144,offset=0): f32[64,256,4]{2,1,0}
+allocation 1: 0x399bec0, size 65536, parameter 1, shape |f32[1024,4,4]| at ShapeIndex {}:
+ value: <1 param.1 @0> (size=65536,offset=0): f32[1024,4,4]{2,1,0}
+allocation 2: 0x399bf70, size 4096, maybe-live-out:
+ value: <2 negate.0 @0> (size=4096,offset=0): f32[64,16]{1,0}
+ value: <4 cublas-gemm.1 @0> (size=4096,offset=0): f32[64,16]{1,0}
+allocation 3: 0x399c020, size 8, output shape is |(f32[64,16])|, maybe-live-out:
+ value: <3 tuple{} @0> (size=8,offset=0): (f32[64,16]{1,0})
+allocation 4: 0x399c0d0, size 262144, preallocated-temp:
+ value: <5 fusion @0> (size=262144,offset=0): f32[64,1024]{1,0}
+
+Total bytes used: 593928 (580.0KiB)
+
+Used values:
+<0 param @0>
+ positions:
+  param
+ uses:
+  fusion, operand 0
+ from instruction:%param = f32[64,256,4]{2,1,0} parameter(0), sharding={replicated}
+<1 param.1 @0>
+ positions:
+  param.1
+  bitcast.1
+ uses:
+  bitcast.1, operand 0
+  cublas-gemm.1, operand 1
+ from instruction:%param.1 = f32[1024,4,4]{2,1,0} parameter(1), sharding={devices=[1,4,1]0,1,2,3}
+<2 negate.0 @0>
+ positions:
+  negate.0
+  tuple {0}
+ uses:
+  tuple, operand 0
+ from instruction:%negate.0 = f32[64,16]{1,0} negate(f32[64,16]{1,0} %cublas-gemm.1), metadata={op_type="neg" op_name="parallelize(func_shard_parallel)/neg" source_file="test_auto_sharding_basic.py" source_line=53}
+<3 tuple{} @0>
+ positions:
+  tuple {}
+ uses:
+ from instruction:%tuple = (f32[64,16]{1,0}) tuple(f32[64,16]{1,0} %negate.0)
+<4 cublas-gemm.1 @0>
+ positions:
+  cublas-gemm.1
+ uses:
+  negate.0, operand 0
+ from instruction:%cublas-gemm.1 = f32[64,16]{1,0} custom-call(f32[64,1024]{1,0} %fusion, f32[1024,16]{1,0} %bitcast.1), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=52}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"65536\",\"rhs_stride\":\"16384\",\"selected_algorithm\":\"21\"}"
+<5 fusion @0>
+ positions:
+  fusion
+ uses:
+  cublas-gemm.1, operand 0
+ from instruction:%fusion = f32[64,1024]{1,0} fusion(f32[64,256,4]{2,1,0} %param), kind=kLoop, calls=%fused_computation, metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(64, 1024) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=50}
+
+
+HloLiveRange (max 7):
+  InstructionSequence:
+    0:param.1
+    1:bitcast.1
+    2:param
+    3:fusion
+    4:cublas-gemm.1
+    5:negate.0
+    6:tuple
+  BufferLiveRange:
+    param{}:0-7
+    param.1{}:0-7
+    negate.0{}:5-7
+    tuple{}:6-7
+    cublas-gemm.1{}:4-5
+    fusion{}:3-4
+  Live ranges at 5 (peak):
+    param: 262144 bytes
+    param.1: 65536 bytes
+    negate.0: 4096 bytes
+    cublas-gemm.1: 4096 bytes

@@ -1,0 +1,11 @@
+HloModule jit__multi_slice.42
+
+ENTRY main.7 {
+  Arg_0.1 = f32[32,32]{1,0} parameter(0)
+  slice.2 = f32[8,32]{1,0} slice(Arg_0.1), slice={[0:8], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(0, 0) limit_indices=(8, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+  slice.3 = f32[8,32]{1,0} slice(Arg_0.1), slice={[8:16], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(8, 0) limit_indices=(16, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+  slice.4 = f32[8,32]{1,0} slice(Arg_0.1), slice={[16:24], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(16, 0) limit_indices=(24, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+  slice.5 = f32[8,32]{1,0} slice(Arg_0.1), slice={[24:32], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(24, 0) limit_indices=(32, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+  ROOT tuple.6 = (f32[8,32]{1,0}, f32[8,32]{1,0}, f32[8,32]{1,0}, f32[8,32]{1,0}) tuple(slice.2, slice.3, slice.4, slice.5)
+}
+

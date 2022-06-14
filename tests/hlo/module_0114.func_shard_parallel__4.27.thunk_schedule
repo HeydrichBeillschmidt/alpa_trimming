@@ -1,0 +1,6 @@
+Total order:
+kSequential	(no HloInstruction)
+  kKernel	, kernel = input_fusion_reduce, launch dimensions = blocks: {2, 1, 1}, threads/block: {1024, 1, 1}
+
+
+Dependencies:

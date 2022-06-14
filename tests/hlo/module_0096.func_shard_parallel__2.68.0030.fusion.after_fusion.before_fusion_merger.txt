@@ -1,0 +1,344 @@
+HloModule func_shard_parallel__2.68, input_output_alias={ {0}: (0, {}, may-alias), {1}: (1, {}, may-alias), {2}: (2, {}, may-alias) }
+
+add {
+  x = f32[] parameter(0)
+  y = f32[] parameter(1)
+  ROOT add = f32[] add(x, y)
+}
+
+add.1 {
+  x.1 = f32[] parameter(0)
+  y.1 = f32[] parameter(1)
+  ROOT add.1 = f32[] add(x.1, y.1)
+}
+
+fused_computation {
+  param_0 = f32[16,16]{1,0} parameter(0)
+  param_1.1 = f32[16,16]{1,0} parameter(1)
+  constant.173 = f32[] constant(0.01), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  broadcast.139 = f32[16,16]{1,0} broadcast(constant.173), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  multiply.28 = f32[16,16]{1,0} multiply(param_1.1, broadcast.139), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT subtract.4 = f32[16,16]{1,0} subtract(param_0, multiply.28), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+}
+
+fused_computation.1 {
+  param_0.2 = f32[8,32,16]{2,1,0} parameter(0)
+  transpose.0 = f32[16,8,32]{0,2,1} transpose(param_0.2), dimensions={2,0,1}
+  ROOT bitcast.15 = f32[16,256]{0,1} bitcast(transpose.0)
+}
+
+fused_computation.2 {
+  param_0.3 = f32[16,16]{1,0} parameter(0)
+  param_1.3 = f32[16,16]{1,0} parameter(1)
+  constant.175 = f32[] constant(0.01), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  broadcast.141 = f32[16,16]{1,0} broadcast(constant.175), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  multiply.29 = f32[16,16]{1,0} multiply(param_1.3, broadcast.141), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT subtract.5 = f32[16,16]{1,0} subtract(param_0.3, multiply.29), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+}
+
+fused_computation.3 {
+  param_1.29 = pred[8,32,16]{2,1,0} parameter(1)
+  constant.137 = pred[] constant(true), metadata={op_type="eq" op_name="parallelize(func_shard_parallel)/eq" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  broadcast.99 = pred[8,32,16]{2,1,0} broadcast(constant.137), dimensions={}
+  compare.5 = pred[8,32,16]{2,1,0} compare(param_1.29, broadcast.99), direction=EQ, metadata={op_type="eq" op_name="parallelize(func_shard_parallel)/eq" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  param_0.25 = f32[256,16]{1,0} parameter(0)
+  bitcast.17 = f32[8,32,16]{2,1,0} bitcast(param_0.25), metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((2,), (1,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  constant.176 = f32[] constant(0), metadata={op_type="rng_uniform" op_name="parallelize(func_shard_parallel)/rng_uniform[shape=(32, 32, 16)]" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=61}
+  broadcast.142 = f32[8,32,16]{2,1,0} broadcast(constant.176), dimensions={}
+  select.4 = f32[8,32,16]{2,1,0} select(compare.5, bitcast.17, broadcast.142), metadata={op_type="select_n" op_name="parallelize(func_shard_parallel)/select_n" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  constant.136 = f32[] constant(1.11111116), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  broadcast.98 = f32[8,32,16]{2,1,0} broadcast(constant.136), dimensions={}
+  multiply.30 = f32[8,32,16]{2,1,0} multiply(select.4, broadcast.98), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  transpose.1 = f32[16,8,32]{0,2,1} transpose(multiply.30), dimensions={2,0,1}
+  ROOT bitcast.16 = f32[16,256]{0,1} bitcast(transpose.1)
+}
+
+fused_computation.4 {
+  param_1.12 = f32[256,16]{1,0} parameter(1)
+  bitcast.18 = f32[8,32,16]{2,1,0} bitcast(param_1.12), metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((2,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  param_0.11 = f32[8,32,16]{2,1,0} parameter(0)
+  subtract.6 = f32[8,32,16]{2,1,0} subtract(bitcast.18, param_0.11), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="test_auto_sharding_basic.py" source_line=103}
+  constant.138 = f32[] constant(0.000122070312), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=103}
+  broadcast.100 = f32[8,32,16]{2,1,0} broadcast(constant.138), dimensions={}
+  ROOT multiply.31 = f32[8,32,16]{2,1,0} multiply(subtract.6, broadcast.100), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=103}
+}
+
+fused_computation.5 {
+  param_0.13 = pred[8,32,16]{2,1,0} parameter(0)
+  param_1.30 = f32[256,16]{1,0} parameter(1)
+  bitcast.20 = f32[8,32,16]{2,1,0} bitcast(param_1.30), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  constant.177 = f32[] constant(0), metadata={op_type="rng_uniform" op_name="parallelize(func_shard_parallel)/rng_uniform[shape=(32, 32, 16)]" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=61}
+  broadcast.143 = f32[8,32,16]{2,1,0} broadcast(constant.177), dimensions={}
+  select.5 = f32[8,32,16]{2,1,0} select(param_0.13, bitcast.20, broadcast.143), metadata={op_type="select_n" op_name="parallelize(func_shard_parallel)/select_n" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}
+  ROOT bitcast.19 = f32[256,16]{1,0} bitcast(select.5)
+}
+
+fused_computation.6 {
+  param_1.28 = u64[2]{0} parameter(1)
+  slice.4 = u64[1]{0} slice(param_1.28), slice={[0:1]}
+  bitcast.27 = u64[] bitcast(slice.4)
+  convert.192 = u32[] convert(bitcast.27)
+  convert.190 = u64[] convert(convert.192)
+  param_0.24 = u64[] parameter(0)
+  shift-right-logical.56 = u64[] shift-right-logical(bitcast.27, param_0.24)
+  convert.189 = u32[] convert(shift-right-logical.56)
+  convert.188 = u64[] convert(convert.189)
+  shift-left.3 = u64[] shift-left(convert.188, param_0.24)
+  or.3 = u64[] or(convert.190, shift-left.3)
+  broadcast.138 = u64[1024]{0} broadcast(or.3), dimensions={}
+  iota.1 = u64[1024]{0} iota(), iota_dimension=0
+  add.47 = u64[1024]{0} add(broadcast.138, iota.1)
+  convert.186 = u32[1024]{0} convert(add.47)
+  convert.185 = u64[1024]{0} convert(convert.186)
+  constant.171 = u64[] constant(3528531795)
+  broadcast.136 = u64[1024]{0} broadcast(constant.171), dimensions={}
+  multiply.52 = u64[1024]{0} multiply(convert.185, broadcast.136)
+  broadcast.135 = u64[1024]{0} broadcast(param_0.24), dimensions={}
+  shift-right-logical.55 = u64[1024]{0} shift-right-logical(multiply.52, broadcast.135)
+  convert.183 = u32[1024]{0} convert(shift-right-logical.55)
+  compare.7 = pred[1024]{0} compare(add.47, broadcast.138), direction=LT
+  slice.3 = u64[1]{0} slice(param_1.28), slice={[1:2]}
+  bitcast.26 = u64[] bitcast(slice.3)
+  convert.181 = u32[] convert(bitcast.26)
+  convert.180 = u64[] convert(convert.181)
+  shift-right-logical.54 = u64[] shift-right-logical(bitcast.26, param_0.24)
+  convert.179 = u32[] convert(shift-right-logical.54)
+  convert.177 = u64[] convert(convert.179)
+  shift-left.2 = u64[] shift-left(convert.177, param_0.24)
+  or.2 = u64[] or(convert.180, shift-left.2)
+  constant.169 = u64[] constant(1)
+  add.46 = u64[] add(or.2, constant.169)
+  broadcast.134 = u64[1024]{0} broadcast(add.46), dimensions={}
+  broadcast.132 = u64[1024]{0} broadcast(or.2), dimensions={}
+  select.6 = u64[1024]{0} select(compare.7, broadcast.134, broadcast.132)
+  shift-right-logical.53 = u64[1024]{0} shift-right-logical(select.6, broadcast.135)
+  convert.176 = u32[1024]{0} convert(shift-right-logical.53)
+  xor.79 = u32[1024]{0} xor(convert.183, convert.176)
+  constant.168 = u32[] constant(3243368317)
+  broadcast.131 = u32[1024]{0} broadcast(constant.168), dimensions={}
+  xor.78 = u32[1024]{0} xor(xor.79, broadcast.131)
+  convert.174 = u64[1024]{0} convert(xor.78)
+  constant.167 = u64[] constant(3449720151)
+  broadcast.130 = u64[1024]{0} broadcast(constant.167), dimensions={}
+  multiply.51 = u64[1024]{0} multiply(convert.174, broadcast.130)
+  shift-right-logical.52 = u64[1024]{0} shift-right-logical(multiply.51, broadcast.135)
+  convert.173 = u32[1024]{0} convert(shift-right-logical.52)
+  convert.172 = u32[1024]{0} convert(select.6)
+  convert.171 = u64[1024]{0} convert(convert.172)
+  multiply.50 = u64[1024]{0} multiply(convert.171, broadcast.130)
+  convert.170 = u32[1024]{0} convert(multiply.50)
+  xor.77 = u32[1024]{0} xor(convert.173, convert.170)
+  constant.166 = u32[] constant(220028085)
+  broadcast.128 = u32[1024]{0} broadcast(constant.166), dimensions={}
+  xor.76 = u32[1024]{0} xor(xor.77, broadcast.128)
+  convert.169 = u64[1024]{0} convert(xor.76)
+  multiply.49 = u64[1024]{0} multiply(convert.169, broadcast.136)
+  shift-right-logical.51 = u64[1024]{0} shift-right-logical(multiply.49, broadcast.135)
+  convert.168 = u32[1024]{0} convert(shift-right-logical.51)
+  shift-right-logical.50 = u64[1024]{0} shift-right-logical(multiply.50, broadcast.135)
+  convert.167 = u32[1024]{0} convert(shift-right-logical.50)
+  shift-right-logical.48 = u64[1024]{0} shift-right-logical(add.47, broadcast.135)
+  convert.166 = u32[1024]{0} convert(shift-right-logical.48)
+  xor.75 = u32[1024]{0} xor(convert.167, convert.166)
+  constant.165 = u32[] constant(1860559612)
+  broadcast.127 = u32[1024]{0} broadcast(constant.165), dimensions={}
+  xor.74 = u32[1024]{0} xor(xor.75, broadcast.127)
+  convert.165 = u64[1024]{0} convert(xor.74)
+  multiply.48 = u64[1024]{0} multiply(convert.165, broadcast.136)
+  convert.164 = u32[1024]{0} convert(multiply.48)
+  xor.73 = u32[1024]{0} xor(convert.168, convert.164)
+  constant.164 = u32[] constant(941702279)
+  broadcast.126 = u32[1024]{0} broadcast(constant.164), dimensions={}
+  xor.72 = u32[1024]{0} xor(xor.73, broadcast.126)
+  convert.162 = u64[1024]{0} convert(xor.72)
+  multiply.47 = u64[1024]{0} multiply(convert.162, broadcast.130)
+  shift-right-logical.47 = u64[1024]{0} shift-right-logical(multiply.47, broadcast.135)
+  convert.161 = u32[1024]{0} convert(shift-right-logical.47)
+  shift-right-logical.46 = u64[1024]{0} shift-right-logical(multiply.48, broadcast.135)
+  convert.160 = u32[1024]{0} convert(shift-right-logical.46)
+  convert.158 = u32[1024]{0} convert(multiply.52)
+  xor.71 = u32[1024]{0} xor(convert.160, convert.158)
+  constant.163 = u32[] constant(2092535298)
+  broadcast.125 = u32[1024]{0} broadcast(constant.163), dimensions={}
+  xor.70 = u32[1024]{0} xor(xor.71, broadcast.125)
+  convert.157 = u64[1024]{0} convert(xor.70)
+  multiply.46 = u64[1024]{0} multiply(convert.157, broadcast.130)
+  convert.155 = u32[1024]{0} convert(multiply.46)
+  xor.69 = u32[1024]{0} xor(convert.161, convert.155)
+  constant.162 = u32[] constant(1233932327)
+  broadcast.123 = u32[1024]{0} broadcast(constant.162), dimensions={}
+  xor.68 = u32[1024]{0} xor(xor.69, broadcast.123)
+  convert.153 = u64[1024]{0} convert(xor.68)
+  multiply.45 = u64[1024]{0} multiply(convert.153, broadcast.136)
+  shift-right-logical.45 = u64[1024]{0} shift-right-logical(multiply.45, broadcast.135)
+  convert.152 = u32[1024]{0} convert(shift-right-logical.45)
+  shift-right-logical.43 = u64[1024]{0} shift-right-logical(multiply.46, broadcast.135)
+  convert.151 = u32[1024]{0} convert(shift-right-logical.43)
+  convert.149 = u32[1024]{0} convert(multiply.51)
+  xor.67 = u32[1024]{0} xor(convert.151, convert.149)
+  constant.161 = u32[] constant(2874463854)
+  broadcast.122 = u32[1024]{0} broadcast(constant.161), dimensions={}
+  xor.66 = u32[1024]{0} xor(xor.67, broadcast.122)
+  convert.148 = u64[1024]{0} convert(xor.66)
+  multiply.44 = u64[1024]{0} multiply(convert.148, broadcast.136)
+  convert.146 = u32[1024]{0} convert(multiply.44)
+  xor.65 = u32[1024]{0} xor(convert.152, convert.146)
+  constant.159 = u32[] constant(2935003537)
+  broadcast.121 = u32[1024]{0} broadcast(constant.159), dimensions={}
+  xor.64 = u32[1024]{0} xor(xor.65, broadcast.121)
+  convert.145 = u64[1024]{0} convert(xor.64)
+  multiply.43 = u64[1024]{0} multiply(convert.145, broadcast.130)
+  shift-right-logical.42 = u64[1024]{0} shift-right-logical(multiply.43, broadcast.135)
+  convert.144 = u32[1024]{0} convert(shift-right-logical.42)
+  shift-right-logical.41 = u64[1024]{0} shift-right-logical(multiply.44, broadcast.135)
+  convert.143 = u32[1024]{0} convert(shift-right-logical.41)
+  convert.142 = u32[1024]{0} convert(multiply.49)
+  xor.63 = u32[1024]{0} xor(convert.143, convert.142)
+  constant.158 = u32[] constant(4085836556)
+  broadcast.119 = u32[1024]{0} broadcast(constant.158), dimensions={}
+  xor.62 = u32[1024]{0} xor(xor.63, broadcast.119)
+  convert.141 = u64[1024]{0} convert(xor.62)
+  multiply.42 = u64[1024]{0} multiply(convert.141, broadcast.130)
+  convert.140 = u32[1024]{0} convert(multiply.42)
+  xor.61 = u32[1024]{0} xor(convert.144, convert.140)
+  constant.157 = u32[] constant(2247836569)
+  broadcast.118 = u32[1024]{0} broadcast(constant.157), dimensions={}
+  xor.60 = u32[1024]{0} xor(xor.61, broadcast.118)
+  convert.139 = u64[1024]{0} convert(xor.60)
+  multiply.41 = u64[1024]{0} multiply(convert.139, broadcast.136)
+  shift-right-logical.40 = u64[1024]{0} shift-right-logical(multiply.41, broadcast.135)
+  convert.138 = u32[1024]{0} convert(shift-right-logical.40)
+  shift-right-logical.39 = u64[1024]{0} shift-right-logical(multiply.42, broadcast.135)
+  convert.137 = u32[1024]{0} convert(shift-right-logical.39)
+  convert.136 = u32[1024]{0} convert(multiply.47)
+  xor.59 = u32[1024]{0} xor(convert.137, convert.136)
+  constant.156 = u32[] constant(3888368096)
+  broadcast.117 = u32[1024]{0} broadcast(constant.156), dimensions={}
+  xor.58 = u32[1024]{0} xor(xor.59, broadcast.117)
+  convert.134 = u64[1024]{0} convert(xor.58)
+  multiply.40 = u64[1024]{0} multiply(convert.134, broadcast.136)
+  convert.133 = u32[1024]{0} convert(multiply.40)
+  xor.57 = u32[1024]{0} xor(convert.138, convert.133)
+  constant.154 = u32[] constant(633337499)
+  broadcast.116 = u32[1024]{0} broadcast(constant.154), dimensions={}
+  xor.56 = u32[1024]{0} xor(xor.57, broadcast.116)
+  convert.132 = u64[1024]{0} convert(xor.56)
+  multiply.39 = u64[1024]{0} multiply(convert.132, broadcast.130)
+  shift-right-logical.38 = u64[1024]{0} shift-right-logical(multiply.39, broadcast.135)
+  convert.130 = u32[1024]{0} convert(shift-right-logical.38)
+  shift-right-logical.37 = u64[1024]{0} shift-right-logical(multiply.40, broadcast.135)
+  convert.129 = u32[1024]{0} convert(shift-right-logical.37)
+  convert.127 = u32[1024]{0} convert(multiply.45)
+  xor.55 = u32[1024]{0} xor(convert.129, convert.127)
+  constant.153 = u32[] constant(1784170518)
+  broadcast.115 = u32[1024]{0} broadcast(constant.153), dimensions={}
+  xor.54 = u32[1024]{0} xor(xor.55, broadcast.115)
+  convert.125 = u64[1024]{0} convert(xor.54)
+  multiply.38 = u64[1024]{0} multiply(convert.125, broadcast.130)
+  convert.124 = u32[1024]{0} convert(multiply.38)
+  xor.53 = u32[1024]{0} xor(convert.130, convert.124)
+  constant.152 = u32[] constant(3261740811)
+  broadcast.114 = u32[1024]{0} broadcast(constant.152), dimensions={}
+  xor.52 = u32[1024]{0} xor(xor.53, broadcast.114)
+  convert.123 = u64[1024]{0} convert(xor.52)
+  multiply.37 = u64[1024]{0} multiply(convert.123, broadcast.136)
+  shift-right-logical.36 = u64[1024]{0} shift-right-logical(multiply.37, broadcast.135)
+  convert.121 = u32[1024]{0} convert(shift-right-logical.36)
+  shift-right-logical.35 = u64[1024]{0} shift-right-logical(multiply.38, broadcast.135)
+  convert.120 = u32[1024]{0} convert(shift-right-logical.35)
+  convert.118 = u32[1024]{0} convert(multiply.43)
+  xor.51 = u32[1024]{0} xor(convert.120, convert.118)
+  constant.150 = u32[] constant(607305042)
+  broadcast.113 = u32[1024]{0} broadcast(constant.150), dimensions={}
+  xor.50 = u32[1024]{0} xor(xor.51, broadcast.113)
+  convert.117 = u64[1024]{0} convert(xor.50)
+  multiply.36 = u64[1024]{0} multiply(convert.117, broadcast.136)
+  convert.116 = u32[1024]{0} convert(multiply.36)
+  xor.49 = u32[1024]{0} xor(convert.121, convert.116)
+  constant.149 = u32[] constant(2626638757)
+  broadcast.111 = u32[1024]{0} broadcast(constant.149), dimensions={}
+  xor.48 = u32[1024]{0} xor(xor.49, broadcast.111)
+  convert.115 = u64[1024]{0} convert(xor.48)
+  multiply.35 = u64[1024]{0} multiply(convert.115, broadcast.130)
+  shift-right-logical.34 = u64[1024]{0} shift-right-logical(multiply.35, broadcast.135)
+  convert.114 = u32[1024]{0} convert(shift-right-logical.34)
+  shift-right-logical.33 = u64[1024]{0} shift-right-logical(multiply.36, broadcast.135)
+  convert.113 = u32[1024]{0} convert(shift-right-logical.33)
+  convert.112 = u32[1024]{0} convert(multiply.41)
+  xor.47 = u32[1024]{0} xor(convert.113, convert.112)
+  constant.148 = u32[] constant(3777471776)
+  broadcast.110 = u32[1024]{0} broadcast(constant.148), dimensions={}
+  xor.46 = u32[1024]{0} xor(xor.47, broadcast.110)
+  convert.111 = u64[1024]{0} convert(xor.46)
+  multiply.34 = u64[1024]{0} multiply(convert.111, broadcast.130)
+  convert.110 = u32[1024]{0} convert(multiply.34)
+  xor.45 = u32[1024]{0} xor(convert.114, convert.110)
+  constant.147 = u32[] constant(4275645053)
+  broadcast.108 = u32[1024]{0} broadcast(constant.147), dimensions={}
+  xor.44 = u32[1024]{0} xor(xor.45, broadcast.108)
+  bitcast.25 = u32[1024,1]{1,0} bitcast(xor.44)
+  convert.109 = u32[1024]{0} convert(multiply.35)
+  bitcast.24 = u32[1024,1]{1,0} bitcast(convert.109)
+  shift-right-logical.32 = u64[1024]{0} shift-right-logical(multiply.34, broadcast.135)
+  convert.108 = u32[1024]{0} convert(shift-right-logical.32)
+  convert.106 = u32[1024]{0} convert(multiply.39)
+  xor.43 = u32[1024]{0} xor(convert.108, convert.106)
+  constant.145 = u32[] constant(1621209284)
+  broadcast.107 = u32[1024]{0} broadcast(constant.145), dimensions={}
+  xor.42 = u32[1024]{0} xor(xor.43, broadcast.107)
+  convert.105 = u64[1024]{0} convert(xor.42)
+  multiply.33 = u64[1024]{0} multiply(convert.105, broadcast.136)
+  shift-right-logical.31 = u64[1024]{0} shift-right-logical(multiply.33, broadcast.135)
+  convert.104 = u32[1024]{0} convert(shift-right-logical.31)
+  convert.102 = u32[1024]{0} convert(multiply.37)
+  xor.41 = u32[1024]{0} xor(convert.104, convert.102)
+  constant.143 = u32[] constant(1475805738)
+  broadcast.106 = u32[1024]{0} broadcast(constant.143), dimensions={}
+  xor.40 = u32[1024]{0} xor(xor.41, broadcast.106)
+  bitcast.23 = u32[1024,1]{1,0} bitcast(xor.40)
+  convert.101 = u32[1024]{0} convert(multiply.33)
+  bitcast.22 = u32[1024,1]{1,0} bitcast(convert.101)
+  concatenate.2 = u32[1024,4]{1,0} concatenate(bitcast.25, bitcast.24, bitcast.23, bitcast.22), dimensions={1}
+  constant.141 = u32[] constant(9)
+  broadcast.104 = u32[1024,4]{1,0} broadcast(constant.141), dimensions={}
+  shift-right-logical.30 = u32[1024,4]{1,0} shift-right-logical(concatenate.2, broadcast.104)
+  convert.99 = f32[1024,4]{1,0} convert(shift-right-logical.30)
+  constant.140 = f32[] constant(1.1920929e-07)
+  broadcast.103 = f32[1024,4]{1,0} broadcast(constant.140), dimensions={}
+  multiply.32 = f32[1024,4]{1,0} multiply(convert.99, broadcast.103)
+  constant.139 = f32[] constant(0.9), metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=122}
+  broadcast.102 = f32[1024,4]{1,0} broadcast(constant.139), dimensions={}
+  compare.6 = pred[1024,4]{1,0} compare(multiply.32, broadcast.102), direction=LT, metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=122}
+  ROOT bitcast.21 = pred[8,32,16]{2,1,0} bitcast(compare.6), metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=122}
+}
+
+ENTRY func_shard_parallel__2.68_spmd {
+  param = u32[2]{0} parameter(5), sharding={replicated}
+  param.1 = s32[] parameter(0), sharding={replicated}
+  constant.5 = s32[] constant(1), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+  add.2 = s32[] add(param.1, constant.5), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+  param.2 = f32[16,16]{1,0} parameter(1), sharding={replicated}
+  param.3 = f32[8,32,16]{2,1,0} parameter(3), sharding={devices=[4,1,1]0,1,2,3}
+  bitcast = f32[256,16]{1,0} bitcast(param.3)
+  param.5 = f32[8,32,16]{2,1,0} parameter(4), sharding={devices=[4,1,1]0,1,2,3}
+  constant.3 = u64[] constant(32)
+  rng-get-and-update-state = u64[2]{0} rng-get-and-update-state(), delta=4096
+  fusion.6 = pred[8,32,16]{2,1,0} fusion(constant.3, rng-get-and-update-state), kind=kLoop, calls=fused_computation.6, metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=122}
+  cublas-gemm.1 = f32[256,16]{1,0} custom-call(bitcast, param.2), custom_call_target="__cublas$gemm", metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/stochastic.py" source_line=68}, backend_config="{\"alpha_real\":1.1111111640930176,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"2\"}"
+  fusion.5 = f32[256,16]{1,0} fusion(fusion.6, cublas-gemm.1), kind=kLoop, calls=fused_computation.5
+  param.4 = f32[16,16]{1,0} parameter(2), sharding={replicated}
+  cublas-gemm.3 = f32[256,16]{1,0} custom-call(fusion.5, param.4), custom_call_target="__cublas$gemm", backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"-1\"}"
+  fusion.4 = f32[8,32,16]{2,1,0} fusion(param.5, cublas-gemm.3), kind=kLoop, calls=fused_computation.4, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=103}
+  bitcast.11 = f32[256,16]{1,0} bitcast(fusion.4)
+  cublas-gemm.5 = f32[256,16]{1,0} custom-call(bitcast.11, param.4), custom_call_target="__cublas$gemm", backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"-1\"}"
+  fusion.3 = f32[16,256]{0,1} fusion(cublas-gemm.5, fusion.6), kind=kLoop, calls=fused_computation.3
+  cublas-gemm.7 = f32[16,16]{1,0} custom-call(bitcast, fusion.3), custom_call_target="__cublas$gemm", metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"4096\",\"selected_algorithm\":\"-1\"}"
+  all-reduce = f32[16,16]{1,0} all-reduce(cublas-gemm.7), channel_id=1, replica_groups={{0}}, to_apply=add, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  fusion.2 = f32[16,16]{1,0} fusion(param.2, all-reduce), kind=kLoop, calls=fused_computation.2, metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  fusion.1 = f32[16,256]{0,1} fusion(fusion.4), kind=kLoop, calls=fused_computation.1
+  cublas-gemm.9 = f32[16,16]{1,0} custom-call(fusion.5, fusion.1), custom_call_target="__cublas$gemm", metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"4096\",\"selected_algorithm\":\"-1\"}"
+  all-reduce.1 = f32[16,16]{1,0} all-reduce(cublas-gemm.9), channel_id=2, replica_groups={{0}}, to_apply=add.1, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  fusion = f32[16,16]{1,0} fusion(param.4, all-reduce.1), kind=kLoop, calls=fused_computation, metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT tuple = (s32[], f32[16,16]{1,0}, f32[16,16]{1,0}) tuple(add.2, fusion.2, fusion)
+}
+

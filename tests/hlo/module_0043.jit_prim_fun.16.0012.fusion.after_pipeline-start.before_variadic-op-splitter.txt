@@ -1,0 +1,7 @@
+HloModule jit_prim_fun.16
+
+ENTRY main.3 {
+  Arg_0.1 = s32[] parameter(0)
+  ROOT convert.2 = u32[] convert(Arg_0.1), metadata={op_name="jit(convert_element_type)/jit(main)/convert_element_type[new_dtype=uint32 weak_type=False]" source_file="test_auto_sharding_basic.py" source_line=135}
+}
+

@@ -1,0 +1,16 @@
+HloModule add_one_shard_parallel.7, input_output_alias={ {0}: (0, {}, may-alias) }
+
+ENTRY add_one_shard_parallel.7_spmd {
+  param = f32[32,128]{1,0} parameter(0), sharding={devices=[4,1]0,1,2,3}
+  constant = f32[] constant(1), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  broadcast.0 = f32[128,128]{1,0} broadcast(constant), dimensions={}, metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  constant.1 = s32[4]{0} constant({0, 32, 64, 96}), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  partition-id = u32[] partition-id()
+  dynamic-slice = s32[1]{0} dynamic-slice(constant.1, partition-id), dynamic_slice_sizes={1}, metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  reshape = s32[] reshape(dynamic-slice), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  constant.4 = s32[] constant(0), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  dynamic-slice.1 = f32[32,128]{1,0} dynamic-slice(broadcast.0, reshape, constant.4), dynamic_slice_sizes={32,128}, metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  add.0 = f32[32,128]{1,0} add(param, dynamic-slice.1), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  ROOT tuple = (f32[32,128]{1,0}) tuple(add.0)
+}
+

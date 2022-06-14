@@ -1,0 +1,10 @@
+HloModule jit_prim_fun.35
+
+ENTRY main.4 {
+  Arg_0.1 = f32[32,32,16]{2,1,0} parameter(0)
+  bitcast = f32[1024,16]{1,0} bitcast(Arg_0.1)
+  Arg_1.2 = f32[16,16]{1,0} parameter(1)
+  dot = f32[1024,16]{1,0} dot(bitcast, Arg_1.2), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT bitcast.1 = f32[32,32,16]{2,1,0} bitcast(dot), metadata={op_name="jit(dot_general)/jit(main)/dot_general[dimension_numbers=(((2,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+}
+

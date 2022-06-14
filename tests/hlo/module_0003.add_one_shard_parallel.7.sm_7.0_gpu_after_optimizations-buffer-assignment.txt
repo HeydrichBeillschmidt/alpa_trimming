@@ -1,0 +1,41 @@
+BufferAssignment:
+allocation 0: 0x3ac1090, size 16384, parameter 0, shape |f32[32,128]| at ShapeIndex {}, maybe-live-out:
+ value: <0 param @0> (size=16384,offset=0): f32[32,128]{1,0}
+ value: <1 fusion @0> (size=16384,offset=0): f32[32,128]{1,0}
+allocation 1: 0x3ac1140, size 8, output shape is |(f32[32,128])|, maybe-live-out:
+ value: <2 tuple.1{} @0> (size=8,offset=0): (f32[32,128]{1,0})
+
+Total bytes used: 16392 (16.0KiB)
+
+Used values:
+<0 param @0>
+ positions:
+  param
+ uses:
+  fusion, operand 0
+ from instruction:%param = f32[32,128]{1,0} parameter(0), sharding={devices=[4,1]0,1,2,3}
+<1 fusion @0>
+ positions:
+  fusion
+  tuple.1 {0}
+ uses:
+  tuple.1, operand 0
+ from instruction:%fusion = f32[32,128]{1,0} fusion(f32[32,128]{1,0} %param), kind=kLoop, calls=%fused_computation, metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+<2 tuple.1{} @0>
+ positions:
+  tuple.1 {}
+ uses:
+ from instruction:%tuple.1 = (f32[32,128]{1,0}) tuple(f32[32,128]{1,0} %fusion)
+
+
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:param
+    1:fusion
+    2:tuple.1
+  BufferLiveRange:
+    param{}:0-0
+    fusion{}:1-3
+    tuple.1{}:2-3
+  Live ranges at 1 (peak):
+    fusion: 16384 bytes

@@ -1,0 +1,4 @@
+Total order:
+kKernel	(no HloInstruction), kernel = add_0, launch dimensions = blocks: {1, 1, 1}, threads/block: {64, 1, 1}
+
+Dependencies:

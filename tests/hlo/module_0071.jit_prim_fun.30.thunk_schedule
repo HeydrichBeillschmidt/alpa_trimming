@@ -1,0 +1,4 @@
+Total order:
+kKernel	(no HloInstruction), kernel = gather_3, launch dimensions = blocks: {4, 1, 1}, threads/block: {256, 1, 1}
+
+Dependencies:

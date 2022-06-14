@@ -1,0 +1,4 @@
+Total order:
+kKernel	(no HloInstruction), kernel = broadcast_2, launch dimensions = blocks: {32, 1, 1}, threads/block: {256, 1, 1}
+
+Dependencies:

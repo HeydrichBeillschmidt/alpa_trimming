@@ -1,0 +1,83 @@
+BufferAssignment:
+allocation 0: 0x152a1390, size 4096, parameter 0, shape |f32[32,32]| at ShapeIndex {}:
+ value: <0 Arg_0.1 @0> (size=4096,offset=0): f32[32,32]{1,0}
+allocation 1: 0x152a1440, size 1024, maybe-live-out:
+ value: <1 slice.2 @0> (size=1024,offset=0): f32[8,32]{1,0}
+allocation 2: 0x152a14f0, size 1024, maybe-live-out:
+ value: <2 slice.3 @0> (size=1024,offset=0): f32[8,32]{1,0}
+allocation 3: 0x152a15a0, size 1024, maybe-live-out:
+ value: <3 slice.4 @0> (size=1024,offset=0): f32[8,32]{1,0}
+allocation 4: 0x152a1650, size 1024, maybe-live-out:
+ value: <4 slice.5 @0> (size=1024,offset=0): f32[8,32]{1,0}
+allocation 5: 0x152a1700, size 32, output shape is |(f32[8,32], f32[8,32], f32[8,32], f32[8,32])|, maybe-live-out:
+ value: <5 tuple.6{} @0> (size=32,offset=0): (f32[8,32]{1,0}, f32[8,32]{1,0}, f32[8,32]{1,0}, f32[8,32]{1,0})
+
+Total bytes used: 8224 (8.0KiB)
+
+Used values:
+<0 Arg_0.1 @0>
+ positions:
+  Arg_0.1
+ uses:
+  slice.4, operand 0
+  slice.2, operand 0
+  slice.3, operand 0
+  slice.5, operand 0
+ from instruction:%Arg_0.1 = f32[32,32]{1,0} parameter(0)
+<1 slice.2 @0>
+ positions:
+  slice.2
+  tuple.6 {0}
+ uses:
+  tuple.6, operand 0
+ from instruction:%slice.2 = f32[8,32]{1,0} slice(f32[32,32]{1,0} %Arg_0.1), slice={[0:8], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(0, 0) limit_indices=(8, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+<2 slice.3 @0>
+ positions:
+  slice.3
+  tuple.6 {1}
+ uses:
+  tuple.6, operand 1
+ from instruction:%slice.3 = f32[8,32]{1,0} slice(f32[32,32]{1,0} %Arg_0.1), slice={[8:16], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(8, 0) limit_indices=(16, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+<3 slice.4 @0>
+ positions:
+  slice.4
+  tuple.6 {2}
+ uses:
+  tuple.6, operand 2
+ from instruction:%slice.4 = f32[8,32]{1,0} slice(f32[32,32]{1,0} %Arg_0.1), slice={[16:24], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(16, 0) limit_indices=(24, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+<4 slice.5 @0>
+ positions:
+  slice.5
+  tuple.6 {3}
+ uses:
+  tuple.6, operand 3
+ from instruction:%slice.5 = f32[8,32]{1,0} slice(f32[32,32]{1,0} %Arg_0.1), slice={[24:32], [0:32]}, metadata={op_name="jit(_multi_slice)/jit(main)/slice[start_indices=(24, 0) limit_indices=(32, 32) strides=None]" source_file="/home/ubuntu/apjax/alpa/alpa/device_mesh.py" source_line=958}
+<5 tuple.6{} @0>
+ positions:
+  tuple.6 {}
+ uses:
+ from instruction:%tuple.6 = (f32[8,32]{1,0}, f32[8,32]{1,0}, f32[8,32]{1,0}, f32[8,32]{1,0}) tuple(f32[8,32]{1,0} %slice.2, f32[8,32]{1,0} %slice.3, f32[8,32]{1,0} %slice.4, f32[8,32]{1,0} %slice.5)
+
+
+HloLiveRange (max 6):
+  InstructionSequence:
+    0:Arg_0.1
+    1:slice.5
+    2:slice.3
+    3:slice.2
+    4:slice.4
+    5:tuple.6
+  BufferLiveRange:
+    Arg_0.1{}:0-6
+    slice.2{}:3-6
+    slice.3{}:2-6
+    slice.4{}:4-6
+    slice.5{}:1-6
+    tuple.6{}:5-6
+  Live ranges at 5 (peak):
+    Arg_0.1: 4096 bytes
+    slice.2: 1024 bytes
+    slice.3: 1024 bytes
+    slice.4: 1024 bytes
+    slice.5: 1024 bytes
+    tuple.6: 32 bytes

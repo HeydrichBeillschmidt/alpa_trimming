@@ -1,0 +1,14 @@
+HloModule func_shard_parallel.10
+
+ENTRY func_shard_parallel.10_spmd {
+  partition-id = u32[] partition-id()
+  param = f32[64,256,4]{2,1,0} parameter(0), sharding={replicated}
+  transpose.0 = f32[64,4,256]{1,2,0} transpose(param), dimensions={0,2,1}, sharding={replicated}, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(0, 2, 1)]" source_file="test_auto_sharding_basic.py" source_line=49}
+  reshape.0 = f32[64,1024]{1,0} reshape(transpose.0), sharding={replicated}, metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(64, 1024) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=50}
+  param.1 = f32[1024,4,4]{2,1,0} parameter(1), sharding={devices=[1,4,1]0,1,2,3}
+  reshape.1 = f32[1024,16]{1,0} reshape(param.1), sharding={devices=[1,4]0,1,2,3}, metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(1024, 64) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=51}
+  dot = f32[64,16]{1,0} dot(reshape.0, reshape.1), lhs_contracting_dims={1}, rhs_contracting_dims={0}, sharding={devices=[1,4]0,1,2,3}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=52}
+  negate.0 = f32[64,16]{1,0} negate(dot), sharding={devices=[1,4]0,1,2,3}, metadata={op_type="neg" op_name="parallelize(func_shard_parallel)/neg" source_file="test_auto_sharding_basic.py" source_line=53}
+  ROOT tuple = (f32[64,16]{1,0}) tuple(negate.0), sharding={{devices=[1,4]0,1,2,3}}
+}
+

@@ -1,0 +1,6 @@
+HloModule jit_prim_fun.25
+
+ENTRY main.2 {
+  ROOT iota.1 = s32[16]{0} iota(), iota_dimension=0, metadata={op_name="jit(iota)/jit(main)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+}
+

@@ -1,0 +1,9 @@
+HloModule jit_prim_fun.26
+
+ENTRY main.5 {
+  Arg_0.1 = s32[16]{0} parameter(0)
+  Arg_1.2 = s32[] parameter(1)
+  broadcast.3 = s32[16]{0} broadcast(Arg_1.2), dimensions={}, metadata={op_name="jit(lt)/jit(main)/lt" source_file="test_auto_sharding_basic.py" source_line=126}
+  ROOT compare.4 = pred[16]{0} compare(Arg_0.1, broadcast.3), direction=LT, metadata={op_name="jit(lt)/jit(main)/lt" source_file="test_auto_sharding_basic.py" source_line=126}
+}
+

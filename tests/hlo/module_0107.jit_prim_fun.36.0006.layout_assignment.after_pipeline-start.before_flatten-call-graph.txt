@@ -1,0 +1,7 @@
+HloModule jit_prim_fun.36
+
+ENTRY main.3 {
+  Arg_0.1 = f32[] parameter(0)
+  ROOT broadcast.2 = f32[144]{0} broadcast(Arg_0.1), dimensions={}, metadata={op_name="jit(broadcast_in_dim)/jit(main)/broadcast_in_dim[shape=(144,) broadcast_dimensions=()]" source_file="test_auto_sharding_basic.py" source_line=169}
+}
+

@@ -1,0 +1,15 @@
+HloModule jit__lambda_.18
+
+fused_computation {
+  param_0 = s32[] parameter(0)
+  param_1.1 = u32[] parameter(1)
+  convert.0 = s32[] convert(param_1.1), metadata={op_name="jit(<lambda>)/jit(main)/convert_element_type[new_dtype=int32 weak_type=False]" source_file="test_auto_sharding_basic.py" source_line=135}
+  ROOT and.0 = s32[] and(param_0, convert.0), metadata={op_name="jit(<lambda>)/jit(main)/and" source_file="test_auto_sharding_basic.py" source_line=135}
+}
+
+ENTRY main.5 {
+  Arg_0.1 = s32[] parameter(0)
+  Arg_1.2 = u32[] parameter(1)
+  ROOT fusion = s32[] fusion(Arg_0.1, Arg_1.2), kind=kLoop, calls=fused_computation, metadata={op_name="jit(<lambda>)/jit(main)/and" source_file="test_auto_sharding_basic.py" source_line=135}
+}
+

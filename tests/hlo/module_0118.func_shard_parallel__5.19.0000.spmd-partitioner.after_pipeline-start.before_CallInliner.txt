@@ -1,0 +1,27 @@
+HloModule func_shard_parallel__5.19
+
+sort_lt_comparator.3 {
+  parameter.6 = s32[] parameter(2)
+  parameter.7 = s32[] parameter(3)
+  constant.8 = pred[] constant(false)
+  parameter.4 = s32[] parameter(0)
+  parameter.5 = s32[] parameter(1)
+  ROOT compare.9 = pred[] compare(parameter.4, parameter.5), direction=LT, metadata={op_type="lt" op_name="/lt" source_file="test_auto_sharding_basic.py" source_line=191}
+}
+
+jit_argsort.10 {
+  constant.12 = pred[] constant(false)
+  parameter.11 = s32[1024]{0} parameter(0)
+  iota.13 = s32[1024] iota(), iota_dimension=0, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/jit(argsort)/iota[dtype=int32 shape=(1024,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=191}
+  sort.14 = (s32[1024]{0}, s32[1024]) sort(parameter.11, iota.13), dimensions={0}, is_stable=true, to_apply=sort_lt_comparator.3, metadata={op_type="sort" op_name="parallelize(func_shard_parallel)/jit(argsort)/sort[dimension=0 is_stable=True num_keys=1]" source_file="test_auto_sharding_basic.py" source_line=191}
+  get-tuple-element.15 = s32[1024]{0} get-tuple-element(sort.14), index=0, metadata={op_type="sort" op_name="parallelize(func_shard_parallel)/jit(argsort)/sort[dimension=0 is_stable=True num_keys=1]" source_file="test_auto_sharding_basic.py" source_line=191}
+  ROOT get-tuple-element.16 = s32[1024] get-tuple-element(sort.14), index=1, metadata={op_type="sort" op_name="parallelize(func_shard_parallel)/jit(argsort)/sort[dimension=0 is_stable=True num_keys=1]" source_file="test_auto_sharding_basic.py" source_line=191}
+}
+
+ENTRY func_shard_parallel__5.19 {
+  constant.2 = pred[] constant(false)
+  parameter.1 = s32[1024]{0} parameter(0)
+  call.17 = s32[1024] call(parameter.1), to_apply=jit_argsort.10, metadata={op_type="xla_call" op_name="parallelize(func_shard_parallel)/xla_call[device=None backend=None name=argsort donated_invars=(False,) inline=False]" source_file="test_auto_sharding_basic.py" source_line=191}
+  ROOT tuple.18 = (s32[1024]) tuple(call.17)
+}
+

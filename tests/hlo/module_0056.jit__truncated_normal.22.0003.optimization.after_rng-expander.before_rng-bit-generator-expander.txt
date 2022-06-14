@@ -1,0 +1,646 @@
+HloModule jit__truncated_normal.22
+
+xla_fallback_erf.19 {
+  constant.35 = f32[] constant(-4)
+  Arg_0.20 = f32[] parameter(0)
+  constant.34 = f32[] constant(4)
+  clamp.36 = f32[] clamp(constant.35, Arg_0.20, constant.34), metadata={source_file="-" source_line=6}
+  multiply.37 = f32[] multiply(clamp.36, clamp.36), metadata={source_file="-" source_line=8}
+  constant.26 = f32[] constant(0)
+  multiply.38 = f32[] multiply(multiply.37, constant.26), metadata={source_file="-" source_line=9}
+  constant.33 = f32[] constant(-2.72614237e-10)
+  add.39 = f32[] add(multiply.38, constant.33), metadata={source_file="-" source_line=11}
+  multiply.40 = f32[] multiply(add.39, multiply.37), metadata={source_file="-" source_line=12}
+  constant.32 = f32[] constant(2.77068146e-08)
+  add.41 = f32[] add(multiply.40, constant.32), metadata={source_file="-" source_line=14}
+  multiply.42 = f32[] multiply(add.41, multiply.37), metadata={source_file="-" source_line=15}
+  constant.31 = f32[] constant(-2.10102394e-06)
+  add.43 = f32[] add(multiply.42, constant.31), metadata={source_file="-" source_line=17}
+  multiply.44 = f32[] multiply(add.43, multiply.37), metadata={source_file="-" source_line=18}
+  constant.30 = f32[] constant(-5.69250624e-05)
+  add.45 = f32[] add(multiply.44, constant.30), metadata={source_file="-" source_line=20}
+  multiply.46 = f32[] multiply(add.45, multiply.37), metadata={source_file="-" source_line=21}
+  constant.29 = f32[] constant(-0.000734990637)
+  add.47 = f32[] add(multiply.46, constant.29), metadata={source_file="-" source_line=23}
+  multiply.48 = f32[] multiply(add.47, multiply.37), metadata={source_file="-" source_line=24}
+  constant.28 = f32[] constant(-0.0029546)
+  add.49 = f32[] add(multiply.48, constant.28), metadata={source_file="-" source_line=26}
+  multiply.50 = f32[] multiply(add.49, multiply.37), metadata={source_file="-" source_line=27}
+  constant.27 = f32[] constant(-0.0160960332)
+  add.51 = f32[] add(multiply.50, constant.27), metadata={source_file="-" source_line=29}
+  multiply.52 = f32[] multiply(clamp.36, add.51), metadata={source_file="-" source_line=30}
+  multiply.53 = f32[] multiply(multiply.37, constant.26), metadata={source_file="-" source_line=32}
+  constant.25 = f32[] constant(-1.45660715e-05)
+  add.54 = f32[] add(multiply.53, constant.25), metadata={source_file="-" source_line=34}
+  multiply.55 = f32[] multiply(add.54, multiply.37), metadata={source_file="-" source_line=35}
+  constant.24 = f32[] constant(-0.000213374049)
+  add.56 = f32[] add(multiply.55, constant.24), metadata={source_file="-" source_line=37}
+  multiply.57 = f32[] multiply(add.56, multiply.37), metadata={source_file="-" source_line=38}
+  constant.23 = f32[] constant(-0.00168282702)
+  add.58 = f32[] add(multiply.57, constant.23), metadata={source_file="-" source_line=40}
+  multiply.59 = f32[] multiply(add.58, multiply.37), metadata={source_file="-" source_line=41}
+  constant.22 = f32[] constant(-0.00737332925)
+  add.60 = f32[] add(multiply.59, constant.22), metadata={source_file="-" source_line=43}
+  multiply.61 = f32[] multiply(add.60, multiply.37), metadata={source_file="-" source_line=44}
+  constant.21 = f32[] constant(-0.0142647391)
+  add.62 = f32[] add(multiply.61, constant.21), metadata={source_file="-" source_line=46}
+  ROOT divide.63 = f32[] divide(multiply.52, add.62), metadata={source_file="-" source_line=47}
+}
+
+erf.64 {
+  Arg_0.65 = f32[] parameter(0)
+  ROOT call.66 = f32[] call(Arg_0.65), to_apply=xla_fallback_erf.19
+}
+
+xla_fallback_erf.69 {
+  constant.85 = f32[] constant(-4)
+  Arg_0.70 = f32[] parameter(0)
+  constant.84 = f32[] constant(4)
+  clamp.86 = f32[] clamp(constant.85, Arg_0.70, constant.84), metadata={source_file="-" source_line=6}
+  multiply.87 = f32[] multiply(clamp.86, clamp.86), metadata={source_file="-" source_line=8}
+  constant.76 = f32[] constant(0)
+  multiply.88 = f32[] multiply(multiply.87, constant.76), metadata={source_file="-" source_line=9}
+  constant.83 = f32[] constant(-2.72614237e-10)
+  add.89 = f32[] add(multiply.88, constant.83), metadata={source_file="-" source_line=11}
+  multiply.90 = f32[] multiply(add.89, multiply.87), metadata={source_file="-" source_line=12}
+  constant.82 = f32[] constant(2.77068146e-08)
+  add.91 = f32[] add(multiply.90, constant.82), metadata={source_file="-" source_line=14}
+  multiply.92 = f32[] multiply(add.91, multiply.87), metadata={source_file="-" source_line=15}
+  constant.81 = f32[] constant(-2.10102394e-06)
+  add.93 = f32[] add(multiply.92, constant.81), metadata={source_file="-" source_line=17}
+  multiply.94 = f32[] multiply(add.93, multiply.87), metadata={source_file="-" source_line=18}
+  constant.80 = f32[] constant(-5.69250624e-05)
+  add.95 = f32[] add(multiply.94, constant.80), metadata={source_file="-" source_line=20}
+  multiply.96 = f32[] multiply(add.95, multiply.87), metadata={source_file="-" source_line=21}
+  constant.79 = f32[] constant(-0.000734990637)
+  add.97 = f32[] add(multiply.96, constant.79), metadata={source_file="-" source_line=23}
+  multiply.98 = f32[] multiply(add.97, multiply.87), metadata={source_file="-" source_line=24}
+  constant.78 = f32[] constant(-0.0029546)
+  add.99 = f32[] add(multiply.98, constant.78), metadata={source_file="-" source_line=26}
+  multiply.100 = f32[] multiply(add.99, multiply.87), metadata={source_file="-" source_line=27}
+  constant.77 = f32[] constant(-0.0160960332)
+  add.101 = f32[] add(multiply.100, constant.77), metadata={source_file="-" source_line=29}
+  multiply.102 = f32[] multiply(clamp.86, add.101), metadata={source_file="-" source_line=30}
+  multiply.103 = f32[] multiply(multiply.87, constant.76), metadata={source_file="-" source_line=32}
+  constant.75 = f32[] constant(-1.45660715e-05)
+  add.104 = f32[] add(multiply.103, constant.75), metadata={source_file="-" source_line=34}
+  multiply.105 = f32[] multiply(add.104, multiply.87), metadata={source_file="-" source_line=35}
+  constant.74 = f32[] constant(-0.000213374049)
+  add.106 = f32[] add(multiply.105, constant.74), metadata={source_file="-" source_line=37}
+  multiply.107 = f32[] multiply(add.106, multiply.87), metadata={source_file="-" source_line=38}
+  constant.73 = f32[] constant(-0.00168282702)
+  add.108 = f32[] add(multiply.107, constant.73), metadata={source_file="-" source_line=40}
+  multiply.109 = f32[] multiply(add.108, multiply.87), metadata={source_file="-" source_line=41}
+  constant.72 = f32[] constant(-0.00737332925)
+  add.110 = f32[] add(multiply.109, constant.72), metadata={source_file="-" source_line=43}
+  multiply.111 = f32[] multiply(add.110, multiply.87), metadata={source_file="-" source_line=44}
+  constant.71 = f32[] constant(-0.0142647391)
+  add.112 = f32[] add(multiply.111, constant.71), metadata={source_file="-" source_line=46}
+  ROOT divide.113 = f32[] divide(multiply.102, add.112), metadata={source_file="-" source_line=47}
+}
+
+erf.114 {
+  Arg_0.115 = f32[] parameter(0)
+  ROOT call.116 = f32[] call(Arg_0.115), to_apply=xla_fallback_erf.69
+}
+
+xla_fallback_erf_inv.119 {
+  Arg_0.120 = f32[32,32]{1,0} parameter(0)
+  abs.167 = f32[32,32]{1,0} abs(Arg_0.120), metadata={source_file="-" source_line=4}
+  constant.165 = f32[] constant(1)
+  broadcast.166 = f32[32,32]{1,0} broadcast(constant.165), dimensions={}, metadata={source_file="-" source_line=6}
+  compare.168 = pred[32,32]{1,0} compare(abs.167, broadcast.166), direction=EQ, metadata={source_file="-" source_line=7}
+  constant.163 = f32[] constant(inf)
+  broadcast.164 = f32[32,32]{1,0} broadcast(constant.163), dimensions={}, metadata={source_file="-" source_line=9}
+  multiply.169 = f32[32,32]{1,0} multiply(Arg_0.120, broadcast.164), metadata={source_file="-" source_line=10}
+  negate.170 = f32[32,32]{1,0} negate(Arg_0.120), metadata={source_file="-" source_line=11}
+  multiply.171 = f32[32,32]{1,0} multiply(negate.170, Arg_0.120), metadata={source_file="-" source_line=12}
+  log-plus-one.172 = f32[32,32]{1,0} log-plus-one(multiply.171), metadata={source_file="-" source_line=13}
+  negate.173 = f32[32,32]{1,0} negate(log-plus-one.172), metadata={source_file="-" source_line=14}
+  constant.161 = f32[] constant(5)
+  broadcast.162 = f32[32,32]{1,0} broadcast(constant.161), dimensions={}, metadata={source_file="-" source_line=16}
+  compare.174 = pred[32,32]{1,0} compare(negate.173, broadcast.162), direction=LT, metadata={source_file="-" source_line=17}
+  constant.159 = f32[] constant(1.50140941)
+  broadcast.160 = f32[32,32]{1,0} broadcast(constant.159), dimensions={}, metadata={source_file="-" source_line=19}
+  constant.157 = f32[] constant(2.83297682)
+  broadcast.158 = f32[32,32]{1,0} broadcast(constant.157), dimensions={}, metadata={source_file="-" source_line=21}
+  select.175 = f32[32,32]{1,0} select(compare.174, broadcast.160, broadcast.158), metadata={source_file="-" source_line=22}
+  constant.155 = f32[] constant(0.246640727)
+  broadcast.156 = f32[32,32]{1,0} broadcast(constant.155), dimensions={}, metadata={source_file="-" source_line=24}
+  constant.153 = f32[] constant(1.00167406)
+  broadcast.154 = f32[32,32]{1,0} broadcast(constant.153), dimensions={}, metadata={source_file="-" source_line=26}
+  select.176 = f32[32,32]{1,0} select(compare.174, broadcast.156, broadcast.154), metadata={source_file="-" source_line=27}
+  constant.151 = f32[] constant(-0.00417768164)
+  broadcast.152 = f32[32,32]{1,0} broadcast(constant.151), dimensions={}, metadata={source_file="-" source_line=29}
+  constant.149 = f32[] constant(0.00943887047)
+  broadcast.150 = f32[32,32]{1,0} broadcast(constant.149), dimensions={}, metadata={source_file="-" source_line=31}
+  select.177 = f32[32,32]{1,0} select(compare.174, broadcast.152, broadcast.150), metadata={source_file="-" source_line=32}
+  constant.147 = f32[] constant(-0.00125372503)
+  broadcast.148 = f32[32,32]{1,0} broadcast(constant.147), dimensions={}, metadata={source_file="-" source_line=34}
+  constant.145 = f32[] constant(-0.0076224613)
+  broadcast.146 = f32[32,32]{1,0} broadcast(constant.145), dimensions={}, metadata={source_file="-" source_line=36}
+  select.178 = f32[32,32]{1,0} select(compare.174, broadcast.148, broadcast.146), metadata={source_file="-" source_line=37}
+  constant.143 = f32[] constant(0.00021858087)
+  broadcast.144 = f32[32,32]{1,0} broadcast(constant.143), dimensions={}, metadata={source_file="-" source_line=39}
+  constant.141 = f32[] constant(0.00573950773)
+  broadcast.142 = f32[32,32]{1,0} broadcast(constant.141), dimensions={}, metadata={source_file="-" source_line=41}
+  select.179 = f32[32,32]{1,0} select(compare.174, broadcast.144, broadcast.142), metadata={source_file="-" source_line=42}
+  constant.139 = f32[] constant(-4.39150654e-06)
+  broadcast.140 = f32[32,32]{1,0} broadcast(constant.139), dimensions={}, metadata={source_file="-" source_line=44}
+  constant.137 = f32[] constant(-0.00367342844)
+  broadcast.138 = f32[32,32]{1,0} broadcast(constant.137), dimensions={}, metadata={source_file="-" source_line=46}
+  select.180 = f32[32,32]{1,0} select(compare.174, broadcast.140, broadcast.138), metadata={source_file="-" source_line=47}
+  constant.135 = f32[] constant(-3.5233877e-06)
+  broadcast.136 = f32[32,32]{1,0} broadcast(constant.135), dimensions={}, metadata={source_file="-" source_line=49}
+  constant.133 = f32[] constant(0.00134934322)
+  broadcast.134 = f32[32,32]{1,0} broadcast(constant.133), dimensions={}, metadata={source_file="-" source_line=51}
+  select.181 = f32[32,32]{1,0} select(compare.174, broadcast.136, broadcast.134), metadata={source_file="-" source_line=52}
+  constant.131 = f32[] constant(3.43273939e-07)
+  broadcast.132 = f32[32,32]{1,0} broadcast(constant.131), dimensions={}, metadata={source_file="-" source_line=54}
+  constant.129 = f32[] constant(0.000100950558)
+  broadcast.130 = f32[32,32]{1,0} broadcast(constant.129), dimensions={}, metadata={source_file="-" source_line=56}
+  select.182 = f32[32,32]{1,0} select(compare.174, broadcast.132, broadcast.130), metadata={source_file="-" source_line=57}
+  constant.127 = f32[] constant(2.81022636e-08)
+  broadcast.128 = f32[32,32]{1,0} broadcast(constant.127), dimensions={}, metadata={source_file="-" source_line=59}
+  constant.125 = f32[] constant(-0.000200214257)
+  broadcast.126 = f32[32,32]{1,0} broadcast(constant.125), dimensions={}, metadata={source_file="-" source_line=61}
+  select.183 = f32[32,32]{1,0} select(compare.174, broadcast.128, broadcast.126), metadata={source_file="-" source_line=62}
+  constant.123 = f32[] constant(2.5)
+  broadcast.124 = f32[32,32]{1,0} broadcast(constant.123), dimensions={}, metadata={source_file="-" source_line=64}
+  subtract.184 = f32[32,32]{1,0} subtract(negate.173, broadcast.124), metadata={source_file="-" source_line=65}
+  sqrt.185 = f32[32,32]{1,0} sqrt(negate.173), metadata={source_file="-" source_line=66}
+  constant.121 = f32[] constant(3)
+  broadcast.122 = f32[32,32]{1,0} broadcast(constant.121), dimensions={}, metadata={source_file="-" source_line=68}
+  subtract.186 = f32[32,32]{1,0} subtract(sqrt.185, broadcast.122), metadata={source_file="-" source_line=69}
+  select.187 = f32[32,32]{1,0} select(compare.174, subtract.184, subtract.186), metadata={source_file="-" source_line=70}
+  multiply.188 = f32[32,32]{1,0} multiply(select.183, select.187), metadata={source_file="-" source_line=71}
+  add.189 = f32[32,32]{1,0} add(select.182, multiply.188), metadata={source_file="-" source_line=72}
+  multiply.190 = f32[32,32]{1,0} multiply(add.189, select.187), metadata={source_file="-" source_line=73}
+  add.191 = f32[32,32]{1,0} add(select.181, multiply.190), metadata={source_file="-" source_line=74}
+  multiply.192 = f32[32,32]{1,0} multiply(add.191, select.187), metadata={source_file="-" source_line=75}
+  add.193 = f32[32,32]{1,0} add(select.180, multiply.192), metadata={source_file="-" source_line=76}
+  multiply.194 = f32[32,32]{1,0} multiply(add.193, select.187), metadata={source_file="-" source_line=77}
+  add.195 = f32[32,32]{1,0} add(select.179, multiply.194), metadata={source_file="-" source_line=78}
+  multiply.196 = f32[32,32]{1,0} multiply(add.195, select.187), metadata={source_file="-" source_line=79}
+  add.197 = f32[32,32]{1,0} add(select.178, multiply.196), metadata={source_file="-" source_line=80}
+  multiply.198 = f32[32,32]{1,0} multiply(add.197, select.187), metadata={source_file="-" source_line=81}
+  add.199 = f32[32,32]{1,0} add(select.177, multiply.198), metadata={source_file="-" source_line=82}
+  multiply.200 = f32[32,32]{1,0} multiply(add.199, select.187), metadata={source_file="-" source_line=83}
+  add.201 = f32[32,32]{1,0} add(select.176, multiply.200), metadata={source_file="-" source_line=84}
+  multiply.202 = f32[32,32]{1,0} multiply(add.201, select.187), metadata={source_file="-" source_line=85}
+  add.203 = f32[32,32]{1,0} add(select.175, multiply.202), metadata={source_file="-" source_line=86}
+  multiply.204 = f32[32,32]{1,0} multiply(add.203, Arg_0.120), metadata={source_file="-" source_line=87}
+  ROOT select.205 = f32[32,32]{1,0} select(compare.168, multiply.169, multiply.204), metadata={source_file="-" source_line=88}
+}
+
+erf_inv.206 {
+  Arg_0.207 = f32[32,32]{1,0} parameter(0)
+  ROOT call.208 = f32[32,32]{1,0} call(Arg_0.207), to_apply=xla_fallback_erf_inv.119
+}
+
+jit_clip.255 {
+  Arg_2.258 = f32[] parameter(2)
+  broadcast.261 = f32[32,32]{1,0} broadcast(Arg_2.258), dimensions={}, metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/min" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  Arg_1.257 = f32[] parameter(1)
+  broadcast.259 = f32[32,32]{1,0} broadcast(Arg_1.257), dimensions={}, metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/max" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  Arg_0.256 = f32[32,32]{1,0} parameter(0)
+  maximum.260 = f32[32,32]{1,0} maximum(broadcast.259, Arg_0.256), metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/max" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  ROOT minimum.262 = f32[32,32]{1,0} minimum(broadcast.261, maximum.260), metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/min" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+
+rng.362. {
+  state.2 = u64[2]{0} parameter(1)
+  slice.9 = u64[1]{0} slice(state.2), slice={[0:1]}
+  reshape.10 = u64[] reshape(slice.9)
+  convert.14 = u32[] convert(reshape.10)
+  convert.25 = u64[] convert(convert.14)
+  constant.1 = u64[] constant(32)
+  shift-right-logical.15 = u64[] shift-right-logical(reshape.10, constant.1)
+  convert.0 = u32[] convert(shift-right-logical.15)
+  convert.23 = u64[] convert(convert.0)
+  constant.2 = u64[] constant(32)
+  shift-left.24 = u64[] shift-left(convert.23, constant.2)
+  or.26 = u64[] or(convert.25, shift-left.24)
+  constant.51 = u64[] constant(256)
+  add.52 = u64[] add(or.26, constant.51)
+  reshape.59 = u64[1]{0} reshape(add.52)
+  compare.57 = pred[] compare(add.52, or.26), direction=LT
+  slice.11 = u64[1]{0} slice(state.2), slice={[1:2]}
+  reshape.12 = u64[] reshape(slice.11)
+  convert.18 = u32[] convert(reshape.12)
+  convert.30 = u64[] convert(convert.18)
+  constant.17 = u64[] constant(32)
+  shift-right-logical.19 = u64[] shift-right-logical(reshape.12, constant.17)
+  convert.20 = u32[] convert(shift-right-logical.19)
+  convert.28 = u64[] convert(convert.20)
+  constant.12 = u64[] constant(32)
+  shift-left.29 = u64[] shift-left(convert.28, constant.12)
+  or.31 = u64[] or(convert.30, shift-left.29)
+  constant.53 = u64[] constant(1)
+  add.55 = u64[] add(or.31, constant.53)
+  broadcast.56 = u64[] broadcast(add.55), dimensions={}
+  broadcast.54 = u64[] broadcast(or.31), dimensions={}
+  select.58 = u64[] select(compare.57, broadcast.56, broadcast.54)
+  reshape.60 = u64[1]{0} reshape(select.58)
+  concatenate.61 = u64[2]{0} concatenate(reshape.59, reshape.60), dimensions={0}
+  key.1 = u64[] parameter(0)
+  convert.6 = u32[] convert(key.1)
+  constant.86 = u32[] constant(2654435769)
+  add.87 = u32[] add(convert.6, constant.86)
+  constant.114 = u32[] constant(2654435769)
+  add.115 = u32[] add(add.87, constant.114)
+  constant.142 = u32[] constant(2654435769)
+  add.143 = u32[] add(add.115, constant.142)
+  constant.170 = u32[] constant(2654435769)
+  add.171 = u32[] add(add.143, constant.170)
+  constant.198 = u32[] constant(2654435769)
+  add.1 = u32[] add(add.171, constant.198)
+  constant.226 = u32[] constant(2654435769)
+  add.3 = u32[] add(add.1, constant.226)
+  constant.254 = u32[] constant(2654435769)
+  add.255 = u32[] add(add.3, constant.254)
+  constant.282 = u32[] constant(2654435769)
+  add.283 = u32[] add(add.255, constant.282)
+  constant.310 = u32[] constant(2654435769)
+  add.311 = u32[] add(add.283, constant.310)
+  constant.338 = u32[] constant(2654435769)
+  add.339 = u32[] add(add.311, constant.338)
+  constant.0 = u64[] constant(32)
+  shift-right-logical.7 = u64[] shift-right-logical(key.1, constant.0)
+  convert.8 = u32[] convert(shift-right-logical.7)
+  constant.88 = u32[] constant(3144134277)
+  add.0 = u32[] add(convert.8, constant.88)
+  constant.116 = u32[] constant(3144134277)
+  add.117 = u32[] add(add.0, constant.116)
+  constant.144 = u32[] constant(3144134277)
+  add.145 = u32[] add(add.117, constant.144)
+  constant.172 = u32[] constant(3144134277)
+  add.173 = u32[] add(add.145, constant.172)
+  constant.200 = u32[] constant(3144134277)
+  add.2 = u32[] add(add.173, constant.200)
+  constant.228 = u32[] constant(3144134277)
+  add.229 = u32[] add(add.2, constant.228)
+  constant.256 = u32[] constant(3144134277)
+  add.257 = u32[] add(add.229, constant.256)
+  constant.284 = u32[] constant(3144134277)
+  add.285 = u32[] add(add.257, constant.284)
+  constant.312 = u32[] constant(3144134277)
+  add.313 = u32[] add(add.285, constant.312)
+  constant.340 = u32[] constant(3144134277)
+  add.341 = u32[] add(add.313, constant.340)
+  broadcast.32 = u64[256]{0} broadcast(or.26), dimensions={}
+  iota.21 = u64[256]{0} iota(), iota_dimension=0
+  add.33 = u64[256]{0} add(broadcast.32, iota.21)
+  convert.42 = u32[256]{0} convert(add.33)
+  convert.63 = u64[256]{0} convert(convert.42)
+  constant.62 = u64[] constant(3528531795)
+  broadcast.64 = u64[256]{0} broadcast(constant.62), dimensions={}
+  multiply.65 = u64[256]{0} multiply(convert.63, broadcast.64)
+  constant.67 = u64[] constant(32)
+  broadcast.68 = u64[256]{0} broadcast(constant.67), dimensions={}
+  shift-right-logical.69 = u64[256]{0} shift-right-logical(multiply.65, broadcast.68)
+  convert.70 = u32[256]{0} convert(shift-right-logical.69)
+  broadcast.38 = u64[256]{0} broadcast(or.26), dimensions={}
+  compare.39 = pred[256]{0} compare(add.33, broadcast.38), direction=LT
+  constant.15 = u64[] constant(1)
+  add.36 = u64[] add(or.31, constant.15)
+  broadcast.37 = u64[256]{0} broadcast(add.36), dimensions={}
+  broadcast.35 = u64[256]{0} broadcast(or.31), dimensions={}
+  select.40 = u64[256]{0} select(compare.39, broadcast.37, broadcast.35)
+  constant.46 = u64[] constant(32)
+  broadcast.48 = u64[256]{0} broadcast(constant.46), dimensions={}
+  shift-right-logical.49 = u64[256]{0} shift-right-logical(select.40, broadcast.48)
+  convert.50 = u32[256]{0} convert(shift-right-logical.49)
+  xor.83 = u32[256]{0} xor(convert.70, convert.50)
+  broadcast.84 = u32[256]{0} broadcast(convert.8), dimensions={}
+  xor.85 = u32[256]{0} xor(xor.83, broadcast.84)
+  convert.100 = u64[256]{0} convert(xor.85)
+  constant.99 = u64[] constant(3449720151)
+  broadcast.101 = u64[256]{0} broadcast(constant.99), dimensions={}
+  multiply.0 = u64[256]{0} multiply(convert.100, broadcast.101)
+  constant.104 = u64[] constant(32)
+  broadcast.105 = u64[256]{0} broadcast(constant.104), dimensions={}
+  shift-right-logical.106 = u64[256]{0} shift-right-logical(multiply.0, broadcast.105)
+  convert.107 = u32[256]{0} convert(shift-right-logical.106)
+  convert.47 = u32[256]{0} convert(select.40)
+  convert.72 = u64[256]{0} convert(convert.47)
+  constant.16 = u64[] constant(3449720151)
+  broadcast.73 = u64[256]{0} broadcast(constant.16), dimensions={}
+  multiply.74 = u64[256]{0} multiply(convert.72, broadcast.73)
+  convert.75 = u32[256]{0} convert(multiply.74)
+  xor.108 = u32[256]{0} xor(convert.107, convert.75)
+  broadcast.109 = u32[256]{0} broadcast(add.87), dimensions={}
+  xor.110 = u32[256]{0} xor(xor.108, broadcast.109)
+  convert.119 = u64[256]{0} convert(xor.110)
+  constant.118 = u64[] constant(3528531795)
+  broadcast.120 = u64[256]{0} broadcast(constant.118), dimensions={}
+  multiply.121 = u64[256]{0} multiply(convert.119, broadcast.120)
+  constant.19 = u64[] constant(32)
+  broadcast.0 = u64[256]{0} broadcast(constant.19), dimensions={}
+  shift-right-logical.125 = u64[256]{0} shift-right-logical(multiply.121, broadcast.0)
+  convert.126 = u32[256]{0} convert(shift-right-logical.125)
+  constant.18 = u64[] constant(32)
+  broadcast.77 = u64[256]{0} broadcast(constant.18), dimensions={}
+  shift-right-logical.78 = u64[256]{0} shift-right-logical(multiply.74, broadcast.77)
+  convert.79 = u32[256]{0} convert(shift-right-logical.78)
+  constant.41 = u64[] constant(32)
+  broadcast.43 = u64[256]{0} broadcast(constant.41), dimensions={}
+  shift-right-logical.44 = u64[256]{0} shift-right-logical(add.33, broadcast.43)
+  convert.45 = u32[256]{0} convert(shift-right-logical.44)
+  xor.80 = u32[256]{0} xor(convert.79, convert.45)
+  broadcast.81 = u32[256]{0} broadcast(convert.6), dimensions={}
+  xor.82 = u32[256]{0} xor(xor.80, broadcast.81)
+  convert.91 = u64[256]{0} convert(xor.82)
+  constant.90 = u64[] constant(3528531795)
+  broadcast.92 = u64[256]{0} broadcast(constant.90), dimensions={}
+  multiply.93 = u64[256]{0} multiply(convert.91, broadcast.92)
+  convert.94 = u32[256]{0} convert(multiply.93)
+  xor.139 = u32[256]{0} xor(convert.126, convert.94)
+  broadcast.1 = u32[256]{0} broadcast(add.117), dimensions={}
+  xor.141 = u32[256]{0} xor(xor.139, broadcast.1)
+  convert.156 = u64[256]{0} convert(xor.141)
+  constant.37 = u64[] constant(3449720151)
+  broadcast.157 = u64[256]{0} broadcast(constant.37), dimensions={}
+  multiply.158 = u64[256]{0} multiply(convert.156, broadcast.157)
+  constant.160 = u64[] constant(32)
+  broadcast.161 = u64[256]{0} broadcast(constant.160), dimensions={}
+  shift-right-logical.162 = u64[256]{0} shift-right-logical(multiply.158, broadcast.161)
+  convert.163 = u32[256]{0} convert(shift-right-logical.162)
+  constant.95 = u64[] constant(32)
+  broadcast.96 = u64[256]{0} broadcast(constant.95), dimensions={}
+  shift-right-logical.97 = u64[256]{0} shift-right-logical(multiply.93, broadcast.96)
+  convert.98 = u32[256]{0} convert(shift-right-logical.97)
+  convert.66 = u32[256]{0} convert(multiply.65)
+  xor.111 = u32[256]{0} xor(convert.98, convert.66)
+  broadcast.112 = u32[256]{0} broadcast(add.0), dimensions={}
+  xor.113 = u32[256]{0} xor(xor.111, broadcast.112)
+  convert.128 = u64[256]{0} convert(xor.113)
+  constant.20 = u64[] constant(3449720151)
+  broadcast.129 = u64[256]{0} broadcast(constant.20), dimensions={}
+  multiply.130 = u64[256]{0} multiply(convert.128, broadcast.129)
+  convert.131 = u32[256]{0} convert(multiply.130)
+  xor.164 = u32[256]{0} xor(convert.163, convert.131)
+  broadcast.165 = u32[256]{0} broadcast(add.143), dimensions={}
+  xor.166 = u32[256]{0} xor(xor.164, broadcast.165)
+  convert.175 = u64[256]{0} convert(xor.166)
+  constant.174 = u64[] constant(3528531795)
+  broadcast.176 = u64[256]{0} broadcast(constant.174), dimensions={}
+  multiply.177 = u64[256]{0} multiply(convert.175, broadcast.176)
+  constant.179 = u64[] constant(32)
+  broadcast.180 = u64[256]{0} broadcast(constant.179), dimensions={}
+  shift-right-logical.181 = u64[256]{0} shift-right-logical(multiply.177, broadcast.180)
+  convert.182 = u32[256]{0} convert(shift-right-logical.181)
+  constant.132 = u64[] constant(32)
+  broadcast.133 = u64[256]{0} broadcast(constant.132), dimensions={}
+  shift-right-logical.134 = u64[256]{0} shift-right-logical(multiply.130, broadcast.133)
+  convert.135 = u32[256]{0} convert(shift-right-logical.134)
+  convert.103 = u32[256]{0} convert(multiply.0)
+  xor.136 = u32[256]{0} xor(convert.135, convert.103)
+  broadcast.137 = u32[256]{0} broadcast(add.115), dimensions={}
+  xor.138 = u32[256]{0} xor(xor.136, broadcast.137)
+  convert.147 = u64[256]{0} convert(xor.138)
+  constant.146 = u64[] constant(3528531795)
+  broadcast.2 = u64[256]{0} broadcast(constant.146), dimensions={}
+  multiply.149 = u64[256]{0} multiply(convert.147, broadcast.2)
+  convert.150 = u32[256]{0} convert(multiply.149)
+  xor.195 = u32[256]{0} xor(convert.182, convert.150)
+  broadcast.196 = u32[256]{0} broadcast(add.173), dimensions={}
+  xor.197 = u32[256]{0} xor(xor.195, broadcast.196)
+  convert.212 = u64[256]{0} convert(xor.197)
+  constant.211 = u64[] constant(3449720151)
+  broadcast.213 = u64[256]{0} broadcast(constant.211), dimensions={}
+  multiply.214 = u64[256]{0} multiply(convert.212, broadcast.213)
+  constant.216 = u64[] constant(32)
+  broadcast.217 = u64[256]{0} broadcast(constant.216), dimensions={}
+  shift-right-logical.218 = u64[256]{0} shift-right-logical(multiply.214, broadcast.217)
+  convert.219 = u32[256]{0} convert(shift-right-logical.218)
+  constant.36 = u64[] constant(32)
+  broadcast.3 = u64[256]{0} broadcast(constant.36), dimensions={}
+  shift-right-logical.153 = u64[256]{0} shift-right-logical(multiply.149, broadcast.3)
+  convert.154 = u32[256]{0} convert(shift-right-logical.153)
+  convert.122 = u32[256]{0} convert(multiply.121)
+  xor.167 = u32[256]{0} xor(convert.154, convert.122)
+  broadcast.168 = u32[256]{0} broadcast(add.145), dimensions={}
+  xor.169 = u32[256]{0} xor(xor.167, broadcast.168)
+  convert.184 = u64[256]{0} convert(xor.169)
+  constant.183 = u64[] constant(3449720151)
+  broadcast.185 = u64[256]{0} broadcast(constant.183), dimensions={}
+  multiply.186 = u64[256]{0} multiply(convert.184, broadcast.185)
+  convert.187 = u32[256]{0} convert(multiply.186)
+  xor.220 = u32[256]{0} xor(convert.219, convert.187)
+  broadcast.221 = u32[256]{0} broadcast(add.1), dimensions={}
+  xor.222 = u32[256]{0} xor(xor.220, broadcast.221)
+  convert.231 = u64[256]{0} convert(xor.222)
+  constant.230 = u64[] constant(3528531795)
+  broadcast.232 = u64[256]{0} broadcast(constant.230), dimensions={}
+  multiply.233 = u64[256]{0} multiply(convert.231, broadcast.232)
+  constant.235 = u64[] constant(32)
+  broadcast.236 = u64[256]{0} broadcast(constant.235), dimensions={}
+  shift-right-logical.237 = u64[256]{0} shift-right-logical(multiply.233, broadcast.236)
+  convert.238 = u32[256]{0} convert(shift-right-logical.237)
+  constant.188 = u64[] constant(32)
+  broadcast.189 = u64[256]{0} broadcast(constant.188), dimensions={}
+  shift-right-logical.190 = u64[256]{0} shift-right-logical(multiply.186, broadcast.189)
+  convert.191 = u32[256]{0} convert(shift-right-logical.190)
+  convert.159 = u32[256]{0} convert(multiply.158)
+  xor.192 = u32[256]{0} xor(convert.191, convert.159)
+  broadcast.193 = u32[256]{0} broadcast(add.171), dimensions={}
+  xor.194 = u32[256]{0} xor(xor.192, broadcast.193)
+  convert.203 = u64[256]{0} convert(xor.194)
+  constant.202 = u64[] constant(3528531795)
+  broadcast.204 = u64[256]{0} broadcast(constant.202), dimensions={}
+  multiply.205 = u64[256]{0} multiply(convert.203, broadcast.204)
+  convert.206 = u32[256]{0} convert(multiply.205)
+  xor.251 = u32[256]{0} xor(convert.238, convert.206)
+  broadcast.252 = u32[256]{0} broadcast(add.229), dimensions={}
+  xor.253 = u32[256]{0} xor(xor.251, broadcast.252)
+  convert.268 = u64[256]{0} convert(xor.253)
+  constant.267 = u64[] constant(3449720151)
+  broadcast.269 = u64[256]{0} broadcast(constant.267), dimensions={}
+  multiply.270 = u64[256]{0} multiply(convert.268, broadcast.269)
+  constant.272 = u64[] constant(32)
+  broadcast.273 = u64[256]{0} broadcast(constant.272), dimensions={}
+  shift-right-logical.274 = u64[256]{0} shift-right-logical(multiply.270, broadcast.273)
+  convert.275 = u32[256]{0} convert(shift-right-logical.274)
+  constant.207 = u64[] constant(32)
+  broadcast.208 = u64[256]{0} broadcast(constant.207), dimensions={}
+  shift-right-logical.209 = u64[256]{0} shift-right-logical(multiply.205, broadcast.208)
+  convert.210 = u32[256]{0} convert(shift-right-logical.209)
+  convert.178 = u32[256]{0} convert(multiply.177)
+  xor.223 = u32[256]{0} xor(convert.210, convert.178)
+  broadcast.224 = u32[256]{0} broadcast(add.2), dimensions={}
+  xor.225 = u32[256]{0} xor(xor.223, broadcast.224)
+  convert.240 = u64[256]{0} convert(xor.225)
+  constant.239 = u64[] constant(3449720151)
+  broadcast.241 = u64[256]{0} broadcast(constant.239), dimensions={}
+  multiply.242 = u64[256]{0} multiply(convert.240, broadcast.241)
+  convert.243 = u32[256]{0} convert(multiply.242)
+  xor.276 = u32[256]{0} xor(convert.275, convert.243)
+  broadcast.277 = u32[256]{0} broadcast(add.255), dimensions={}
+  xor.278 = u32[256]{0} xor(xor.276, broadcast.277)
+  convert.287 = u64[256]{0} convert(xor.278)
+  constant.286 = u64[] constant(3528531795)
+  broadcast.288 = u64[256]{0} broadcast(constant.286), dimensions={}
+  multiply.289 = u64[256]{0} multiply(convert.287, broadcast.288)
+  constant.291 = u64[] constant(32)
+  broadcast.292 = u64[256]{0} broadcast(constant.291), dimensions={}
+  shift-right-logical.293 = u64[256]{0} shift-right-logical(multiply.289, broadcast.292)
+  convert.294 = u32[256]{0} convert(shift-right-logical.293)
+  constant.244 = u64[] constant(32)
+  broadcast.245 = u64[256]{0} broadcast(constant.244), dimensions={}
+  shift-right-logical.246 = u64[256]{0} shift-right-logical(multiply.242, broadcast.245)
+  convert.247 = u32[256]{0} convert(shift-right-logical.246)
+  convert.215 = u32[256]{0} convert(multiply.214)
+  xor.248 = u32[256]{0} xor(convert.247, convert.215)
+  broadcast.249 = u32[256]{0} broadcast(add.3), dimensions={}
+  xor.250 = u32[256]{0} xor(xor.248, broadcast.249)
+  convert.259 = u64[256]{0} convert(xor.250)
+  constant.258 = u64[] constant(3528531795)
+  broadcast.260 = u64[256]{0} broadcast(constant.258), dimensions={}
+  multiply.261 = u64[256]{0} multiply(convert.259, broadcast.260)
+  convert.262 = u32[256]{0} convert(multiply.261)
+  xor.307 = u32[256]{0} xor(convert.294, convert.262)
+  broadcast.308 = u32[256]{0} broadcast(add.285), dimensions={}
+  xor.309 = u32[256]{0} xor(xor.307, broadcast.308)
+  convert.324 = u64[256]{0} convert(xor.309)
+  constant.323 = u64[] constant(3449720151)
+  broadcast.325 = u64[256]{0} broadcast(constant.323), dimensions={}
+  multiply.326 = u64[256]{0} multiply(convert.324, broadcast.325)
+  constant.328 = u64[] constant(32)
+  broadcast.329 = u64[256]{0} broadcast(constant.328), dimensions={}
+  shift-right-logical.330 = u64[256]{0} shift-right-logical(multiply.326, broadcast.329)
+  convert.331 = u32[256]{0} convert(shift-right-logical.330)
+  constant.263 = u64[] constant(32)
+  broadcast.264 = u64[256]{0} broadcast(constant.263), dimensions={}
+  shift-right-logical.265 = u64[256]{0} shift-right-logical(multiply.261, broadcast.264)
+  convert.266 = u32[256]{0} convert(shift-right-logical.265)
+  convert.234 = u32[256]{0} convert(multiply.233)
+  xor.279 = u32[256]{0} xor(convert.266, convert.234)
+  broadcast.280 = u32[256]{0} broadcast(add.257), dimensions={}
+  xor.281 = u32[256]{0} xor(xor.279, broadcast.280)
+  convert.296 = u64[256]{0} convert(xor.281)
+  constant.295 = u64[] constant(3449720151)
+  broadcast.297 = u64[256]{0} broadcast(constant.295), dimensions={}
+  multiply.298 = u64[256]{0} multiply(convert.296, broadcast.297)
+  convert.299 = u32[256]{0} convert(multiply.298)
+  xor.332 = u32[256]{0} xor(convert.331, convert.299)
+  broadcast.333 = u32[256]{0} broadcast(add.311), dimensions={}
+  xor.334 = u32[256]{0} xor(xor.332, broadcast.333)
+  reshape.342 = u32[256,1]{1,0} reshape(xor.334)
+  convert.327 = u32[256]{0} convert(multiply.326)
+  reshape.343 = u32[256,1]{1,0} reshape(convert.327)
+  constant.300 = u64[] constant(32)
+  broadcast.301 = u64[256]{0} broadcast(constant.300), dimensions={}
+  shift-right-logical.302 = u64[256]{0} shift-right-logical(multiply.298, broadcast.301)
+  convert.303 = u32[256]{0} convert(shift-right-logical.302)
+  convert.271 = u32[256]{0} convert(multiply.270)
+  xor.304 = u32[256]{0} xor(convert.303, convert.271)
+  broadcast.305 = u32[256]{0} broadcast(add.283), dimensions={}
+  xor.306 = u32[256]{0} xor(xor.304, broadcast.305)
+  convert.315 = u64[256]{0} convert(xor.306)
+  constant.314 = u64[] constant(3528531795)
+  broadcast.316 = u64[256]{0} broadcast(constant.314), dimensions={}
+  multiply.317 = u64[256]{0} multiply(convert.315, broadcast.316)
+  constant.319 = u64[] constant(32)
+  broadcast.320 = u64[256]{0} broadcast(constant.319), dimensions={}
+  shift-right-logical.321 = u64[256]{0} shift-right-logical(multiply.317, broadcast.320)
+  convert.322 = u32[256]{0} convert(shift-right-logical.321)
+  convert.290 = u32[256]{0} convert(multiply.289)
+  xor.335 = u32[256]{0} xor(convert.322, convert.290)
+  broadcast.336 = u32[256]{0} broadcast(add.313), dimensions={}
+  xor.337 = u32[256]{0} xor(xor.335, broadcast.336)
+  reshape.344 = u32[256,1]{1,0} reshape(xor.337)
+  convert.318 = u32[256]{0} convert(multiply.317)
+  reshape.345 = u32[256,1]{1,0} reshape(convert.318)
+  concatenate.346 = u32[256,4]{1,0} concatenate(reshape.342, reshape.343, reshape.344, reshape.345), dimensions={1}
+  reshape.347 = u32[1024]{0} reshape(concatenate.346)
+  slice.348 = u32[1024]{0} slice(reshape.347), slice={[0:1024]}
+  reshape.349 = u32[32,32]{1,0} reshape(slice.348)
+  constant.350 = u32[] constant(9)
+  broadcast.351 = u32[32,32]{1,0} broadcast(constant.350), dimensions={}
+  shift-right-logical.352 = u32[32,32]{1,0} shift-right-logical(reshape.349, broadcast.351)
+  convert.353 = f32[32,32]{1,0} convert(shift-right-logical.352)
+  constant.354 = f32[] constant(1.1920929e-07)
+  broadcast.355 = f32[32,32]{1,0} broadcast(constant.354), dimensions={}
+  multiply.356 = f32[32,32]{1,0} multiply(convert.353, broadcast.355)
+  b_or_sigma.4 = f32[] parameter(3)
+  a_or_mean.3 = f32[] parameter(2)
+  subtract.357 = f32[] subtract(b_or_sigma.4, a_or_mean.3)
+  broadcast.358 = f32[32,32]{1,0} broadcast(subtract.357), dimensions={}
+  multiply.359 = f32[32,32]{1,0} multiply(multiply.356, broadcast.358)
+  broadcast.360 = f32[32,32]{1,0} broadcast(a_or_mean.3), dimensions={}
+  ROOT add.361 = f32[32,32]{1,0} add(multiply.359, broadcast.360)
+}
+
+ENTRY main.264 {
+  constant.38 = u64[] constant(13930160852258120444)
+  rng-get-and-update-state = u64[2]{0} rng-get-and-update-state(), delta=1024
+  Arg_0.1 = s32[] parameter(0)
+  convert.16 = f32[] convert(Arg_0.1), metadata={op_name="jit(_truncated_normal)/jit(main)/convert_element_type[new_dtype=float32 weak_type=False]" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.13 = f32[] constant(1.41421354)
+  divide.18 = f32[] divide(convert.16, constant.13), metadata={op_name="jit(_truncated_normal)/jit(main)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  call.67 = f32[] call(divide.18), to_apply=erf.64
+  Arg_1.2 = s32[] parameter(1)
+  convert.17 = f32[] convert(Arg_1.2), metadata={op_name="jit(_truncated_normal)/jit(main)/convert_element_type[new_dtype=float32 weak_type=False]" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  divide.68 = f32[] divide(convert.17, constant.13), metadata={op_name="jit(_truncated_normal)/jit(main)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  call.117 = f32[] call(divide.68), to_apply=erf.114
+  call = f32[32,32]{1,0} call(constant.38, rng-get-and-update-state, call.67, call.117), to_apply=rng.362.
+  call.209 = f32[32,32]{1,0} call(call), to_apply=erf_inv.206
+  constant.11 = f32[] constant(1.41421354)
+  broadcast.12 = f32[32,32]{1,0} broadcast(constant.11), dimensions={}, metadata={op_name="jit(_truncated_normal)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  multiply.210 = f32[32,32]{1,0} multiply(call.209, broadcast.12), metadata={op_name="jit(_truncated_normal)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.213 = pred[] compare(convert.16, convert.16), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.8 = f32[] constant(nan)
+  bitcast-convert.214 = s32[] bitcast-convert(constant.8), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.10 = f32[] constant(inf)
+  compare.217 = pred[] compare(convert.16, constant.10), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.212 = s32[] bitcast-convert(constant.10), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.211 = s32[] bitcast-convert(convert.16), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.6 = s32[] constant(2147483647)
+  and.215 = s32[] and(bitcast-convert.211, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.5 = s32[] constant(0)
+  compare.218 = pred[] compare(and.215, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.216 = s32[] and(bitcast-convert.212, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.219 = pred[] compare(and.216, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.7 = s32[] constant(-2147483648)
+  and.221 = s32[] and(bitcast-convert.212, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.4 = s32[] constant(1)
+  or.222 = s32[] or(and.221, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.228 = s32[] select(compare.219, bitcast-convert.212, or.222), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.224 = pred[] compare(and.215, and.216), direction=GT, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.220 = s32[] and(bitcast-convert.211, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.223 = pred[] compare(and.220, and.221), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  or.225 = pred[] or(compare.224, compare.223), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.3 = s32[] constant(-1)
+  select.226 = s32[] select(or.225, constant.3, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  add.227 = s32[] add(bitcast-convert.211, select.226), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.229 = s32[] select(compare.218, select.228, add.227), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.230 = s32[] select(compare.217, bitcast-convert.212, select.229), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.231 = s32[] select(compare.213, bitcast-convert.214, select.230), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.232 = f32[] bitcast-convert(select.231), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.235 = pred[] compare(convert.17, convert.17), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.236 = s32[] bitcast-convert(constant.8), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.9 = f32[] constant(-inf)
+  compare.239 = pred[] compare(convert.17, constant.9), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.234 = s32[] bitcast-convert(constant.9), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.233 = s32[] bitcast-convert(convert.17), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.237 = s32[] and(bitcast-convert.233, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.240 = pred[] compare(and.237, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.238 = s32[] and(bitcast-convert.234, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.241 = pred[] compare(and.238, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.243 = s32[] and(bitcast-convert.234, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  or.244 = s32[] or(and.243, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.250 = s32[] select(compare.241, bitcast-convert.234, or.244), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.246 = pred[] compare(and.237, and.238), direction=GT, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.242 = s32[] and(bitcast-convert.233, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.245 = pred[] compare(and.242, and.243), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  or.247 = pred[] or(compare.246, compare.245), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.248 = s32[] select(or.247, constant.3, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  add.249 = s32[] add(bitcast-convert.233, select.248), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.251 = s32[] select(compare.240, select.250, add.249), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.252 = s32[] select(compare.239, bitcast-convert.234, select.251), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.253 = s32[] select(compare.235, bitcast-convert.236, select.252), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.254 = f32[] bitcast-convert(select.253), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  ROOT call.263 = f32[32,32]{1,0} call(multiply.210, bitcast-convert.232, bitcast-convert.254), to_apply=jit_clip.255
+}
+

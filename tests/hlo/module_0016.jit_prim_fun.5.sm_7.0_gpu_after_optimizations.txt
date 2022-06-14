@@ -1,0 +1,8 @@
+HloModule jit_prim_fun.5
+
+ENTRY main.3 {
+  Arg_0.1 = f32[64,4,256]{2,1,0} parameter(0)
+  bitcast = f32[64,1024]{1,0} bitcast(Arg_0.1), metadata={op_name="jit(reshape)/jit(main)/reshape[new_sizes=(64, 1024) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=50}
+  ROOT copy = f32[64,1024]{1,0} copy(bitcast)
+}
+

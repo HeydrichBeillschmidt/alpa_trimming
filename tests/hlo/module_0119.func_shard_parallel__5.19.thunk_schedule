@@ -1,0 +1,8 @@
+Total order:
+kKernel    	(no HloInstruction), kernel = iota_1, launch dimensions = blocks: {1, 1, 1}, threads/block: {256, 1, 1}
+kSequential	(no HloInstruction)
+  kCopy  	
+  kKernel	, kernel = sort_1, launch dimensions = blocks: {1, 1, 1}, threads/block: {512, 1, 1}
+
+
+Dependencies:

@@ -1,0 +1,10 @@
+HloModule add_one_shard_parallel.7, input_output_alias={ {0}: (0, {}, may-alias) }
+
+ENTRY add_one_shard_parallel.7_spmd {
+  param = f32[32,128]{1,0} parameter(0), sharding={devices=[4,1]0,1,2,3}
+  constant = f32[] constant(1), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  broadcast.1 = f32[32,128]{1,0} broadcast(constant), dimensions={}
+  add.0 = f32[32,128]{1,0} add(param, broadcast.1), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  ROOT tuple = (f32[32,128]{1,0}) tuple(add.0)
+}
+

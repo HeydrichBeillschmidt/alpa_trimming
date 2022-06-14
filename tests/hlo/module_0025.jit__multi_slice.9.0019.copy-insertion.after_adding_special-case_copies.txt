@@ -1,0 +1,16 @@
+HloModule jit__multi_slice.9
+
+ENTRY main.3 {
+  Arg_0.1 = f32[64,256,4]{2,1,0} parameter(0)
+  tuple.2 = (f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}) tuple(Arg_0.1, Arg_0.1, Arg_0.1, Arg_0.1)
+  get-tuple-element = f32[64,256,4]{2,1,0} get-tuple-element(tuple.2), index=0
+  copy = f32[64,256,4]{2,1,0} copy(get-tuple-element)
+  get-tuple-element.1 = f32[64,256,4]{2,1,0} get-tuple-element(tuple.2), index=1
+  copy.1 = f32[64,256,4]{2,1,0} copy(get-tuple-element.1)
+  get-tuple-element.2 = f32[64,256,4]{2,1,0} get-tuple-element(tuple.2), index=2
+  copy.2 = f32[64,256,4]{2,1,0} copy(get-tuple-element.2)
+  get-tuple-element.3 = f32[64,256,4]{2,1,0} get-tuple-element(tuple.2), index=3
+  copy.3 = f32[64,256,4]{2,1,0} copy(get-tuple-element.3)
+  ROOT tuple = (f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}) tuple(copy, copy.1, copy.2, copy.3)
+}
+

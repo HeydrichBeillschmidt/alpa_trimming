@@ -1,0 +1,78 @@
+HloModule func_shard_parallel__1.68, input_output_alias={ {0}: (0, {}, may-alias), {1}: (1, {}, may-alias), {2}: (2, {}, may-alias) }
+
+primitive_computation_add.25 {
+  constant.28 = pred[] constant(false)
+  parameter.26 = f32[] parameter(0)
+  parameter.27 = f32[] parameter(1)
+  ROOT add.29 = f32[] add(parameter.26, parameter.27), metadata={op_type="add" op_name="/add" source_file="test_auto_sharding_basic.py" source_line=144}
+}
+
+primitive_computation_add__1.42 {
+  constant.45 = pred[] constant(false)
+  parameter.43 = f32[] parameter(0)
+  parameter.44 = f32[] parameter(1)
+  ROOT add.46 = f32[] add(parameter.43, parameter.44), metadata={op_type="add" op_name="/add" source_file="test_auto_sharding_basic.py" source_line=126}
+}
+
+scatter_add_reducer.50 {
+  parameter.51 = f32[] parameter(0)
+  parameter.52 = f32[] parameter(1)
+  ROOT add.53 = f32[] add(parameter.51, parameter.52)
+}
+
+ENTRY func_shard_parallel__1.68 {
+  constant.6 = pred[] constant(false)
+  parameter.4 = f32[256,32]{1,0} parameter(3)
+  parameter.2 = f32[32,32]{1,0} parameter(1)
+  dot.7 = f32[256,32]{1,0} dot(parameter.4, parameter.2), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  iota.8 = s32[16] iota(), iota_dimension=0, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  constant.9 = s32[] constant(0), metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="test_auto_sharding_basic.py" source_line=126}
+  broadcast.10 = s32[16]{0} broadcast(constant.9), dimensions={}, metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="test_auto_sharding_basic.py" source_line=126}
+  compare.11 = pred[16]{0} compare(iota.8, broadcast.10), direction=LT, metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/lt" source_file="test_auto_sharding_basic.py" source_line=126}
+  constant.12 = s32[] constant(32), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=126}
+  broadcast.13 = s32[16]{0} broadcast(constant.12), dimensions={}, metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=126}
+  add.14 = s32[16]{0} add(iota.8, broadcast.13), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=126}
+  select.15 = s32[16]{0} select(compare.11, add.14, iota.8), metadata={op_type="select_n" op_name="parallelize(func_shard_parallel)/select_n" source_file="test_auto_sharding_basic.py" source_line=126}
+  broadcast.16 = s32[16,1]{1,0} broadcast(select.15), dimensions={0}, metadata={op_type="broadcast_in_dim" op_name="parallelize(func_shard_parallel)/broadcast_in_dim[shape=(16, 1) broadcast_dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=126}
+  gather.17 = f32[256,16]{1,0} gather(dot.7, broadcast.16), offset_dims={0}, collapsed_slice_dims={1}, start_index_map={1}, index_vector_dim=1, slice_sizes={256,1}, metadata={op_type="gather" op_name="parallelize(func_shard_parallel)/gather[dimension_numbers=GatherDimensionNumbers(offset_dims=(0,), collapsed_slice_dims=(1,), start_index_map=(1,)) slice_sizes=(256, 1) unique_indices=False indices_are_sorted=False mode=GatherScatterMode.PROMISE_IN_BOUNDS fill_value=None]" source_file="test_auto_sharding_basic.py" source_line=126}
+  parameter.3 = f32[16,16]{1,0} parameter(2)
+  dot.18 = f32[256,16]{1,0} dot(gather.17, parameter.3), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  parameter.5 = f32[256,16]{1,0} parameter(4)
+  subtract.19 = f32[256,16]{1,0} subtract(dot.18, parameter.5), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="test_auto_sharding_basic.py" source_line=144}
+  multiply.20 = f32[256,16]{1,0} multiply(subtract.19, subtract.19), metadata={op_type="integer_pow" op_name="parallelize(func_shard_parallel)/integer_pow[y=2]" source_file="test_auto_sharding_basic.py" source_line=144}
+  constant.24 = f32[] constant(0), metadata={op_type="reduce_sum" op_name="parallelize(func_shard_parallel)/reduce_sum[axes=(0, 1)]" source_file="test_auto_sharding_basic.py" source_line=144}
+  reduce.30 = f32[] reduce(multiply.20, constant.24), dimensions={0,1}, to_apply=primitive_computation_add.25, metadata={op_type="reduce_sum" op_name="parallelize(func_shard_parallel)/reduce_sum[axes=(0, 1)]" source_file="test_auto_sharding_basic.py" source_line=144}
+  constant.31 = f32[] constant(4096), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="test_auto_sharding_basic.py" source_line=144}
+  divide.32 = f32[] divide(reduce.30, constant.31), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="test_auto_sharding_basic.py" source_line=144}
+  parameter.1 = s32[] parameter(0)
+  constant.65 = s32[] constant(1), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+  add.66 = s32[] add(parameter.1, constant.65), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+  constant.48 = f32[] constant(0), metadata={op_type="broadcast_in_dim" op_name="parallelize(func_shard_parallel)/broadcast_in_dim[shape=(256, 32) broadcast_dimensions=()]" source_file="test_auto_sharding_basic.py" source_line=126}
+  broadcast.49 = f32[256,32]{1,0} broadcast(constant.48), dimensions={}, metadata={op_type="broadcast_in_dim" op_name="parallelize(func_shard_parallel)/broadcast_in_dim[shape=(256, 32) broadcast_dimensions=()]" source_file="test_auto_sharding_basic.py" source_line=126}
+  constant.33 = f32[] constant(1), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="test_auto_sharding_basic.py" source_line=144}
+  constant.34 = f32[] constant(4096), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="test_auto_sharding_basic.py" source_line=144}
+  divide.35 = f32[] divide(constant.33, constant.34), metadata={op_type="div" op_name="parallelize(func_shard_parallel)/div" source_file="test_auto_sharding_basic.py" source_line=144}
+  broadcast.36 = f32[256,16]{1,0} broadcast(divide.35), dimensions={}, metadata={op_type="broadcast_in_dim" op_name="parallelize(func_shard_parallel)/broadcast_in_dim[shape=(256, 16) broadcast_dimensions=()]" source_file="test_auto_sharding_basic.py" source_line=144}
+  constant.21 = f32[] constant(2), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+  broadcast.22 = f32[256,16]{1,0} broadcast(constant.21), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+  multiply.23 = f32[256,16]{1,0} multiply(broadcast.22, subtract.19), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+  multiply.37 = f32[256,16]{1,0} multiply(broadcast.36, multiply.23), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+  dot.40 = f32[256,16]{1,0} dot(multiply.37, parameter.3), lhs_contracting_dims={1}, rhs_contracting_dims={1}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (1,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  constant.41 = f32[] constant(0), metadata={op_type="reduce_sum" op_name="parallelize(func_shard_parallel)/reduce_sum[axes=()]" source_file="test_auto_sharding_basic.py" source_line=126}
+  reduce.47 = f32[256,16]{1,0} reduce(dot.40, constant.41), dimensions={}, to_apply=primitive_computation_add__1.42, metadata={op_type="reduce_sum" op_name="parallelize(func_shard_parallel)/reduce_sum[axes=()]" source_file="test_auto_sharding_basic.py" source_line=126}
+  scatter.54 = f32[256,32]{1,0} scatter(broadcast.49, broadcast.16, reduce.47), update_window_dims={0}, inserted_window_dims={1}, scatter_dims_to_operand_dims={1}, index_vector_dim=1, to_apply=scatter_add_reducer.50, metadata={op_type="scatter-add" op_name="parallelize(func_shard_parallel)/scatter-add[update_consts=() dimension_numbers=ScatterDimensionNumbers(update_window_dims=(0,), inserted_window_dims=(1,), scatter_dims_to_operand_dims=(1,)) indices_are_sorted=False unique_indices=False mode=GatherScatterMode.PROMISE_IN_BOUNDS]" source_file="test_auto_sharding_basic.py" source_line=126}
+  dot.55 = f32[32,32]{1,0} dot(scatter.54, parameter.4), lhs_contracting_dims={0}, rhs_contracting_dims={0}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((0,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  transpose.56 = f32[32,32]{0,1} transpose(dot.55), dimensions={1,0}, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  constant.57 = f32[] constant(0.01), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  broadcast.58 = f32[32,32]{1,0} broadcast(constant.57), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  multiply.59 = f32[32,32]{1,0} multiply(transpose.56, broadcast.58), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  subtract.60 = f32[32,32]{1,0} subtract(parameter.2, multiply.59), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  dot.38 = f32[16,16]{1,0} dot(multiply.37, gather.17), lhs_contracting_dims={0}, rhs_contracting_dims={0}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((0,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  transpose.39 = f32[16,16]{0,1} transpose(dot.38), dimensions={1,0}, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  constant.61 = f32[] constant(0.01), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  broadcast.62 = f32[16,16]{1,0} broadcast(constant.61), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  multiply.63 = f32[16,16]{1,0} multiply(transpose.39, broadcast.62), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  subtract.64 = f32[16,16]{1,0} subtract(parameter.3, multiply.63), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT tuple.67 = (s32[], f32[32,32]{1,0}, f32[16,16]{1,0}) tuple(add.66, subtract.60, subtract.64)
+}
+

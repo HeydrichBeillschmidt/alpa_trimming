@@ -1,0 +1,32 @@
+BufferAssignment:
+allocation 0: 0x3c03010, size 16384, output shape is |f32[64,64]|, maybe-live-out:
+ value: <1 negate.2 @0> (size=16384,offset=0): f32[64,64]{1,0}
+allocation 1: 0x3c030c0, size 16384, parameter 0, shape |f32[64,64]| at ShapeIndex {}:
+ value: <0 Arg_0.1 @0> (size=16384,offset=0): f32[64,64]{1,0}
+
+Total bytes used: 32768 (32.0KiB)
+
+Used values:
+<0 Arg_0.1 @0>
+ positions:
+  Arg_0.1
+ uses:
+  negate.2, operand 0
+ from instruction:%Arg_0.1 = f32[64,64]{1,0} parameter(0)
+<1 negate.2 @0>
+ positions:
+  negate.2
+ uses:
+ from instruction:%negate.2 = f32[64,64]{1,0} negate(f32[64,64]{1,0} %Arg_0.1), metadata={op_name="jit(<lambda>)/jit(main)/neg" source_file="test_auto_sharding_basic.py" source_line=53}
+
+
+HloLiveRange (max 2):
+  InstructionSequence:
+    0:Arg_0.1
+    1:negate.2
+  BufferLiveRange:
+    Arg_0.1{}:0-2
+    negate.2{}:1-2
+  Live ranges at 1 (peak):
+    Arg_0.1: 16384 bytes
+    negate.2: 16384 bytes

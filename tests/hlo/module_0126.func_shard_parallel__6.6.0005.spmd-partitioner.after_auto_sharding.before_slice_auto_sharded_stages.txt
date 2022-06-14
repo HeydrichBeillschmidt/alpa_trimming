@@ -1,0 +1,11 @@
+HloModule func_shard_parallel__6.6
+
+ENTRY func_shard_parallel__6.6 {
+  parameter.1 = f32[128]{0} parameter(0), sharding={replicated}
+  reshape = f32[1,128]{1,0} reshape(parameter.1), sharding={replicated}
+  parameter.2 = f32[128,256]{1,0} parameter(1), sharding={devices=[1,4]0,1,2,3}
+  dot = f32[1,256]{1,0} dot(reshape, parameter.2), lhs_contracting_dims={1}, rhs_contracting_dims={0}, sharding={devices=[1,4]0,1,2,3}
+  reshape.1 = f32[256]{0} reshape(dot), sharding={devices=[4]0,1,2,3}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((0,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=201}
+  ROOT tuple.5 = (f32[256]{0}) tuple(reshape.1), sharding={{devices=[4]0,1,2,3}}
+}
+

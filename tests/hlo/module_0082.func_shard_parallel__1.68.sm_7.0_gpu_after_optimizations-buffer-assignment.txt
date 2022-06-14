@@ -1,0 +1,338 @@
+BufferAssignment:
+allocation 0: 0x15c664b0, size 8192, parameter 3, shape |f32[64,32]| at ShapeIndex {}:
+ value: <11 param.2 @0> (size=8192,offset=0): f32[64,32]{1,0}
+allocation 1: 0x15c66560, size 4096, parameter 1, shape |f32[32,32]| at ShapeIndex {}, maybe-live-out:
+ value: <10 param.1 @0> (size=4096,offset=0): f32[32,32]{1,0}
+ value: <25 fusion.5{0} @0> (size=4096,offset=0): f32[1024]{0}
+allocation 2: 0x15c66610, size 4096, parameter 4, shape |f32[64,16]| at ShapeIndex {}:
+ value: <14 param.4 @0> (size=4096,offset=0): f32[64,16]{1,0}
+allocation 3: 0x15c666c0, size 1024, parameter 2, shape |f32[16,16]| at ShapeIndex {}, maybe-live-out:
+ value: <13 param.3 @0> (size=1024,offset=0): f32[16,16]{1,0}
+ value: <26 fusion.5{1} @0> (size=1024,offset=0): f32[256]{0}
+allocation 4: 0x15c66770, size 24, output shape is |(s32[], f32[32,32], f32[16,16])|, maybe-live-out:
+ value: <31 tuple.2{} @0> (size=24,offset=0): (s32[], f32[32,32]{1,0}, f32[16,16]{1,0})
+allocation 5: 0x15c66820, size 4, thread-local:
+ value: <2 add.53 @0> (size=4,offset=0): f32[]
+allocation 6: 0x15c668d0, size 4, parameter 0, shape |s32[]| at ShapeIndex {}, maybe-live-out:
+ value: <7 param @0> (size=4,offset=0): s32[]
+ value: <9 add.2 @0> (size=4,offset=0): s32[]
+allocation 7: 0x15c66980, size 4, constant:
+ value: <8 constant_4 @0> (size=4,offset=0): s32[]
+allocation 8: 0x15c66a30, size 4, thread-local:
+ value: <1 parameter.52 @0> (size=4,offset=0): f32[]
+allocation 9: 0x15c66ae0, size 4, thread-local:
+ value: <3 x @0> (size=4,offset=0): f32[]
+allocation 10: 0x15c66b90, size 4, thread-local:
+ value: <4 y @0> (size=4,offset=0): f32[]
+allocation 11: 0x15c66c40, size 4, thread-local:
+ value: <5 add @0> (size=4,offset=0): f32[]
+allocation 12: 0x15c66cf0, size 4, thread-local:
+ value: <0 parameter.51 @0> (size=4,offset=0): f32[]
+allocation 13: 0x15c66da0, size 13456, preallocated-temp:
+ value: <6 partition-id @0> (size=4,offset=128): u32[]
+ value: <12 all-gather @0> (size=64,offset=13312): s32[4,4,1]{2,1,0}
+ value: <15 cublas-gemm.1 @0> (size=8192,offset=0): f32[64,32]{1,0}
+ value: <16 cublas-gemm.3 @0> (size=4096,offset=0): f32[64,16]{1,0}
+ value: <17 cublas-gemm.5 @0> (size=4096,offset=8192): f32[64,16]{0,1}
+ value: <18 cublas-gemm.7 @0> (size=4096,offset=8192): f32[32,32]{1,0}
+ value: <19 cublas-gemm.9 @0> (size=1024,offset=12288): f32[16,16]{1,0}
+ value: <20 input_fusion_scatter @0> (size=8192,offset=0): f32[64,32]{0,1}
+ value: <21 fusion.2 @0> (size=4096,offset=0): f32[64,16]{1,0}
+ value: <22 fusion.3 @0> (size=16,offset=0): s32[1,4,1]{2,1,0}
+ value: <23 fusion.4 @0> (size=4096,offset=8192): f32[64,16]{1,0}
+ value: <24 fusion.5{} @0> (size=16,offset=13440): (f32[1024]{0}, f32[256]{0})
+ value: <27 concatenate.1 @0> (size=5120,offset=0): f32[1280]{0}
+ value: <28 all-reduce.2 @0> (size=5120,offset=0): f32[1280]{0}
+ value: <29 slice.2 @0> (size=4096,offset=5120): f32[1024]{0}
+ value: <30 slice.3 @0> (size=1024,offset=9216): f32[256]{0}
+
+Total bytes used: 30920 (30.2KiB)
+
+Used values:
+<0 parameter.51 @0>
+ positions:
+  parameter.51
+ uses:
+  add.53, operand 0
+ from instruction:%parameter.51 = f32[] parameter(0)
+<1 parameter.52 @0>
+ positions:
+  parameter.52
+ uses:
+  add.53, operand 1
+ from instruction:%parameter.52 = f32[] parameter(1)
+<2 add.53 @0>
+ positions:
+  add.53
+ uses:
+ from instruction:%add.53 = f32[] add(f32[] %parameter.51, f32[] %parameter.52)
+<3 x @0>
+ positions:
+  x
+ uses:
+  add, operand 0
+ from instruction:%x = f32[] parameter(0)
+<4 y @0>
+ positions:
+  y
+ uses:
+  add, operand 1
+ from instruction:%y = f32[] parameter(1)
+<5 add @0>
+ positions:
+  add
+ uses:
+ from instruction:%add = f32[] add(f32[] %x, f32[] %y)
+<6 partition-id @0>
+ positions:
+  partition-id
+ uses:
+  fusion.3, operand 0
+ from instruction:%partition-id = u32[] partition-id(), metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+<7 param @0>
+ positions:
+  param
+ uses:
+  add.2, operand 0
+ from instruction:%param = s32[] parameter(0), sharding={replicated}
+<8 constant_4 @0>
+ positions:
+  constant_4
+ uses:
+  add.2, operand 1
+ from instruction:%constant_4 = s32[] constant(1), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+<9 add.2 @0>
+ positions:
+  add.2
+  tuple.2 {0}
+ uses:
+  tuple.2, operand 0
+ from instruction:%add.2 = s32[] add(s32[] %param, s32[] %constant_4), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+<10 param.1 @0>
+ positions:
+  param.1
+ uses:
+  fusion.5, operand 0
+  cublas-gemm.1, operand 1
+ from instruction:%param.1 = f32[32,32]{1,0} parameter(1), sharding={replicated}
+<11 param.2 @0>
+ positions:
+  param.2
+ uses:
+  cublas-gemm.1, operand 0
+  cublas-gemm.7, operand 0
+ from instruction:%param.2 = f32[64,32]{1,0} parameter(3), sharding={devices=[4,1]0,1,2,3}
+<12 all-gather @0>
+ positions:
+  all-gather
+ uses:
+  fusion.4, operand 1
+  input_fusion_scatter, operand 1
+ from instruction:%all-gather = s32[4,4,1]{2,1,0} all-gather(s32[1,4,1]{2,1,0} %fusion.3), channel_id=1, replica_groups={{0,1,2,3}}, dimensions={0}, use_global_device_ids=true
+<13 param.3 @0>
+ positions:
+  param.3
+ uses:
+  fusion.5, operand 2
+  cublas-gemm.5, operand 1
+  cublas-gemm.3, operand 1
+ from instruction:%param.3 = f32[16,16]{1,0} parameter(2), sharding={replicated}
+<14 param.4 @0>
+ positions:
+  param.4
+ uses:
+  fusion.2, operand 1
+ from instruction:%param.4 = f32[64,16]{1,0} parameter(4), sharding={devices=[4,1]0,1,2,3}
+<15 cublas-gemm.1 @0>
+ positions:
+  cublas-gemm.1
+ uses:
+  fusion.4, operand 0
+ from instruction:%cublas-gemm.1 = f32[64,32]{1,0} custom-call(f32[64,32]{1,0} %param.2, f32[32,32]{1,0} %param.1), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"2048\",\"rhs_stride\":\"1024\",\"selected_algorithm\":\"2\"}"
+<16 cublas-gemm.3 @0>
+ positions:
+  cublas-gemm.3
+ uses:
+  fusion.2, operand 0
+ from instruction:%cublas-gemm.3 = f32[64,16]{1,0} custom-call(f32[64,16]{1,0} %fusion.4, f32[16,16]{1,0} %param.3), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"1024\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"2\"}"
+<17 cublas-gemm.5 @0>
+ positions:
+  cublas-gemm.5
+ uses:
+  input_fusion_scatter, operand 0
+ from instruction:%cublas-gemm.5 = f32[64,16]{0,1} custom-call(f32[64,16]{1,0} %fusion.2, f32[16,16]{1,0} %param.3), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (1,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"1024\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"0\"}"
+<18 cublas-gemm.7 @0>
+ positions:
+  cublas-gemm.7
+  bitcast.9
+ uses:
+  bitcast.9, operand 0
+  concatenate.1, operand 0
+ from instruction:%cublas-gemm.7 = f32[32,32]{1,0} custom-call(f32[64,32]{1,0} %param.2, f32[64,32]{0,1} %input_fusion_scatter), custom_call_target="__cublas$gemm", metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"2048\",\"rhs_stride\":\"2048\",\"selected_algorithm\":\"-1\"}"
+<19 cublas-gemm.9 @0>
+ positions:
+  cublas-gemm.9
+  bitcast.10
+ uses:
+  bitcast.10, operand 0
+  concatenate.1, operand 1
+ from instruction:%cublas-gemm.9 = f32[16,16]{1,0} custom-call(f32[64,16]{1,0} %fusion.4, f32[64,16]{1,0} %fusion.2), custom_call_target="__cublas$gemm", metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"1024\",\"rhs_stride\":\"1024\",\"selected_algorithm\":\"-1\"}"
+<20 input_fusion_scatter @0>
+ positions:
+  input_fusion_scatter
+ uses:
+  cublas-gemm.7, operand 1
+ from instruction:%input_fusion_scatter = f32[64,32]{0,1} fusion(f32[64,16]{0,1} %cublas-gemm.5, s32[4,4,1]{2,1,0} %all-gather), kind=kInput, calls=%input_fused_computation_scatter, metadata={op_type="scatter-add" op_name="parallelize(func_shard_parallel)/scatter-add[update_consts=() dimension_numbers=ScatterDimensionNumbers(update_window_dims=(0,), inserted_window_dims=(1,), scatter_dims_to_operand_dims=(1,)) indices_are_sorted=False unique_indices=False mode=GatherScatterMode.PROMISE_IN_BOUNDS]" source_file="test_auto_sharding_basic.py" source_line=126}
+<21 fusion.2 @0>
+ positions:
+  fusion.2
+ uses:
+  cublas-gemm.5, operand 0
+  cublas-gemm.9, operand 1
+ from instruction:%fusion.2 = f32[64,16]{1,0} fusion(f32[64,16]{1,0} %cublas-gemm.3, f32[64,16]{1,0} %param.4), kind=kLoop, calls=%fused_computation.2, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+<22 fusion.3 @0>
+ positions:
+  fusion.3
+ uses:
+  all-gather, operand 0
+ from instruction:%fusion.3 = s32[1,4,1]{2,1,0} fusion(u32[] %partition-id), kind=kLoop, calls=%fused_computation.3
+<23 fusion.4 @0>
+ positions:
+  fusion.4
+ uses:
+  cublas-gemm.3, operand 0
+  cublas-gemm.9, operand 0
+ from instruction:%fusion.4 = f32[64,16]{1,0} fusion(f32[64,32]{1,0} %cublas-gemm.1, s32[4,4,1]{2,1,0} %all-gather), kind=kLoop, calls=%fused_computation.4, metadata={op_type="gather" op_name="parallelize(func_shard_parallel)/gather[dimension_numbers=GatherDimensionNumbers(offset_dims=(0,), collapsed_slice_dims=(1,), start_index_map=(1,)) slice_sizes=(256, 1) unique_indices=False indices_are_sorted=False mode=GatherScatterMode.PROMISE_IN_BOUNDS fill_value=None]" source_file="test_auto_sharding_basic.py" source_line=126}
+<24 fusion.5{} @0>
+ positions:
+  fusion.5 {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+ from instruction:%fusion.5 = (f32[1024]{0}, f32[256]{0}) fusion(f32[32,32]{1,0} %param.1, f32[32,32]{1,0} %bitcast.11, f32[16,16]{1,0} %param.3, f32[16,16]{1,0} %bitcast.12), kind=kInput, calls=%horizontally_fused_computation
+<25 fusion.5{0} @0>
+ positions:
+  fusion.5 {0}
+  get-tuple-element
+  bitcast.7
+  tuple.2 {1}
+ uses:
+  bitcast.7, operand 0
+  tuple.2, operand 1
+ from instruction:%fusion.5 = (f32[1024]{0}, f32[256]{0}) fusion(f32[32,32]{1,0} %param.1, f32[32,32]{1,0} %bitcast.11, f32[16,16]{1,0} %param.3, f32[16,16]{1,0} %bitcast.12), kind=kInput, calls=%horizontally_fused_computation
+<26 fusion.5{1} @0>
+ positions:
+  fusion.5 {1}
+  get-tuple-element.1
+  bitcast.8
+  tuple.2 {2}
+ uses:
+  bitcast.8, operand 0
+  tuple.2, operand 2
+ from instruction:%fusion.5 = (f32[1024]{0}, f32[256]{0}) fusion(f32[32,32]{1,0} %param.1, f32[32,32]{1,0} %bitcast.11, f32[16,16]{1,0} %param.3, f32[16,16]{1,0} %bitcast.12), kind=kInput, calls=%horizontally_fused_computation
+<27 concatenate.1 @0>
+ positions:
+  concatenate.1
+ uses:
+  all-reduce.2, operand 0
+ from instruction:%concatenate.1 = f32[1280]{0} concatenate(f32[1024]{0} %bitcast.9, f32[256]{0} %bitcast.10), dimensions={0}
+<28 all-reduce.2 @0>
+ positions:
+  all-reduce.2
+ uses:
+  slice.2, operand 0
+  slice.3, operand 0
+ from instruction:%all-reduce.2 = f32[1280]{0} all-reduce(f32[1280]{0} %concatenate.1), channel_id=2, replica_groups={{0}}, to_apply=%add
+<29 slice.2 @0>
+ positions:
+  slice.2
+  bitcast.11
+ uses:
+  bitcast.11, operand 0
+  fusion.5, operand 1
+ from instruction:%slice.2 = f32[1024]{0} slice(f32[1280]{0} %all-reduce.2), slice={[0:1024]}
+<30 slice.3 @0>
+ positions:
+  slice.3
+  bitcast.12
+ uses:
+  bitcast.12, operand 0
+  fusion.5, operand 3
+ from instruction:%slice.3 = f32[256]{0} slice(f32[1280]{0} %all-reduce.2), slice={[1024:1280]}
+<31 tuple.2{} @0>
+ positions:
+  tuple.2 {}
+ uses:
+ from instruction:%tuple.2 = (s32[], f32[32,32]{1,0}, f32[16,16]{1,0}) tuple(s32[] %add.2, f32[32,32]{1,0} %bitcast.7, f32[16,16]{1,0} %bitcast.8)
+
+
+HloLiveRange (max 32):
+  InstructionSequence:
+    0:constant_4
+    1:param
+    2:add.2
+    3:partition-id
+    4:param.3
+    5:param.2
+    6:param.1
+    7:param.4
+    8:fusion.3
+    9:all-gather
+    10:cublas-gemm.1
+    11:fusion.4
+    12:cublas-gemm.3
+    13:fusion.2
+    14:cublas-gemm.9
+    15:cublas-gemm.5
+    16:bitcast.10
+    17:input_fusion_scatter
+    18:cublas-gemm.7
+    19:bitcast.9
+    20:concatenate.1
+    21:all-reduce.2
+    22:slice.3
+    23:slice.2
+    24:bitcast.11
+    25:bitcast.12
+    26:fusion.5
+    27:get-tuple-element.1
+    28:get-tuple-element
+    29:bitcast.7
+    30:bitcast.8
+    31:tuple.2
+  BufferLiveRange:
+    partition-id{}:3-8
+    param{}:0-1
+    constant_4{}:0-2
+    add.2{}:2-32
+    param.1{}:0-25
+    param.2{}:0-32
+    all-gather{}:9-17
+    param.3{}:0-25
+    param.4{}:0-32
+    cublas-gemm.1{}:10-11
+    cublas-gemm.3{}:12-13
+    cublas-gemm.5{}:15-17
+    cublas-gemm.7{}:18-20
+    cublas-gemm.9{}:14-20
+    input_fusion_scatter{}:17-18
+    fusion.2{}:13-15
+    fusion.3{}:8-9
+    fusion.4{}:11-14
+    fusion.5{}:26-28
+    fusion.5{0}:26-32
+    fusion.5{1}:26-32
+    concatenate.1{}:20-21
+    all-reduce.2{}:21-23
+    slice.2{}:23-26
+    slice.3{}:22-26
+    tuple.2{}:31-32
+  Live ranges at 18 (peak):
+    add.2: 4 bytes
+    param.1: 4096 bytes
+    param.2: 8192 bytes
+    param.3: 1024 bytes
+    param.4: 4096 bytes
+    cublas-gemm.7: 4096 bytes
+    cublas-gemm.9: 1024 bytes
+    input_fusion_scatter: 8192 bytes

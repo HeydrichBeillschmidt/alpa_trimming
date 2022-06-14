@@ -1,0 +1,131 @@
+BufferAssignment:
+allocation 0: 0x1590cec0, size 20736, parameter 0, shape |f32[144,36]| at ShapeIndex {}:
+ value: <8 param @0> (size=20736,offset=0): f32[144,36]{1,0}
+allocation 1: 0x1590cf70, size 144, maybe-live-out:
+ value: <12 input_fusion_reduce{1} @0> (size=144,offset=0): s32[36]{0}
+allocation 2: 0x1590d020, size 4, thread-local:
+ value: <7 fusion{1} @0> (size=4,offset=0): f32[]
+allocation 3: 0x1590d0d0, size 8, output shape is |(s32[36])|, maybe-live-out:
+ value: <9 tuple{} @0> (size=8,offset=0): (s32[36]{0})
+allocation 4: 0x1590d180, size 4, thread-local:
+ value: <6 fusion{0} @0> (size=4,offset=0): s32[]
+allocation 5: 0x1590d230, size 16, thread-local:
+ value: <5 fusion{} @0> (size=16,offset=0): (s32[], f32[])
+allocation 6: 0x1590d2e0, size 16, thread-local:
+ value: <4 tuple.22{} @0> (size=16,offset=0): (f32[], s32[])
+allocation 7: 0x1590d390, size 4, thread-local:
+ value: <1 parameter.9 @0> (size=4,offset=0): s32[]
+allocation 8: 0x1590d440, size 4, thread-local:
+ value: <3 parameter.11 @0> (size=4,offset=0): s32[]
+allocation 9: 0x1590d4f0, size 4, thread-local:
+ value: <0 parameter.8 @0> (size=4,offset=0): f32[]
+allocation 10: 0x1590d5a0, size 4, thread-local:
+ value: <2 parameter.10 @0> (size=4,offset=0): f32[]
+allocation 11: 0x1590d650, size 272, preallocated-temp:
+ value: <10 input_fusion_reduce{} @0> (size=16,offset=256): (f32[36]{0}, s32[36]{0})
+ value: <11 input_fusion_reduce{0} @0> (size=144,offset=0): f32[36]{0}
+
+Total bytes used: 21216 (20.7KiB)
+
+Used values:
+<0 parameter.8 @0>
+ positions:
+  parameter.8
+ uses:
+  fusion, operand 2
+ from instruction:%parameter.8 = f32[] parameter(0)
+<1 parameter.9 @0>
+ positions:
+  parameter.9
+ uses:
+  fusion, operand 0
+ from instruction:%parameter.9 = s32[] parameter(1)
+<2 parameter.10 @0>
+ positions:
+  parameter.10
+ uses:
+  fusion, operand 3
+ from instruction:%parameter.10 = f32[] parameter(2)
+<3 parameter.11 @0>
+ positions:
+  parameter.11
+ uses:
+  fusion, operand 1
+ from instruction:%parameter.11 = s32[] parameter(3)
+<4 tuple.22{} @0>
+ positions:
+  tuple.22 {}
+ uses:
+ from instruction:%tuple.22 = (f32[], s32[]) tuple(f32[] %get-tuple-element.2, s32[] %get-tuple-element.1)
+<5 fusion{} @0>
+ positions:
+  fusion {}
+ uses:
+  get-tuple-element.1, operand 0 {}
+  get-tuple-element.2, operand 0 {}
+ from instruction:%fusion = (s32[], f32[]) fusion(s32[] %parameter.9, s32[] %parameter.11, f32[] %parameter.8, f32[] %parameter.10), kind=kLoop, calls=%fused_computation, metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+<6 fusion{0} @0>
+ positions:
+  fusion {0}
+  tuple.22 {1}
+  get-tuple-element.1
+ uses:
+  tuple.22, operand 1
+ from instruction:%fusion = (s32[], f32[]) fusion(s32[] %parameter.9, s32[] %parameter.11, f32[] %parameter.8, f32[] %parameter.10), kind=kLoop, calls=%fused_computation, metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+<7 fusion{1} @0>
+ positions:
+  fusion {1}
+  tuple.22 {0}
+  get-tuple-element.2
+ uses:
+  tuple.22, operand 0
+ from instruction:%fusion = (s32[], f32[]) fusion(s32[] %parameter.9, s32[] %parameter.11, f32[] %parameter.8, f32[] %parameter.10), kind=kLoop, calls=%fused_computation, metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+<8 param @0>
+ positions:
+  param
+ uses:
+  input_fusion_reduce, operand 0
+ from instruction:%param = f32[144,36]{1,0} parameter(0), sharding={devices=[1,4]0,1,2,3}
+<9 tuple{} @0>
+ positions:
+  tuple {}
+ uses:
+ from instruction:%tuple = (s32[36]{0}) tuple(s32[36]{0} %get-tuple-element)
+<10 input_fusion_reduce{} @0>
+ positions:
+  input_fusion_reduce {}
+ uses:
+  get-tuple-element, operand 0 {}
+ from instruction:%input_fusion_reduce = (f32[36]{0}, s32[36]{0}) fusion(f32[144,36]{1,0} %param), kind=kInput, calls=%input_fused_computation_reduce, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+<11 input_fusion_reduce{0} @0>
+ positions:
+  input_fusion_reduce {0}
+ uses:
+ from instruction:%input_fusion_reduce = (f32[36]{0}, s32[36]{0}) fusion(f32[144,36]{1,0} %param), kind=kInput, calls=%input_fused_computation_reduce, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+<12 input_fusion_reduce{1} @0>
+ positions:
+  input_fusion_reduce {1}
+  get-tuple-element
+  tuple {0}
+ uses:
+  tuple, operand 0
+ from instruction:%input_fusion_reduce = (f32[36]{0}, s32[36]{0}) fusion(f32[144,36]{1,0} %param), kind=kInput, calls=%input_fused_computation_reduce, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+
+
+HloLiveRange (max 4):
+  InstructionSequence:
+    0:param
+    1:input_fusion_reduce
+    2:get-tuple-element
+    3:tuple
+  BufferLiveRange:
+    param{}:0-4
+    tuple{}:3-4
+    input_fusion_reduce{}:1-2
+    input_fusion_reduce{0}:1-1
+    input_fusion_reduce{1}:1-4
+  Live ranges at 1 (peak):
+    param: 20736 bytes
+    input_fusion_reduce: 16 bytes
+    input_fusion_reduce: 16 bytes
+    input_fusion_reduce: 16 bytes

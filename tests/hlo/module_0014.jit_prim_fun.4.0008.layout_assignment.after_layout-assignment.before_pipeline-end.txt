@@ -1,0 +1,8 @@
+HloModule jit_prim_fun.4
+
+ENTRY main.3 {
+  Arg_0.1 = f32[64,256,4]{2,1,0} parameter(0)
+  copy = f32[64,256,4]{1,2,0} copy(Arg_0.1)
+  ROOT transpose.2 = f32[64,4,256]{2,1,0} transpose(copy), dimensions={0,2,1}, metadata={op_name="jit(transpose)/jit(main)/transpose[permutation=(0, 2, 1)]" source_file="test_auto_sharding_basic.py" source_line=49}
+}
+

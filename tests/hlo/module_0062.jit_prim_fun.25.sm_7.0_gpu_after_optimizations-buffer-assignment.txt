@@ -1,0 +1,21 @@
+BufferAssignment:
+allocation 0: 0x157e9820, size 64, output shape is |s32[16]|, maybe-live-out:
+ value: <0 iota.1 @0> (size=64,offset=0): s32[16]{0}
+
+Total bytes used: 64 (64B)
+
+Used values:
+<0 iota.1 @0>
+ positions:
+  iota.1
+ uses:
+ from instruction:%iota.1 = s32[16]{0} iota(), iota_dimension=0, metadata={op_name="jit(iota)/jit(main)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+
+
+HloLiveRange (max 1):
+  InstructionSequence:
+    0:iota.1
+  BufferLiveRange:
+    iota.1{}:0-1
+  Live ranges at 0 (peak):
+    iota.1: 64 bytes

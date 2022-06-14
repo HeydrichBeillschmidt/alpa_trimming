@@ -1,0 +1,8 @@
+HloModule jit_true_divide.21
+
+ENTRY main.4 {
+  Arg_0.1 = f32[] parameter(0)
+  Arg_1.2 = f32[] parameter(1)
+  ROOT divide.3 = f32[] divide(Arg_0.1, Arg_1.2), metadata={op_name="jit(true_divide)/jit(main)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+

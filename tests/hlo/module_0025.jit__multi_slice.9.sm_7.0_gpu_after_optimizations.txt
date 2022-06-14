@@ -1,0 +1,11 @@
+HloModule jit__multi_slice.9
+
+ENTRY main.3 {
+  Arg_0.1 = f32[64,256,4]{2,1,0} parameter(0)
+  copy = f32[64,256,4]{2,1,0} copy(Arg_0.1)
+  copy.1 = f32[64,256,4]{2,1,0} copy(Arg_0.1)
+  copy.2 = f32[64,256,4]{2,1,0} copy(Arg_0.1)
+  copy.3 = f32[64,256,4]{2,1,0} copy(Arg_0.1)
+  ROOT tuple = (f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}, f32[64,256,4]{2,1,0}) tuple(copy, copy.1, copy.2, copy.3)
+}
+

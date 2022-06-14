@@ -1,0 +1,280 @@
+HloModule jit__truncated_normal.31
+
+xla_fallback_erf.19 {
+  constant.35 = f32[] constant(-4)
+  Arg_0.20 = f32[] parameter(0)
+  constant.34 = f32[] constant(4)
+  clamp.36 = f32[] clamp(constant.35, Arg_0.20, constant.34), metadata={source_file="-" source_line=6}
+  multiply.37 = f32[] multiply(clamp.36, clamp.36), metadata={source_file="-" source_line=8}
+  constant.26 = f32[] constant(0)
+  multiply.38 = f32[] multiply(multiply.37, constant.26), metadata={source_file="-" source_line=9}
+  constant.33 = f32[] constant(-2.72614237e-10)
+  add.39 = f32[] add(multiply.38, constant.33), metadata={source_file="-" source_line=11}
+  multiply.40 = f32[] multiply(add.39, multiply.37), metadata={source_file="-" source_line=12}
+  constant.32 = f32[] constant(2.77068146e-08)
+  add.41 = f32[] add(multiply.40, constant.32), metadata={source_file="-" source_line=14}
+  multiply.42 = f32[] multiply(add.41, multiply.37), metadata={source_file="-" source_line=15}
+  constant.31 = f32[] constant(-2.10102394e-06)
+  add.43 = f32[] add(multiply.42, constant.31), metadata={source_file="-" source_line=17}
+  multiply.44 = f32[] multiply(add.43, multiply.37), metadata={source_file="-" source_line=18}
+  constant.30 = f32[] constant(-5.69250624e-05)
+  add.45 = f32[] add(multiply.44, constant.30), metadata={source_file="-" source_line=20}
+  multiply.46 = f32[] multiply(add.45, multiply.37), metadata={source_file="-" source_line=21}
+  constant.29 = f32[] constant(-0.000734990637)
+  add.47 = f32[] add(multiply.46, constant.29), metadata={source_file="-" source_line=23}
+  multiply.48 = f32[] multiply(add.47, multiply.37), metadata={source_file="-" source_line=24}
+  constant.28 = f32[] constant(-0.0029546)
+  add.49 = f32[] add(multiply.48, constant.28), metadata={source_file="-" source_line=26}
+  multiply.50 = f32[] multiply(add.49, multiply.37), metadata={source_file="-" source_line=27}
+  constant.27 = f32[] constant(-0.0160960332)
+  add.51 = f32[] add(multiply.50, constant.27), metadata={source_file="-" source_line=29}
+  multiply.52 = f32[] multiply(clamp.36, add.51), metadata={source_file="-" source_line=30}
+  multiply.53 = f32[] multiply(multiply.37, constant.26), metadata={source_file="-" source_line=32}
+  constant.25 = f32[] constant(-1.45660715e-05)
+  add.54 = f32[] add(multiply.53, constant.25), metadata={source_file="-" source_line=34}
+  multiply.55 = f32[] multiply(add.54, multiply.37), metadata={source_file="-" source_line=35}
+  constant.24 = f32[] constant(-0.000213374049)
+  add.56 = f32[] add(multiply.55, constant.24), metadata={source_file="-" source_line=37}
+  multiply.57 = f32[] multiply(add.56, multiply.37), metadata={source_file="-" source_line=38}
+  constant.23 = f32[] constant(-0.00168282702)
+  add.58 = f32[] add(multiply.57, constant.23), metadata={source_file="-" source_line=40}
+  multiply.59 = f32[] multiply(add.58, multiply.37), metadata={source_file="-" source_line=41}
+  constant.22 = f32[] constant(-0.00737332925)
+  add.60 = f32[] add(multiply.59, constant.22), metadata={source_file="-" source_line=43}
+  multiply.61 = f32[] multiply(add.60, multiply.37), metadata={source_file="-" source_line=44}
+  constant.21 = f32[] constant(-0.0142647391)
+  add.62 = f32[] add(multiply.61, constant.21), metadata={source_file="-" source_line=46}
+  ROOT divide.63 = f32[] divide(multiply.52, add.62), metadata={source_file="-" source_line=47}
+}
+
+erf.64 {
+  Arg_0.65 = f32[] parameter(0)
+  ROOT call.66 = f32[] call(Arg_0.65), to_apply=xla_fallback_erf.19
+}
+
+xla_fallback_erf.69 {
+  constant.85 = f32[] constant(-4)
+  Arg_0.70 = f32[] parameter(0)
+  constant.84 = f32[] constant(4)
+  clamp.86 = f32[] clamp(constant.85, Arg_0.70, constant.84), metadata={source_file="-" source_line=6}
+  multiply.87 = f32[] multiply(clamp.86, clamp.86), metadata={source_file="-" source_line=8}
+  constant.76 = f32[] constant(0)
+  multiply.88 = f32[] multiply(multiply.87, constant.76), metadata={source_file="-" source_line=9}
+  constant.83 = f32[] constant(-2.72614237e-10)
+  add.89 = f32[] add(multiply.88, constant.83), metadata={source_file="-" source_line=11}
+  multiply.90 = f32[] multiply(add.89, multiply.87), metadata={source_file="-" source_line=12}
+  constant.82 = f32[] constant(2.77068146e-08)
+  add.91 = f32[] add(multiply.90, constant.82), metadata={source_file="-" source_line=14}
+  multiply.92 = f32[] multiply(add.91, multiply.87), metadata={source_file="-" source_line=15}
+  constant.81 = f32[] constant(-2.10102394e-06)
+  add.93 = f32[] add(multiply.92, constant.81), metadata={source_file="-" source_line=17}
+  multiply.94 = f32[] multiply(add.93, multiply.87), metadata={source_file="-" source_line=18}
+  constant.80 = f32[] constant(-5.69250624e-05)
+  add.95 = f32[] add(multiply.94, constant.80), metadata={source_file="-" source_line=20}
+  multiply.96 = f32[] multiply(add.95, multiply.87), metadata={source_file="-" source_line=21}
+  constant.79 = f32[] constant(-0.000734990637)
+  add.97 = f32[] add(multiply.96, constant.79), metadata={source_file="-" source_line=23}
+  multiply.98 = f32[] multiply(add.97, multiply.87), metadata={source_file="-" source_line=24}
+  constant.78 = f32[] constant(-0.0029546)
+  add.99 = f32[] add(multiply.98, constant.78), metadata={source_file="-" source_line=26}
+  multiply.100 = f32[] multiply(add.99, multiply.87), metadata={source_file="-" source_line=27}
+  constant.77 = f32[] constant(-0.0160960332)
+  add.101 = f32[] add(multiply.100, constant.77), metadata={source_file="-" source_line=29}
+  multiply.102 = f32[] multiply(clamp.86, add.101), metadata={source_file="-" source_line=30}
+  multiply.103 = f32[] multiply(multiply.87, constant.76), metadata={source_file="-" source_line=32}
+  constant.75 = f32[] constant(-1.45660715e-05)
+  add.104 = f32[] add(multiply.103, constant.75), metadata={source_file="-" source_line=34}
+  multiply.105 = f32[] multiply(add.104, multiply.87), metadata={source_file="-" source_line=35}
+  constant.74 = f32[] constant(-0.000213374049)
+  add.106 = f32[] add(multiply.105, constant.74), metadata={source_file="-" source_line=37}
+  multiply.107 = f32[] multiply(add.106, multiply.87), metadata={source_file="-" source_line=38}
+  constant.73 = f32[] constant(-0.00168282702)
+  add.108 = f32[] add(multiply.107, constant.73), metadata={source_file="-" source_line=40}
+  multiply.109 = f32[] multiply(add.108, multiply.87), metadata={source_file="-" source_line=41}
+  constant.72 = f32[] constant(-0.00737332925)
+  add.110 = f32[] add(multiply.109, constant.72), metadata={source_file="-" source_line=43}
+  multiply.111 = f32[] multiply(add.110, multiply.87), metadata={source_file="-" source_line=44}
+  constant.71 = f32[] constant(-0.0142647391)
+  add.112 = f32[] add(multiply.111, constant.71), metadata={source_file="-" source_line=46}
+  ROOT divide.113 = f32[] divide(multiply.102, add.112), metadata={source_file="-" source_line=47}
+}
+
+erf.114 {
+  Arg_0.115 = f32[] parameter(0)
+  ROOT call.116 = f32[] call(Arg_0.115), to_apply=xla_fallback_erf.69
+}
+
+xla_fallback_erf_inv.119 {
+  Arg_0.120 = f32[16,16]{1,0} parameter(0)
+  abs.167 = f32[16,16]{1,0} abs(Arg_0.120), metadata={source_file="-" source_line=4}
+  constant.165 = f32[] constant(1)
+  broadcast.166 = f32[16,16]{1,0} broadcast(constant.165), dimensions={}, metadata={source_file="-" source_line=6}
+  compare.168 = pred[16,16]{1,0} compare(abs.167, broadcast.166), direction=EQ, metadata={source_file="-" source_line=7}
+  constant.163 = f32[] constant(inf)
+  broadcast.164 = f32[16,16]{1,0} broadcast(constant.163), dimensions={}, metadata={source_file="-" source_line=9}
+  multiply.169 = f32[16,16]{1,0} multiply(Arg_0.120, broadcast.164), metadata={source_file="-" source_line=10}
+  negate.170 = f32[16,16]{1,0} negate(Arg_0.120), metadata={source_file="-" source_line=11}
+  multiply.171 = f32[16,16]{1,0} multiply(negate.170, Arg_0.120), metadata={source_file="-" source_line=12}
+  log-plus-one.172 = f32[16,16]{1,0} log-plus-one(multiply.171), metadata={source_file="-" source_line=13}
+  negate.173 = f32[16,16]{1,0} negate(log-plus-one.172), metadata={source_file="-" source_line=14}
+  constant.161 = f32[] constant(5)
+  broadcast.162 = f32[16,16]{1,0} broadcast(constant.161), dimensions={}, metadata={source_file="-" source_line=16}
+  compare.174 = pred[16,16]{1,0} compare(negate.173, broadcast.162), direction=LT, metadata={source_file="-" source_line=17}
+  constant.159 = f32[] constant(1.50140941)
+  broadcast.160 = f32[16,16]{1,0} broadcast(constant.159), dimensions={}, metadata={source_file="-" source_line=19}
+  constant.157 = f32[] constant(2.83297682)
+  broadcast.158 = f32[16,16]{1,0} broadcast(constant.157), dimensions={}, metadata={source_file="-" source_line=21}
+  select.175 = f32[16,16]{1,0} select(compare.174, broadcast.160, broadcast.158), metadata={source_file="-" source_line=22}
+  constant.155 = f32[] constant(0.246640727)
+  broadcast.156 = f32[16,16]{1,0} broadcast(constant.155), dimensions={}, metadata={source_file="-" source_line=24}
+  constant.153 = f32[] constant(1.00167406)
+  broadcast.154 = f32[16,16]{1,0} broadcast(constant.153), dimensions={}, metadata={source_file="-" source_line=26}
+  select.176 = f32[16,16]{1,0} select(compare.174, broadcast.156, broadcast.154), metadata={source_file="-" source_line=27}
+  constant.151 = f32[] constant(-0.00417768164)
+  broadcast.152 = f32[16,16]{1,0} broadcast(constant.151), dimensions={}, metadata={source_file="-" source_line=29}
+  constant.149 = f32[] constant(0.00943887047)
+  broadcast.150 = f32[16,16]{1,0} broadcast(constant.149), dimensions={}, metadata={source_file="-" source_line=31}
+  select.177 = f32[16,16]{1,0} select(compare.174, broadcast.152, broadcast.150), metadata={source_file="-" source_line=32}
+  constant.147 = f32[] constant(-0.00125372503)
+  broadcast.148 = f32[16,16]{1,0} broadcast(constant.147), dimensions={}, metadata={source_file="-" source_line=34}
+  constant.145 = f32[] constant(-0.0076224613)
+  broadcast.146 = f32[16,16]{1,0} broadcast(constant.145), dimensions={}, metadata={source_file="-" source_line=36}
+  select.178 = f32[16,16]{1,0} select(compare.174, broadcast.148, broadcast.146), metadata={source_file="-" source_line=37}
+  constant.143 = f32[] constant(0.00021858087)
+  broadcast.144 = f32[16,16]{1,0} broadcast(constant.143), dimensions={}, metadata={source_file="-" source_line=39}
+  constant.141 = f32[] constant(0.00573950773)
+  broadcast.142 = f32[16,16]{1,0} broadcast(constant.141), dimensions={}, metadata={source_file="-" source_line=41}
+  select.179 = f32[16,16]{1,0} select(compare.174, broadcast.144, broadcast.142), metadata={source_file="-" source_line=42}
+  constant.139 = f32[] constant(-4.39150654e-06)
+  broadcast.140 = f32[16,16]{1,0} broadcast(constant.139), dimensions={}, metadata={source_file="-" source_line=44}
+  constant.137 = f32[] constant(-0.00367342844)
+  broadcast.138 = f32[16,16]{1,0} broadcast(constant.137), dimensions={}, metadata={source_file="-" source_line=46}
+  select.180 = f32[16,16]{1,0} select(compare.174, broadcast.140, broadcast.138), metadata={source_file="-" source_line=47}
+  constant.135 = f32[] constant(-3.5233877e-06)
+  broadcast.136 = f32[16,16]{1,0} broadcast(constant.135), dimensions={}, metadata={source_file="-" source_line=49}
+  constant.133 = f32[] constant(0.00134934322)
+  broadcast.134 = f32[16,16]{1,0} broadcast(constant.133), dimensions={}, metadata={source_file="-" source_line=51}
+  select.181 = f32[16,16]{1,0} select(compare.174, broadcast.136, broadcast.134), metadata={source_file="-" source_line=52}
+  constant.131 = f32[] constant(3.43273939e-07)
+  broadcast.132 = f32[16,16]{1,0} broadcast(constant.131), dimensions={}, metadata={source_file="-" source_line=54}
+  constant.129 = f32[] constant(0.000100950558)
+  broadcast.130 = f32[16,16]{1,0} broadcast(constant.129), dimensions={}, metadata={source_file="-" source_line=56}
+  select.182 = f32[16,16]{1,0} select(compare.174, broadcast.132, broadcast.130), metadata={source_file="-" source_line=57}
+  constant.127 = f32[] constant(2.81022636e-08)
+  broadcast.128 = f32[16,16]{1,0} broadcast(constant.127), dimensions={}, metadata={source_file="-" source_line=59}
+  constant.125 = f32[] constant(-0.000200214257)
+  broadcast.126 = f32[16,16]{1,0} broadcast(constant.125), dimensions={}, metadata={source_file="-" source_line=61}
+  select.183 = f32[16,16]{1,0} select(compare.174, broadcast.128, broadcast.126), metadata={source_file="-" source_line=62}
+  constant.123 = f32[] constant(2.5)
+  broadcast.124 = f32[16,16]{1,0} broadcast(constant.123), dimensions={}, metadata={source_file="-" source_line=64}
+  subtract.184 = f32[16,16]{1,0} subtract(negate.173, broadcast.124), metadata={source_file="-" source_line=65}
+  sqrt.185 = f32[16,16]{1,0} sqrt(negate.173), metadata={source_file="-" source_line=66}
+  constant.121 = f32[] constant(3)
+  broadcast.122 = f32[16,16]{1,0} broadcast(constant.121), dimensions={}, metadata={source_file="-" source_line=68}
+  subtract.186 = f32[16,16]{1,0} subtract(sqrt.185, broadcast.122), metadata={source_file="-" source_line=69}
+  select.187 = f32[16,16]{1,0} select(compare.174, subtract.184, subtract.186), metadata={source_file="-" source_line=70}
+  multiply.188 = f32[16,16]{1,0} multiply(select.183, select.187), metadata={source_file="-" source_line=71}
+  add.189 = f32[16,16]{1,0} add(select.182, multiply.188), metadata={source_file="-" source_line=72}
+  multiply.190 = f32[16,16]{1,0} multiply(add.189, select.187), metadata={source_file="-" source_line=73}
+  add.191 = f32[16,16]{1,0} add(select.181, multiply.190), metadata={source_file="-" source_line=74}
+  multiply.192 = f32[16,16]{1,0} multiply(add.191, select.187), metadata={source_file="-" source_line=75}
+  add.193 = f32[16,16]{1,0} add(select.180, multiply.192), metadata={source_file="-" source_line=76}
+  multiply.194 = f32[16,16]{1,0} multiply(add.193, select.187), metadata={source_file="-" source_line=77}
+  add.195 = f32[16,16]{1,0} add(select.179, multiply.194), metadata={source_file="-" source_line=78}
+  multiply.196 = f32[16,16]{1,0} multiply(add.195, select.187), metadata={source_file="-" source_line=79}
+  add.197 = f32[16,16]{1,0} add(select.178, multiply.196), metadata={source_file="-" source_line=80}
+  multiply.198 = f32[16,16]{1,0} multiply(add.197, select.187), metadata={source_file="-" source_line=81}
+  add.199 = f32[16,16]{1,0} add(select.177, multiply.198), metadata={source_file="-" source_line=82}
+  multiply.200 = f32[16,16]{1,0} multiply(add.199, select.187), metadata={source_file="-" source_line=83}
+  add.201 = f32[16,16]{1,0} add(select.176, multiply.200), metadata={source_file="-" source_line=84}
+  multiply.202 = f32[16,16]{1,0} multiply(add.201, select.187), metadata={source_file="-" source_line=85}
+  add.203 = f32[16,16]{1,0} add(select.175, multiply.202), metadata={source_file="-" source_line=86}
+  multiply.204 = f32[16,16]{1,0} multiply(add.203, Arg_0.120), metadata={source_file="-" source_line=87}
+  ROOT select.205 = f32[16,16]{1,0} select(compare.168, multiply.169, multiply.204), metadata={source_file="-" source_line=88}
+}
+
+erf_inv.206 {
+  Arg_0.207 = f32[16,16]{1,0} parameter(0)
+  ROOT call.208 = f32[16,16]{1,0} call(Arg_0.207), to_apply=xla_fallback_erf_inv.119
+}
+
+jit_clip.255 {
+  Arg_2.258 = f32[] parameter(2)
+  broadcast.261 = f32[16,16]{1,0} broadcast(Arg_2.258), dimensions={}, metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/min" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  Arg_1.257 = f32[] parameter(1)
+  broadcast.259 = f32[16,16]{1,0} broadcast(Arg_1.257), dimensions={}, metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/max" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  Arg_0.256 = f32[16,16]{1,0} parameter(0)
+  maximum.260 = f32[16,16]{1,0} maximum(broadcast.259, Arg_0.256), metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/max" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  ROOT minimum.262 = f32[16,16]{1,0} minimum(broadcast.261, maximum.260), metadata={op_name="jit(_truncated_normal)/jit(main)/jit(clip)/jit(jit_clip)/min" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+
+ENTRY main.264 {
+  Arg_0.1 = s32[] parameter(0)
+  convert.16 = f32[] convert(Arg_0.1), metadata={op_name="jit(_truncated_normal)/jit(main)/convert_element_type[new_dtype=float32 weak_type=False]" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.13 = f32[] constant(1.41421354)
+  divide.18 = f32[] divide(convert.16, constant.13), metadata={op_name="jit(_truncated_normal)/jit(main)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  call.67 = f32[] call(divide.18), to_apply=erf.64
+  Arg_1.2 = s32[] parameter(1)
+  convert.17 = f32[] convert(Arg_1.2), metadata={op_name="jit(_truncated_normal)/jit(main)/convert_element_type[new_dtype=float32 weak_type=False]" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  divide.68 = f32[] divide(convert.17, constant.13), metadata={op_name="jit(_truncated_normal)/jit(main)/div" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  call.117 = f32[] call(divide.68), to_apply=erf.114
+  rng.118 = f32[16,16]{1,0} rng(call.67, call.117), distribution=rng_uniform, metadata={op_name="jit(_truncated_normal)/jit(main)/rng_uniform[shape=(16, 16)]" source_file="/home/ubuntu/apjax/alpa/alpa/monkey_patch.py" source_line=61}
+  call.209 = f32[16,16]{1,0} call(rng.118), to_apply=erf_inv.206
+  constant.11 = f32[] constant(1.41421354)
+  broadcast.12 = f32[16,16]{1,0} broadcast(constant.11), dimensions={}, metadata={op_name="jit(_truncated_normal)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  multiply.210 = f32[16,16]{1,0} multiply(call.209, broadcast.12), metadata={op_name="jit(_truncated_normal)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.213 = pred[] compare(convert.16, convert.16), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.8 = f32[] constant(nan)
+  bitcast-convert.214 = s32[] bitcast-convert(constant.8), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.10 = f32[] constant(inf)
+  compare.217 = pred[] compare(convert.16, constant.10), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.212 = s32[] bitcast-convert(constant.10), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.211 = s32[] bitcast-convert(convert.16), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.6 = s32[] constant(2147483647)
+  and.215 = s32[] and(bitcast-convert.211, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.5 = s32[] constant(0)
+  compare.218 = pred[] compare(and.215, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.216 = s32[] and(bitcast-convert.212, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.219 = pred[] compare(and.216, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.7 = s32[] constant(-2147483648)
+  and.221 = s32[] and(bitcast-convert.212, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.4 = s32[] constant(1)
+  or.222 = s32[] or(and.221, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.228 = s32[] select(compare.219, bitcast-convert.212, or.222), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.224 = pred[] compare(and.215, and.216), direction=GT, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.220 = s32[] and(bitcast-convert.211, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.223 = pred[] compare(and.220, and.221), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  or.225 = pred[] or(compare.224, compare.223), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.3 = s32[] constant(-1)
+  select.226 = s32[] select(or.225, constant.3, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  add.227 = s32[] add(bitcast-convert.211, select.226), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.229 = s32[] select(compare.218, select.228, add.227), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.230 = s32[] select(compare.217, bitcast-convert.212, select.229), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.231 = s32[] select(compare.213, bitcast-convert.214, select.230), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.232 = f32[] bitcast-convert(select.231), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.235 = pred[] compare(convert.17, convert.17), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.236 = s32[] bitcast-convert(constant.8), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  constant.9 = f32[] constant(-inf)
+  compare.239 = pred[] compare(convert.17, constant.9), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.234 = s32[] bitcast-convert(constant.9), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.233 = s32[] bitcast-convert(convert.17), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.237 = s32[] and(bitcast-convert.233, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.240 = pred[] compare(and.237, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.238 = s32[] and(bitcast-convert.234, constant.6), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.241 = pred[] compare(and.238, constant.5), direction=EQ, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.243 = s32[] and(bitcast-convert.234, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  or.244 = s32[] or(and.243, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.250 = s32[] select(compare.241, bitcast-convert.234, or.244), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.246 = pred[] compare(and.237, and.238), direction=GT, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  and.242 = s32[] and(bitcast-convert.233, constant.7), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  compare.245 = pred[] compare(and.242, and.243), direction=NE, metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  or.247 = pred[] or(compare.246, compare.245), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.248 = s32[] select(or.247, constant.3, constant.4), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  add.249 = s32[] add(bitcast-convert.233, select.248), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.251 = s32[] select(compare.240, select.250, add.249), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.252 = s32[] select(compare.239, bitcast-convert.234, select.251), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  select.253 = s32[] select(compare.235, bitcast-convert.236, select.252), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  bitcast-convert.254 = f32[] bitcast-convert(select.253), metadata={op_name="jit(_truncated_normal)/jit(main)/nextafter" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  ROOT call.263 = f32[16,16]{1,0} call(multiply.210, bitcast-convert.232, bitcast-convert.254), to_apply=jit_clip.255
+}
+

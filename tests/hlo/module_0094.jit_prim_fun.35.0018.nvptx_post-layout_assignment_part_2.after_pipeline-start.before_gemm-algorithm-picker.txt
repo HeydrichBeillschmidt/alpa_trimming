@@ -1,0 +1,10 @@
+HloModule jit_prim_fun.35
+
+ENTRY main.4 {
+  Arg_0.1 = f32[32,32,16]{2,1,0} parameter(0)
+  bitcast = f32[1024,16]{1,0} bitcast(Arg_0.1)
+  Arg_1.2 = f32[16,16]{1,0} parameter(1)
+  cublas-gemm.1 = f32[1024,16]{1,0} custom-call(bitcast, Arg_1.2), custom_call_target="__cublas$gemm", backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"16384\",\"rhs_stride\":\"256\"}"
+  ROOT bitcast.1 = f32[32,32,16]{2,1,0} bitcast(cublas-gemm.1), metadata={op_name="jit(dot_general)/jit(main)/dot_general[dimension_numbers=(((2,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+}
+

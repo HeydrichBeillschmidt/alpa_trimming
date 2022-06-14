@@ -1,0 +1,26 @@
+HloModule func_shard_parallel__6.6
+
+scalar_add_computation {
+  scalar_lhs = f32[] parameter(0)
+  scalar_rhs = f32[] parameter(1)
+  ROOT add = f32[] add(scalar_lhs, scalar_rhs)
+}
+
+input_fused_computation_reduce {
+  param_1.4 = f32[128]{0} parameter(1)
+  broadcast.1 = f32[64,128]{0,1} broadcast(param_1.4), dimensions={1}
+  param_0.4 = f32[128,64]{1,0} parameter(0)
+  transpose.1 = f32[64,128]{0,1} transpose(param_0.4), dimensions={1,0}
+  multiply.1 = f32[64,128]{0,1} multiply(broadcast.1, transpose.1)
+  bitcast.1 = f32[128,64]{1,0} bitcast(multiply.1)
+  constant.1 = f32[] constant(0)
+  ROOT reduce.2 = f32[64]{0} reduce(bitcast.1, constant.1), dimensions={0}, to_apply=scalar_add_computation, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((0,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=201}
+}
+
+ENTRY func_shard_parallel__6.6_spmd {
+  param.1 = f32[128,64]{1,0} parameter(1), sharding={devices=[1,4]0,1,2,3}
+  param = f32[128]{0} parameter(0), sharding={replicated}
+  input_fusion_reduce = f32[64]{0} fusion(param.1, param), kind=kInput, calls=input_fused_computation_reduce, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((0,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=201}
+  ROOT tuple = (f32[64]{0}) tuple(input_fusion_reduce)
+}
+

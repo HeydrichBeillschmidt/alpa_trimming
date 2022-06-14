@@ -1,0 +1,17 @@
+HloModule add_one_shard_parallel.7, input_output_alias={ {0}: (0, {}, may-alias) }
+
+fused_computation {
+  param_0 = f32[32,128]{1,0} parameter(0)
+  constant.1 = f32[] constant(1), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  broadcast.0 = f32[32,128]{1,0} broadcast(constant.1), dimensions={}
+  ROOT add.1 = f32[32,128]{1,0} add(param_0, broadcast.0), metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+}
+
+ENTRY add_one_shard_parallel.7_spmd {
+  param = f32[32,128]{1,0} parameter(0), sharding={devices=[4,1]0,1,2,3}
+  copy = f32[32,128]{1,0} copy(param)
+  fusion = f32[32,128]{1,0} fusion(param), kind=kLoop, calls=fused_computation, metadata={op_type="add" op_name="parallelize(add_one_shard_parallel)/add" source_file="test_auto_sharding_basic.py" source_line=31}
+  copy.1 = f32[32,128]{1,0} copy(fusion)
+  ROOT tuple.1 = (f32[32,128]{1,0}) tuple(fusion)
+}
+

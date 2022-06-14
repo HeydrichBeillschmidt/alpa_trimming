@@ -1,0 +1,7 @@
+HloModule jit_prim_fun.6
+
+ENTRY main.3 {
+  Arg_0.1 = f32[1024,16,4]{2,1,0} parameter(0)
+  ROOT reshape.2 = f32[1024,64]{1,0} reshape(Arg_0.1), metadata={op_name="jit(reshape)/jit(main)/reshape[new_sizes=(1024, 64) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=51}
+}
+

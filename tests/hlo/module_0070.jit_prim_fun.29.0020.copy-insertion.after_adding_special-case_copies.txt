@@ -1,0 +1,8 @@
+HloModule jit_prim_fun.29
+
+ENTRY main.3 {
+  Arg_0.1 = s32[16]{0} parameter(0)
+  bitcast = s32[16,1]{1,0} bitcast(Arg_0.1), metadata={op_name="jit(broadcast_in_dim)/jit(main)/broadcast_in_dim[shape=(16, 1) broadcast_dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=126}
+  ROOT copy = s32[16,1]{1,0} copy(bitcast)
+}
+

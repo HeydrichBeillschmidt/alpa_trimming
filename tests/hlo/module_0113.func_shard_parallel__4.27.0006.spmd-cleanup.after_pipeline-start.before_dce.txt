@@ -1,0 +1,30 @@
+HloModule func_shard_parallel__4.27
+
+reduction_computation.7 {
+  parameter.8 = f32[] parameter(0), sharding={replicated}
+  parameter.10 = f32[] parameter(2), sharding={replicated}
+  compare.13 = pred[] compare(parameter.8, parameter.10), direction=GT, sharding={replicated}, metadata={op_type="gt" op_name="/gt" source_file="test_auto_sharding_basic.py" source_line=177}
+  compare.14 = pred[] compare(parameter.8, parameter.8), direction=NE, sharding={replicated}, metadata={op_type="ne" op_name="/ne" source_file="test_auto_sharding_basic.py" source_line=177}
+  or.15 = pred[] or(compare.13, compare.14), sharding={replicated}, metadata={op_type="or" op_name="/or" source_file="test_auto_sharding_basic.py" source_line=177}
+  select.20 = f32[] select(or.15, parameter.8, parameter.10), sharding={replicated}, metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+  compare.16 = pred[] compare(parameter.8, parameter.10), direction=EQ, sharding={replicated}, metadata={op_type="eq" op_name="/eq" source_file="test_auto_sharding_basic.py" source_line=177}
+  parameter.9 = s32[] parameter(1), sharding={replicated}
+  parameter.11 = s32[] parameter(3), sharding={replicated}
+  compare.17 = pred[] compare(parameter.9, parameter.11), direction=LT, sharding={replicated}, metadata={op_type="lt" op_name="/lt" source_file="test_auto_sharding_basic.py" source_line=177}
+  and.18 = pred[] and(compare.16, compare.17), sharding={replicated}, metadata={op_type="and" op_name="/and" source_file="test_auto_sharding_basic.py" source_line=177}
+  or.19 = pred[] or(or.15, and.18), sharding={replicated}, metadata={op_type="or" op_name="/or" source_file="test_auto_sharding_basic.py" source_line=177}
+  select.21 = s32[] select(or.19, parameter.9, parameter.11), sharding={replicated}, metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+  ROOT tuple.22 = (f32[], s32[]) tuple(select.20, select.21), sharding={{replicated}, {replicated}}
+}
+
+ENTRY func_shard_parallel__4.27_spmd {
+  partition-id = u32[] partition-id()
+  param = f32[144,36]{1,0} parameter(0), sharding={devices=[1,4]0,1,2,3}
+  iota = s32[144,36] iota(), iota_dimension=0, sharding={devices=[1,4]0,1,2,3}, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(144, 144) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=177}
+  constant = f32[] constant(-inf), sharding={replicated}, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  constant.1 = s32[] constant(0), sharding={replicated}, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  reduce = (f32[36]{0}, s32[36]{0}) reduce(param, iota, constant, constant.1), dimensions={0}, to_apply=reduction_computation.7, sharding={{devices=[4]0,1,2,3}, {devices=[4]0,1,2,3}}, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  get-tuple-element = s32[36]{0} get-tuple-element(reduce), index=1, sharding={devices=[4]0,1,2,3}, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  ROOT tuple = (s32[36]{0}) tuple(get-tuple-element), sharding={{devices=[4]0,1,2,3}}
+}
+

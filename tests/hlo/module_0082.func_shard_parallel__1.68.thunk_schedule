@@ -1,0 +1,23 @@
+Total order:
+kKernel       	(no HloInstruction), kernel = add_2, launch dimensions = blocks: {1, 1, 1}, threads/block: {1, 1, 1}
+kPartitionId  	(no HloInstruction)
+kKernel       	(no HloInstruction), kernel = fusion_3, launch dimensions = blocks: {1, 1, 1}, threads/block: {1, 1, 1}
+kNcclAllGather	(no HloInstruction)
+kGemm         	(no HloInstruction)
+kKernel       	(no HloInstruction), kernel = fusion_4, launch dimensions = blocks: {1, 1, 1}, threads/block: {256, 1, 1}
+kGemm         	(no HloInstruction)
+kKernel       	(no HloInstruction), kernel = fusion_2, launch dimensions = blocks: {1, 1, 1}, threads/block: {256, 1, 1}
+kGemm         	(no HloInstruction)
+kGemm         	(no HloInstruction)
+kSequential   	(no HloInstruction)
+  kKernel	, kernel = input_fusion_scatter, launch dimensions = blocks: {2, 1, 1}, threads/block: {256, 1, 1}
+  kKernel	, kernel = input_fusion_scatter__1, launch dimensions = blocks: {1, 1, 1}, threads/block: {1024, 1, 1}
+
+kGemm         	(no HloInstruction)
+kKernel       	(no HloInstruction), kernel = concatenate_1, launch dimensions = blocks: {2, 1, 1}, threads/block: {256, 1, 1}
+kNcclAllReduce	(no HloInstruction)
+kKernel       	(no HloInstruction), kernel = slice_3, launch dimensions = blocks: {1, 1, 1}, threads/block: {64, 1, 1}
+kKernel       	(no HloInstruction), kernel = slice_2, launch dimensions = blocks: {1, 1, 1}, threads/block: {256, 1, 1}
+kKernel       	(no HloInstruction), kernel = fusion_5, launch dimensions = blocks: {2, 1, 1}, threads/block: {1024, 1, 1}
+
+Dependencies:

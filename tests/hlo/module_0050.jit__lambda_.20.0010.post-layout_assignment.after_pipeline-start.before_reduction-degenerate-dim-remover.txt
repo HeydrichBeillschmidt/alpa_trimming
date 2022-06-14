@@ -1,0 +1,7 @@
+HloModule jit__lambda_.20
+
+ENTRY main.3 {
+  Arg_0.1 = f32[] parameter(0)
+  ROOT sqrt.2 = f32[] sqrt(Arg_0.1), metadata={op_name="jit(<lambda>)/jit(main)/sqrt" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+

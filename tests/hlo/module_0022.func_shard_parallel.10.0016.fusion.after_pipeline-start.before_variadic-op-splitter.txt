@@ -1,0 +1,19 @@
+HloModule func_shard_parallel.10
+
+fused_computation {
+  param_0.2 = f32[64,256,4]{2,1,0} parameter(0)
+  transpose.1 = f32[64,4,256]{1,2,0} transpose(param_0.2), dimensions={0,2,1}, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(0, 2, 1)]" source_file="test_auto_sharding_basic.py" source_line=49}
+  copy.1 = f32[64,4,256]{2,1,0} copy(transpose.1), metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(0, 2, 1)]" source_file="test_auto_sharding_basic.py" source_line=49}
+  ROOT bitcast.2 = f32[64,1024]{1,0} bitcast(copy.1), metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(64, 1024) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=50}
+}
+
+ENTRY func_shard_parallel.10_spmd {
+  param = f32[64,256,4]{2,1,0} parameter(0), sharding={replicated}
+  fusion = f32[64,1024]{1,0} fusion(param), kind=kLoop, calls=fused_computation, metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(64, 1024) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=50}
+  param.1 = f32[1024,4,4]{2,1,0} parameter(1), sharding={devices=[1,4,1]0,1,2,3}
+  bitcast.1 = f32[1024,16]{1,0} bitcast(param.1), metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(1024, 64) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=51}
+  cublas-gemm.1 = f32[64,16]{1,0} custom-call(fusion, bitcast.1), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=52}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"65536\",\"rhs_stride\":\"16384\",\"selected_algorithm\":\"21\"}"
+  negate.0 = f32[64,16]{1,0} negate(cublas-gemm.1), metadata={op_type="neg" op_name="parallelize(func_shard_parallel)/neg" source_file="test_auto_sharding_basic.py" source_line=53}
+  ROOT tuple = (f32[64,16]{1,0}) tuple(negate.0)
+}
+

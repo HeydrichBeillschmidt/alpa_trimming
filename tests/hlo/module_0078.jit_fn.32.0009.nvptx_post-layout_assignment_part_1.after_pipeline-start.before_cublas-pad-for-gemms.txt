@@ -1,0 +1,9 @@
+HloModule jit_fn.32
+
+ENTRY main.5 {
+  Arg_0.1 = f32[16,16]{1,0} parameter(0)
+  Arg_1.2 = f32[] parameter(1)
+  broadcast.3 = f32[16,16]{1,0} broadcast(Arg_1.2), dimensions={}, metadata={op_name="jit(fn)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  ROOT multiply.4 = f32[16,16]{1,0} multiply(Arg_0.1, broadcast.3), metadata={op_name="jit(fn)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+

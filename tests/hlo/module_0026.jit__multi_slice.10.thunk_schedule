@@ -1,0 +1,7 @@
+Total order:
+kKernel	(no HloInstruction), kernel = slice_5, launch dimensions = blocks: {16, 1, 1}, threads/block: {256, 1, 1}
+kKernel	(no HloInstruction), kernel = slice_3, launch dimensions = blocks: {16, 1, 1}, threads/block: {256, 1, 1}
+kKernel	(no HloInstruction), kernel = slice_2, launch dimensions = blocks: {16, 1, 1}, threads/block: {256, 1, 1}
+kKernel	(no HloInstruction), kernel = slice_4, launch dimensions = blocks: {16, 1, 1}, threads/block: {256, 1, 1}
+
+Dependencies:

@@ -1,0 +1,8 @@
+HloModule jit_matmul.7
+
+ENTRY main.4 {
+  Arg_0.1 = f32[64,1024]{1,0} parameter(0)
+  Arg_1.2 = f32[1024,64]{1,0} parameter(1)
+  ROOT cublas-gemm.1 = f32[64,64]{1,0} custom-call(Arg_0.1, Arg_1.2), custom_call_target="__cublas$gemm", metadata={op_name="jit(matmul)/jit(main)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="test_auto_sharding_basic.py" source_line=52}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"65536\",\"rhs_stride\":\"65536\",\"selected_algorithm\":\"21\"}"
+}
+

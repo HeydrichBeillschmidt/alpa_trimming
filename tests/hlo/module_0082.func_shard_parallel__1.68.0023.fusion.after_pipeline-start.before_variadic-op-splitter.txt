@@ -1,0 +1,100 @@
+HloModule func_shard_parallel__1.68, input_output_alias={ {0}: (0, {}, may-alias), {1}: (1, {}, may-alias), {2}: (2, {}, may-alias) }
+
+add {
+  x = f32[] parameter(0)
+  y = f32[] parameter(1)
+  ROOT add = f32[] add(x, y)
+}
+
+add.1 {
+  x.1 = f32[] parameter(0)
+  y.1 = f32[] parameter(1)
+  ROOT add.1 = f32[] add(x.1, y.1)
+}
+
+fused_computation {
+  param_0 = f32[16,16]{1,0} parameter(0)
+  param_1.1 = f32[16,16]{1,0} parameter(1)
+  constant.7 = f32[] constant(0.01), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  broadcast.0 = f32[16,16]{1,0} broadcast(constant.7), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  multiply.0 = f32[16,16]{1,0} multiply(param_1.1, broadcast.0), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT subtract.3 = f32[16,16]{1,0} subtract(param_0, multiply.0), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+}
+
+fused_computation.1 {
+  param_0.1 = f32[32,32]{1,0} parameter(0)
+  param_1.3 = f32[32,32]{1,0} parameter(1)
+  constant.8 = f32[] constant(0.01), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  broadcast.1 = f32[32,32]{1,0} broadcast(constant.8), dimensions={}, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  multiply.1 = f32[32,32]{1,0} multiply(param_1.3, broadcast.1), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT subtract.4 = f32[32,32]{1,0} subtract(param_0.1, multiply.1), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+}
+
+scatter_add_reducer.50 {
+  parameter.51 = f32[] parameter(0)
+  parameter.52 = f32[] parameter(1)
+  ROOT add.53 = f32[] add(parameter.51, parameter.52)
+}
+
+input_fused_computation_scatter {
+  constant.2 = f32[] constant(0), metadata={op_type="reduce_sum" op_name="parallelize(func_shard_parallel)/reduce_sum[axes=(0, 1)]" source_file="test_auto_sharding_basic.py" source_line=144}
+  broadcast.2 = f32[64,32]{0,1} broadcast(constant.2), dimensions={}
+  param_1.13 = s32[4,4,1]{2,1,0} parameter(1)
+  bitcast.5 = s32[16,1]{0,1} bitcast(param_1.13)
+  param_0.9 = f32[64,16]{0,1} parameter(0)
+  ROOT scatter.1 = f32[64,32]{0,1} scatter(broadcast.2, bitcast.5, param_0.9), update_window_dims={0}, inserted_window_dims={1}, scatter_dims_to_operand_dims={1}, index_vector_dim=1, to_apply=scatter_add_reducer.50, metadata={op_type="scatter-add" op_name="parallelize(func_shard_parallel)/scatter-add[update_consts=() dimension_numbers=ScatterDimensionNumbers(update_window_dims=(0,), inserted_window_dims=(1,), scatter_dims_to_operand_dims=(1,)) indices_are_sorted=False unique_indices=False mode=GatherScatterMode.PROMISE_IN_BOUNDS]" source_file="test_auto_sharding_basic.py" source_line=126}
+}
+
+fused_computation.2 {
+  param_0.5 = f32[64,16]{1,0} parameter(0)
+  param_1.8 = f32[64,16]{1,0} parameter(1)
+  subtract.5 = f32[64,16]{1,0} subtract(param_0.5, param_1.8), metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="test_auto_sharding_basic.py" source_line=144}
+  constant.3 = f32[] constant(0.00048828125), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+  broadcast.4 = f32[64,16]{1,0} broadcast(constant.3), dimensions={}
+  ROOT multiply.2 = f32[64,16]{1,0} multiply(subtract.5, broadcast.4), metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+}
+
+fused_computation.3 {
+  iota.2 = s32[4,1]{1,0} iota(), iota_dimension=0, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  param_0.8 = u32[] parameter(0)
+  convert.1 = s32[] convert(param_0.8), metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  constant.6 = s32[] constant(4), metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  multiply.7 = s32[] multiply(convert.1, constant.6), metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  broadcast.9 = s32[4,1]{1,0} broadcast(multiply.7), dimensions={}, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  add.4 = s32[4,1]{1,0} add(iota.2, broadcast.9), metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  ROOT bitcast.4 = s32[1,4,1]{2,1,0} bitcast(add.4)
+}
+
+fused_computation.4 {
+  param_0.10 = f32[64,32]{1,0} parameter(0)
+  param_1.15 = s32[4,4,1]{2,1,0} parameter(1)
+  bitcast.6 = s32[16,1]{0,1} bitcast(param_1.15)
+  ROOT gather.1 = f32[64,16]{1,0} gather(param_0.10, bitcast.6), offset_dims={0}, collapsed_slice_dims={1}, start_index_map={1}, index_vector_dim=1, slice_sizes={64,1}, metadata={op_type="gather" op_name="parallelize(func_shard_parallel)/gather[dimension_numbers=GatherDimensionNumbers(offset_dims=(0,), collapsed_slice_dims=(1,), start_index_map=(1,)) slice_sizes=(256, 1) unique_indices=False indices_are_sorted=False mode=GatherScatterMode.PROMISE_IN_BOUNDS fill_value=None]" source_file="test_auto_sharding_basic.py" source_line=126}
+}
+
+ENTRY func_shard_parallel__1.68_spmd {
+  param = s32[] parameter(0), sharding={replicated}
+  constant.4 = s32[] constant(1), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+  add.2 = s32[] add(param, constant.4), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/add" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/base.py" source_line=99}
+  param.1 = f32[32,32]{1,0} parameter(1), sharding={replicated}
+  param.2 = f32[64,32]{1,0} parameter(3), sharding={devices=[4,1]0,1,2,3}
+  cublas-gemm.1 = f32[64,32]{1,0} custom-call(param.2, param.1), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"2048\",\"rhs_stride\":\"1024\",\"selected_algorithm\":\"2\"}"
+  partition-id = u32[] partition-id(), metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(16,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=125}
+  fusion.3 = s32[1,4,1]{2,1,0} fusion(partition-id), kind=kLoop, calls=fused_computation.3
+  all-gather = s32[4,4,1]{2,1,0} all-gather(fusion.3), channel_id=1, replica_groups={{0,1,2,3}}, dimensions={0}, use_global_device_ids=true
+  fusion.4 = f32[64,16]{1,0} fusion(cublas-gemm.1, all-gather), kind=kLoop, calls=fused_computation.4, metadata={op_type="gather" op_name="parallelize(func_shard_parallel)/gather[dimension_numbers=GatherDimensionNumbers(offset_dims=(0,), collapsed_slice_dims=(1,), start_index_map=(1,)) slice_sizes=(256, 1) unique_indices=False indices_are_sorted=False mode=GatherScatterMode.PROMISE_IN_BOUNDS fill_value=None]" source_file="test_auto_sharding_basic.py" source_line=126}
+  param.3 = f32[16,16]{1,0} parameter(2), sharding={replicated}
+  cublas-gemm.3 = f32[64,16]{1,0} custom-call(fusion.4, param.3), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"1024\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"2\"}"
+  param.4 = f32[64,16]{1,0} parameter(4), sharding={devices=[4,1]0,1,2,3}
+  fusion.2 = f32[64,16]{1,0} fusion(cublas-gemm.3, param.4), kind=kLoop, calls=fused_computation.2, metadata={op_type="mul" op_name="parallelize(func_shard_parallel)/mul" source_file="test_auto_sharding_basic.py" source_line=144}
+  cublas-gemm.5 = f32[64,16]{0,1} custom-call(fusion.2, param.3), custom_call_target="__cublas$gemm", metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/dot_general[dimension_numbers=(((1,), (1,)), ((), ())) precision=None preferred_element_type=None]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"1024\",\"rhs_stride\":\"256\",\"selected_algorithm\":\"0\"}"
+  input_fusion_scatter = f32[64,32]{0,1} fusion(cublas-gemm.5, all-gather), kind=kInput, calls=input_fused_computation_scatter, metadata={op_type="scatter-add" op_name="parallelize(func_shard_parallel)/scatter-add[update_consts=() dimension_numbers=ScatterDimensionNumbers(update_window_dims=(0,), inserted_window_dims=(1,), scatter_dims_to_operand_dims=(1,)) indices_are_sorted=False unique_indices=False mode=GatherScatterMode.PROMISE_IN_BOUNDS]" source_file="test_auto_sharding_basic.py" source_line=126}
+  cublas-gemm.7 = f32[32,32]{1,0} custom-call(param.2, input_fusion_scatter), custom_call_target="__cublas$gemm", metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"2048\",\"rhs_stride\":\"2048\",\"selected_algorithm\":\"-1\"}"
+  all-reduce = f32[32,32]{1,0} all-reduce(cublas-gemm.7), channel_id=2, replica_groups={{0}}, to_apply=add, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  fusion.1 = f32[32,32]{1,0} fusion(param.1, all-reduce), kind=kLoop, calls=fused_computation.1, metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  cublas-gemm.9 = f32[16,16]{1,0} custom-call(fusion.4, fusion.2), custom_call_target="__cublas$gemm", metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"1024\",\"rhs_stride\":\"1024\",\"selected_algorithm\":\"-1\"}"
+  all-reduce.1 = f32[16,16]{1,0} all-reduce(cublas-gemm.9), channel_id=3, replica_groups={{0}}, to_apply=add.1, metadata={op_type="transpose" op_name="parallelize(func_shard_parallel)/transpose[permutation=(1, 0)]" source_file="/usr/local/lib/python3.7/dist-packages/flax/linen/linear.py" source_line=190}
+  fusion = f32[16,16]{1,0} fusion(param.3, all-reduce.1), kind=kLoop, calls=fused_computation, metadata={op_type="sub" op_name="parallelize(func_shard_parallel)/sub" source_file="/usr/local/lib/python3.7/dist-packages/flax/optim/sgd.py" source_line=45}
+  ROOT tuple = (s32[], f32[32,32]{1,0}, f32[16,16]{1,0}) tuple(add.2, fusion.1, fusion)
+}
+

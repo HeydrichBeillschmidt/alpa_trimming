@@ -1,0 +1,8 @@
+HloModule func_shard_parallel__3.5
+
+ENTRY func_shard_parallel__3.5_spmd {
+  param = f32[36]{0} parameter(0), sharding={devices=[4]0,1,2,3}
+  bitcast = f32[2,18]{1,0} bitcast(param), metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(8, 18) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=165}
+  ROOT tuple = (f32[2,18]{1,0}) tuple(bitcast)
+}
+

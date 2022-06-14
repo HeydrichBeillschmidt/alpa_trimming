@@ -1,0 +1,15 @@
+HloModule jit_fn.23
+
+fused_computation {
+  param_0 = f32[32,32]{1,0} parameter(0)
+  param_1.1 = f32[] parameter(1)
+  broadcast.0 = f32[32,32]{1,0} broadcast(param_1.1), dimensions={}, metadata={op_name="jit(fn)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+  ROOT multiply.0 = f32[32,32]{1,0} multiply(param_0, broadcast.0), metadata={op_name="jit(fn)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+
+ENTRY main.5 {
+  Arg_0.1 = f32[32,32]{1,0} parameter(0)
+  Arg_1.2 = f32[] parameter(1)
+  ROOT fusion = f32[32,32]{1,0} fusion(Arg_0.1, Arg_1.2), kind=kLoop, calls=fused_computation, metadata={op_name="jit(fn)/jit(main)/mul" source_file="/usr/local/lib/python3.7/dist-packages/flax/core/scope.py" source_line=737}
+}
+

@@ -1,0 +1,112 @@
+BufferAssignment:
+allocation 0: 0x1590cec0, size 4096, maybe-live-out:
+ value: <6 iota.1 @0> (size=4096,offset=0): s32[1024]{0}
+ value: <9 sort.1{1} @0> (size=4096,offset=0): s32[1024]{0}
+allocation 1: 0x1590cf70, size 4096, parameter 0, shape |s32[1024]| at ShapeIndex {}:
+ value: <5 param @0> (size=4096,offset=0): s32[1024]{0}
+allocation 2: 0x1590d020, size 1, thread-local:
+ value: <4 fusion @0> (size=1,offset=0): pred[]
+allocation 3: 0x1590d0d0, size 8, output shape is |(s32[1024])|, maybe-live-out:
+ value: <10 tuple{} @0> (size=8,offset=0): (s32[1024]{0})
+allocation 4: 0x1590d180, size 4, thread-local:
+ value: <0 parameter.4 @0> (size=4,offset=0): s32[]
+allocation 5: 0x1590d230, size 4, thread-local:
+ value: <2 parameter.6 @0> (size=4,offset=0): s32[]
+allocation 6: 0x1590d2e0, size 4, thread-local:
+ value: <3 parameter.7 @0> (size=4,offset=0): s32[]
+allocation 7: 0x1590d390, size 4, thread-local:
+ value: <1 parameter.5 @0> (size=4,offset=0): s32[]
+allocation 8: 0x1590d440, size 4112, preallocated-temp:
+ value: <7 sort.1{} @0> (size=16,offset=4096): (s32[1024]{0}, s32[1024]{0})
+ value: <8 sort.1{0} @0> (size=4096,offset=0): s32[1024]{0}
+
+Total bytes used: 12329 (12.0KiB)
+
+Used values:
+<0 parameter.4 @0>
+ positions:
+  parameter.4
+ uses:
+  fusion, operand 3
+ from instruction:%parameter.4 = s32[] parameter(0)
+<1 parameter.5 @0>
+ positions:
+  parameter.5
+ uses:
+  fusion, operand 2
+ from instruction:%parameter.5 = s32[] parameter(1)
+<2 parameter.6 @0>
+ positions:
+  parameter.6
+ uses:
+  fusion, operand 0
+ from instruction:%parameter.6 = s32[] parameter(2)
+<3 parameter.7 @0>
+ positions:
+  parameter.7
+ uses:
+  fusion, operand 1
+ from instruction:%parameter.7 = s32[] parameter(3)
+<4 fusion @0>
+ positions:
+  fusion
+ uses:
+ from instruction:%fusion = pred[] fusion(s32[] %parameter.6, s32[] %parameter.7, s32[] %parameter.5, s32[] %parameter.4), kind=kLoop, calls=%fused_computation
+<5 param @0>
+ positions:
+  param
+ uses:
+  sort.1, operand 0
+ from instruction:%param = s32[1024]{0} parameter(0), sharding={replicated}
+<6 iota.1 @0>
+ positions:
+  iota.1
+ uses:
+  sort.1, operand 1
+ from instruction:%iota.1 = s32[1024]{0} iota(), iota_dimension=0, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/jit(argsort)/iota[dtype=int32 shape=(1024,) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=191}
+<7 sort.1{} @0>
+ positions:
+  sort.1 {}
+ uses:
+  get-tuple-element.2, operand 0 {}
+ from instruction:%sort.1 = (s32[1024]{0}, s32[1024]{0}) sort(s32[1024]{0} %param, s32[1024]{0} %iota.1), dimensions={0}, is_stable=true, to_apply=%sort_lt_comparator.3, metadata={op_type="sort" op_name="parallelize(func_shard_parallel)/jit(argsort)/sort[dimension=0 is_stable=True num_keys=1]" source_file="test_auto_sharding_basic.py" source_line=191}
+<8 sort.1{0} @0>
+ positions:
+  sort.1 {0}
+ uses:
+ from instruction:%sort.1 = (s32[1024]{0}, s32[1024]{0}) sort(s32[1024]{0} %param, s32[1024]{0} %iota.1), dimensions={0}, is_stable=true, to_apply=%sort_lt_comparator.3, metadata={op_type="sort" op_name="parallelize(func_shard_parallel)/jit(argsort)/sort[dimension=0 is_stable=True num_keys=1]" source_file="test_auto_sharding_basic.py" source_line=191}
+<9 sort.1{1} @0>
+ positions:
+  sort.1 {1}
+  get-tuple-element.2
+  tuple {0}
+ uses:
+  tuple, operand 0
+ from instruction:%sort.1 = (s32[1024]{0}, s32[1024]{0}) sort(s32[1024]{0} %param, s32[1024]{0} %iota.1), dimensions={0}, is_stable=true, to_apply=%sort_lt_comparator.3, metadata={op_type="sort" op_name="parallelize(func_shard_parallel)/jit(argsort)/sort[dimension=0 is_stable=True num_keys=1]" source_file="test_auto_sharding_basic.py" source_line=191}
+<10 tuple{} @0>
+ positions:
+  tuple {}
+ uses:
+ from instruction:%tuple = (s32[1024]{0}) tuple(s32[1024]{0} %get-tuple-element.2)
+
+
+HloLiveRange (max 5):
+  InstructionSequence:
+    0:param
+    1:iota.1
+    2:sort.1
+    3:get-tuple-element.2
+    4:tuple
+  BufferLiveRange:
+    param{}:0-5
+    iota.1{}:1-2
+    sort.1{}:2-3
+    sort.1{0}:2-2
+    sort.1{1}:2-5
+    tuple{}:4-5
+  Live ranges at 2 (peak):
+    param: 4096 bytes
+    iota.1: 4096 bytes
+    sort.1: 16 bytes
+    sort.1: 16 bytes
+    sort.1: 16 bytes

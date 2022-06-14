@@ -1,0 +1,16 @@
+HloModule jit_fn.12
+
+fused_computation {
+  param_0 = f32[128,128]{1,0} parameter(0)
+  param_1.2 = s32[] parameter(1)
+  convert.0 = f32[] convert(param_1.2), metadata={op_name="jit(fn)/jit(main)/convert_element_type[new_dtype=float32 weak_type=False]" source_file="test_auto_sharding_basic.py" source_line=76}
+  broadcast.0 = f32[128,128]{1,0} broadcast(convert.0), dimensions={}, metadata={op_name="jit(fn)/jit(main)/add" source_file="test_auto_sharding_basic.py" source_line=76}
+  ROOT add.0 = f32[128,128]{1,0} add(param_0, broadcast.0), metadata={op_name="jit(fn)/jit(main)/add" source_file="test_auto_sharding_basic.py" source_line=76}
+}
+
+ENTRY main.6 {
+  Arg_0.1 = f32[128,128]{1,0} parameter(0)
+  Arg_1.2 = s32[] parameter(1)
+  ROOT fusion = f32[128,128]{1,0} fusion(Arg_0.1, Arg_1.2), kind=kLoop, calls=fused_computation, metadata={op_name="jit(fn)/jit(main)/add" source_file="test_auto_sharding_basic.py" source_line=76}
+}
+

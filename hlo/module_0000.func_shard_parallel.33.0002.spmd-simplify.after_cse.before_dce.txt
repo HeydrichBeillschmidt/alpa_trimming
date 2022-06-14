@@ -1,0 +1,39 @@
+HloModule func_shard_parallel.33
+
+body_computation.10 {
+  constant.15 = pred[] constant(false)
+  parameter.11 = (s32[], f32[1024,1024]{1,0}, f32[1024,1024]{1,0}) parameter(0)
+  get-tuple-element.12 = s32[] get-tuple-element(parameter.11), index=0
+  constant.16 = s32[] constant(1), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/while/body/add" source_file="tests/test_auto_sharding_control_flow.py" source_line=24}
+  add.17 = s32[] add(get-tuple-element.12, constant.16), metadata={op_type="add" op_name="parallelize(func_shard_parallel)/while/body/add" source_file="tests/test_auto_sharding_control_flow.py" source_line=24}
+  get-tuple-element.13 = f32[1024,1024]{1,0} get-tuple-element(parameter.11), index=1
+  get-tuple-element.14 = f32[1024,1024]{1,0} get-tuple-element(parameter.11), index=2
+  dot.18 = f32[1024,1024]{1,0} dot(get-tuple-element.13, get-tuple-element.14), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_type="dot_general" op_name="parallelize(func_shard_parallel)/while/body/dot_general[dimension_numbers=(((1,), (0,)), ((), ())) precision=None preferred_element_type=None]" source_file="tests/test_auto_sharding_control_flow.py" source_line=24}
+  ROOT tuple.19 = (s32[], f32[1024,1024]{1,0}, f32[1024,1024]{1,0}) tuple(add.17, dot.18, get-tuple-element.14)
+}
+
+cond_computation.20 {
+  parameter.21 = (s32[], f32[1024,1024]{1,0}, f32[1024,1024]{1,0}) parameter(0)
+  get-tuple-element.23 = f32[1024,1024]{1,0} get-tuple-element(parameter.21), index=1
+  get-tuple-element.24 = f32[1024,1024]{1,0} get-tuple-element(parameter.21), index=2
+  constant.25 = pred[] constant(false)
+  get-tuple-element.22 = s32[] get-tuple-element(parameter.21), index=0
+  constant.26 = s32[] constant(5), metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/while/cond/lt" source_file="tests/test_auto_sharding_control_flow.py" source_line=23}
+  ROOT compare.27 = pred[] compare(get-tuple-element.22, constant.26), direction=LT, metadata={op_type="lt" op_name="parallelize(func_shard_parallel)/while/cond/lt" source_file="tests/test_auto_sharding_control_flow.py" source_line=23}
+}
+
+ENTRY func_shard_parallel.33 {
+  parameter.5 = f32[1024,1024]{1,0} parameter(0)
+  parameter.6 = f32[1024,1024]{1,0} parameter(1)
+  constant.7 = pred[] constant(false)
+  constant.8 = s32[] constant(0), metadata={op_type="while" op_name="parallelize(func_shard_parallel)/while[cond_nconsts=0 body_nconsts=0]" source_file="tests/test_auto_sharding_control_flow.py" source_line=26}
+  constant.1 = f32[] constant(1)
+  broadcast.2 = f32[1024,1024]{1,0} broadcast(constant.1), dimensions={}
+  tuple.9 = (s32[], f32[1024,1024]{1,0}, f32[1024,1024]{1,0}) tuple(constant.8, broadcast.2, broadcast.2), metadata={op_type="while" op_name="parallelize(func_shard_parallel)/while[cond_nconsts=0 body_nconsts=0]" source_file="tests/test_auto_sharding_control_flow.py" source_line=26}
+  while.28 = (s32[], f32[1024,1024]{1,0}, f32[1024,1024]{1,0}) while(tuple.9), condition=cond_computation.20, body=body_computation.10, metadata={op_type="while" op_name="parallelize(func_shard_parallel)/while[cond_nconsts=0 body_nconsts=0]" source_file="tests/test_auto_sharding_control_flow.py" source_line=26}
+  get-tuple-element.29 = s32[] get-tuple-element(while.28), index=0, metadata={op_type="while" op_name="parallelize(func_shard_parallel)/while[cond_nconsts=0 body_nconsts=0]" source_file="tests/test_auto_sharding_control_flow.py" source_line=26}
+  get-tuple-element.31 = f32[1024,1024]{1,0} get-tuple-element(while.28), index=2, metadata={op_type="while" op_name="parallelize(func_shard_parallel)/while[cond_nconsts=0 body_nconsts=0]" source_file="tests/test_auto_sharding_control_flow.py" source_line=26}
+  get-tuple-element.30 = f32[1024,1024]{1,0} get-tuple-element(while.28), index=1, metadata={op_type="while" op_name="parallelize(func_shard_parallel)/while[cond_nconsts=0 body_nconsts=0]" source_file="tests/test_auto_sharding_control_flow.py" source_line=26}
+  ROOT tuple.32 = (f32[1024,1024]{1,0}) tuple(get-tuple-element.30)
+}
+

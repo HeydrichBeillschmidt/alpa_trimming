@@ -1,0 +1,7 @@
+HloModule jit__multi_slice.11
+
+ENTRY main.2 {
+  Arg_0.1 = f32[128,128]{1,0} parameter(0)
+  ROOT copy = f32[128,128]{1,0} copy(Arg_0.1)
+}
+

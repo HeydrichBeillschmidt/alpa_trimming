@@ -1,0 +1,5 @@
+Total order:
+kKernel	(no HloInstruction), kernel = rng_get_and_update_state, launch dimensions = blocks: {1, 1, 1}, threads/block: {1, 1, 1}
+kKernel	(no HloInstruction), kernel = fusion, launch dimensions = blocks: {1, 1, 1}, threads/block: {64, 1, 1}
+
+Dependencies:

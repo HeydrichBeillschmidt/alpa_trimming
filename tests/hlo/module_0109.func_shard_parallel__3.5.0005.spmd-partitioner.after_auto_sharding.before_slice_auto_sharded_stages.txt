@@ -1,0 +1,8 @@
+HloModule func_shard_parallel__3.5
+
+ENTRY func_shard_parallel__3.5 {
+  parameter.1 = f32[144]{0} parameter(0), sharding={devices=[4]0,1,2,3}
+  reshape.3 = f32[8,18]{1,0} reshape(parameter.1), sharding={devices=[4,1]0,1,2,3}, metadata={op_type="reshape" op_name="parallelize(func_shard_parallel)/reshape[new_sizes=(8, 18) dimensions=None]" source_file="test_auto_sharding_basic.py" source_line=165}
+  ROOT tuple.4 = (f32[8,18]{1,0}) tuple(reshape.3), sharding={{devices=[4,1]0,1,2,3}}
+}
+

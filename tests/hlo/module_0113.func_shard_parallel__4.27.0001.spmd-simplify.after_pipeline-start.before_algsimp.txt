@@ -1,0 +1,33 @@
+HloModule func_shard_parallel__4.27
+
+reduction_computation.7 {
+  constant.12 = pred[] constant(false)
+  parameter.8 = f32[] parameter(0)
+  parameter.10 = f32[] parameter(2)
+  compare.13 = pred[] compare(parameter.8, parameter.10), direction=GT, metadata={op_type="gt" op_name="/gt" source_file="test_auto_sharding_basic.py" source_line=177}
+  compare.14 = pred[] compare(parameter.8, parameter.8), direction=NE, metadata={op_type="ne" op_name="/ne" source_file="test_auto_sharding_basic.py" source_line=177}
+  or.15 = pred[] or(compare.13, compare.14), metadata={op_type="or" op_name="/or" source_file="test_auto_sharding_basic.py" source_line=177}
+  select.20 = f32[] select(or.15, parameter.8, parameter.10), metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+  compare.16 = pred[] compare(parameter.8, parameter.10), direction=EQ, metadata={op_type="eq" op_name="/eq" source_file="test_auto_sharding_basic.py" source_line=177}
+  parameter.9 = s32[] parameter(1)
+  parameter.11 = s32[] parameter(3)
+  compare.17 = pred[] compare(parameter.9, parameter.11), direction=LT, metadata={op_type="lt" op_name="/lt" source_file="test_auto_sharding_basic.py" source_line=177}
+  and.18 = pred[] and(compare.16, compare.17), metadata={op_type="and" op_name="/and" source_file="test_auto_sharding_basic.py" source_line=177}
+  or.19 = pred[] or(or.15, and.18), metadata={op_type="or" op_name="/or" source_file="test_auto_sharding_basic.py" source_line=177}
+  select.21 = s32[] select(or.19, parameter.9, parameter.11), metadata={op_type="select_n" op_name="/select_n" source_file="test_auto_sharding_basic.py" source_line=177}
+  ROOT tuple.22 = (f32[], s32[]) tuple(select.20, select.21)
+}
+
+ENTRY func_shard_parallel__4.27 {
+  constant.2 = pred[] constant(false)
+  constant.3 = pred[] constant(false), metadata={op_type="argmax" op_name="parallelize(func_shard_parallel)/argmax[axes=(0,) index_dtype=int32]" source_file="test_auto_sharding_basic.py" source_line=177}
+  parameter.1 = f32[144,144]{1,0} parameter(0)
+  iota.4 = s32[144,144] iota(), iota_dimension=0, metadata={op_type="iota" op_name="parallelize(func_shard_parallel)/iota[dtype=int32 shape=(144, 144) dimension=0]" source_file="test_auto_sharding_basic.py" source_line=177}
+  constant.5 = f32[] constant(-inf), metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  constant.6 = s32[] constant(0), metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  reduce.23 = (f32[144]{0}, s32[144]{0}) reduce(parameter.1, iota.4, constant.5, constant.6), dimensions={0}, to_apply=reduction_computation.7, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  get-tuple-element.24 = f32[144]{0} get-tuple-element(reduce.23), index=0, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  get-tuple-element.25 = s32[144]{0} get-tuple-element(reduce.23), index=1, metadata={op_type="reduce" op_name="parallelize(func_shard_parallel)/reduce[computation=<function _compute_argminmax.<locals>.reducer_fn at 0x7f1430cb05f0> consts=() dimensions=(0,)]" source_file="test_auto_sharding_basic.py" source_line=177}
+  ROOT tuple.26 = (s32[144]{0}) tuple(get-tuple-element.25)
+}
+
